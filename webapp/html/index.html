@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Casa</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* Set a style for all buttons */
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      opacity: 0.9;
+    }
+
+    button:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <button onclick="onLoginClick()">Login</button>
+  <button onclick="onRegisterClick()">Register</button>
+</body>
+<script>
+  function onLoginClick() {
+    window.location = '/login.html';
+  }
+
+  function onRegisterClick() {
+    alert("Sorry, you can't register yet!");
+  }
+</script>
+
+</html>
