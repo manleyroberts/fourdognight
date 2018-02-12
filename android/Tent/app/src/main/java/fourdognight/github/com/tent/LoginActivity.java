@@ -37,15 +37,6 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via username/password.
  */
 public class LoginActivity extends AppCompatActivity {
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "user:pass"
-    };
-
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -204,7 +195,7 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
+            for (String credential : UserVerificationModel.DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mUsername)) {
                     // Account exists, return true if the password matches.
