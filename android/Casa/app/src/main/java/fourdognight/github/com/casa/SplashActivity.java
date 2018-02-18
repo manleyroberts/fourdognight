@@ -13,10 +13,17 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        final Button button = findViewById(R.id.loginChoiceButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button logButton = findViewById(R.id.loginChoiceButton);
+        logButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
+                startActivity(launchIntent);
+            }
+        });
+        final Button regButton = findViewById(R.id.registerChoiceButton);
+        regButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent launchIntent = new Intent(getInstance(), RegistrationActivity.class);
                 startActivity(launchIntent);
             }
         });

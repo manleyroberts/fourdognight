@@ -25,8 +25,7 @@
         android:layout_height="wrap_content"
         android:autoSizeMinTextSize="12dp"
         android:autoSizePresetSizes="12"
-        android:autoText="true"
-        android:text="Username:" />
+        android:text="Email:" />
 
     <EditText
         android:id="@+id/usernameField"
@@ -34,7 +33,6 @@
         android:layout_height="wrap_content"
         android:autoSizeMinTextSize="12dp"
         android:autoSizePresetSizes="12"
-        android:autoText="true"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -44,7 +42,6 @@
         android:layout_height="wrap_content"
         android:autoSizeMinTextSize="12dp"
         android:autoSizePresetSizes="12"
-        android:autoText="true"
         android:text="Password:" />
 
     <EditText
@@ -54,8 +51,7 @@
         android:autoSizeMinTextSize="12dp"
         android:autoSizePresetSizes="12"
         android:ems="10"
-        android:inputType="textPassword"
-        android:autoText="true" />
+        android:inputType="textPassword" />
 
     <LinearLayout
         android:id="@+id/loginLayout"
@@ -69,7 +65,6 @@
         android:layout_height="wrap_content"
         android:autoSizeMinTextSize="12dp"
         android:autoSizePresetSizes="12"
-        android:autoText="true"
         android:text="Login" />
 
 </LinearLayout>

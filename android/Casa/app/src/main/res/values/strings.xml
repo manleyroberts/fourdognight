@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tent</string>
+    <string name="app_name">Casa</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -7,11 +7,15 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_invalid_password_short">This password is too short</string>
     <string name="error_incorrect_password">Incorrect username-password pair</string>
+    <string name="error_account_exists">That username already exists</string>
     <string name="error_field_required">This field is required</string>
+    <string name="register_success">Successfully registered!</string>
+    <string name="error_password_mismatch">Passwords do not match</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
     <string name="title_activity_title_screen">TitleScreen</string>
+    <string name="title_activity_login2">Sign</string>
 </resources>
