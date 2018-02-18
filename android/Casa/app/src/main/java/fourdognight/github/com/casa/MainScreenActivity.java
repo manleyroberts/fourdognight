@@ -16,8 +16,8 @@ public class MainScreenActivity extends AppCompatActivity {
         final Button button = findViewById(R.id.logOutButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent launchIntent = new Intent(getInstance(), SplashActivity.class);
-                startActivity(launchIntent);
+//                Intent launchIntent = new Intent(getInstance(), SplashActivity.class);
+//                startActivity(launchIntent);
                 finish();
             }
         });

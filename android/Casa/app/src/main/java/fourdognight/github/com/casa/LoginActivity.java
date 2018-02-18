@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError(getString(R.string.error_invalid_password_short));
             focusView = mPasswordView;
             cancel = true;
         }
@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
+     * Represents an asynchronous login task used to authenticate
      * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
@@ -179,15 +179,12 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
 
-            for (String credential : UserVerificationModel.DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mUsername)) {
+            for (String username : UserVerificationModel.user_list.keySet()) {
+                if (username.equals(mUsername)) {
                     // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                    return UserVerificationModel.user_list.get(username).equals(mPassword);
                 }
             }
-
-            // TODO: register the new account here.
             return false;
         }
 
