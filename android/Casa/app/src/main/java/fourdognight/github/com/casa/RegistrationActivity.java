@@ -33,6 +33,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private View mSuccessText;
     private EditText mPasswordView2;
     private View mPassTextView2;
+    private EditText mNameView;
+    private View mNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class RegistrationActivity extends AppCompatActivity {
         mSuccessText = findViewById(R.id.successText);
         mPasswordView2 = findViewById(R.id.regPasswordField2);
         mPassTextView2 = findViewById(R.id.regPassText2);
+        mNameView = findViewById(R.id.regNameField);
+        mNameTextView = findViewById(R.id.regNameText);
 
 
         mSuccessText.setVisibility(View.GONE);
@@ -160,11 +164,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 return false;
             }
 
-            for (String username : UserVerificationModel.user_list.keySet()) {
-                if (username.equals(mUsername)) {
-                    // return false if account exists already
-                    return false;
-                }
+            if (UserVerificationModel.user_list.containsKey(mUsername)) {
+                return false;
             }
 
             UserVerificationModel.user_list.put(mUsername, mPassword);
@@ -234,6 +235,8 @@ public class RegistrationActivity extends AppCompatActivity {
         mUserTextView.setVisibility(show ? View.GONE : View.VISIBLE);
         mPassTextView2.setVisibility(show ? View.GONE : View.VISIBLE);
         mPasswordView2.setVisibility(show ? View.GONE : View.VISIBLE);
+        mNameTextView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mNameView.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 
     private RegistrationActivity getInstance() {
