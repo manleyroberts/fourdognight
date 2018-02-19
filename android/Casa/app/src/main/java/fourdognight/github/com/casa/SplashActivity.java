@@ -29,6 +29,12 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
     private SplashActivity getInstance() {
         return this;
     }
