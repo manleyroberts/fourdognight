@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6F72CA4A202E6111007FE392 /* Tent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tent.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F72CA4A202E6111007FE392 /* Casa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Casa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F72CA4D202E6111007FE392 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F72CA4F202E6111007FE392 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6F72CA52202E6111007FE392 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -41,7 +41,7 @@
 			isa = PBXGroup;
 			children = (
 				6F72CA5F202E6C9B007FE392 /* Default-568h@2x.png */,
-				6F72CA4C202E6111007FE392 /* Tent */,
+				6F72CA4C202E6111007FE392 /* Casa */,
 				6F72CA4B202E6111007FE392 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,12 +49,12 @@
 		6F72CA4B202E6111007FE392 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6F72CA4A202E6111007FE392 /* Tent.app */,
+				6F72CA4A202E6111007FE392 /* Casa.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6F72CA4C202E6111007FE392 /* Tent */ = {
+		6F72CA4C202E6111007FE392 /* Casa */ = {
 			isa = PBXGroup;
 			children = (
 				6F72CA4D202E6111007FE392 /* AppDelegate.swift */,
@@ -64,15 +64,15 @@
 				6F72CA56202E6111007FE392 /* LaunchScreen.storyboard */,
 				6F72CA59202E6111007FE392 /* Info.plist */,
 			);
-			path = Tent;
+			path = Casa;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6F72CA49202E6111007FE392 /* Tent */ = {
+		6F72CA49202E6111007FE392 /* Casa */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6F72CA5C202E6111007FE392 /* Build configuration list for PBXNativeTarget "Tent" */;
+			buildConfigurationList = 6F72CA5C202E6111007FE392 /* Build configuration list for PBXNativeTarget "Casa" */;
 			buildPhases = (
 				6F72CA46202E6111007FE392 /* Sources */,
 				6F72CA47202E6111007FE392 /* Frameworks */,
@@ -82,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = Tent;
+			name = Casa;
 			productName = "Homeless Shelter App iOS";
-			productReference = 6F72CA4A202E6111007FE392 /* Tent.app */;
+			productReference = 6F72CA4A202E6111007FE392 /* Casa.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -103,7 +103,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6F72CA45202E6111007FE392 /* Build configuration list for PBXProject "Tent" */;
+			buildConfigurationList = 6F72CA45202E6111007FE392 /* Build configuration list for PBXProject "Casa" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -116,7 +116,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6F72CA49202E6111007FE392 /* Tent */,
+				6F72CA49202E6111007FE392 /* Casa */,
 			);
 		};
 /* End PBXProject section */
@@ -279,7 +279,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/Tent/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Casa/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fourdognight.github.com.homelessshelterapp.Homeless-Shelter-App-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -293,7 +293,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/Tent/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Casa/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fourdognight.github.com.homelessshelterapp.Homeless-Shelter-App-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -305,7 +305,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6F72CA45202E6111007FE392 /* Build configuration list for PBXProject "Tent" */ = {
+		6F72CA45202E6111007FE392 /* Build configuration list for PBXProject "Casa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6F72CA5A202E6111007FE392 /* Debug */,
@@ -314,7 +314,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6F72CA5C202E6111007FE392 /* Build configuration list for PBXNativeTarget "Tent" */ = {
+		6F72CA5C202E6111007FE392 /* Build configuration list for PBXNativeTarget "Casa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6F72CA5D202E6111007FE392 /* Debug */,
