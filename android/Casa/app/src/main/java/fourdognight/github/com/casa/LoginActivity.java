@@ -179,12 +179,11 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
 
-            for (String username : UserVerificationModel.user_list.keySet()) {
-                if (username.equals(mUsername)) {
-                    // Account exists, return true if the password matches.
-                    return UserVerificationModel.user_list.get(username).equals(mPassword);
-                }
+            if (UserVerificationModel.user_list.containsKey(mUsername)) {
+                // Account exists, return true if the password matches.
+                return UserVerificationModel.user_list.get(mUsername).equals(mPassword);
             }
+
             return false;
         }
 
