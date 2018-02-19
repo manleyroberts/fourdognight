@@ -30,11 +30,11 @@ public class RegistrationActivity extends AppCompatActivity {
     private View mPassTextView;
     private View mRegisView;
     private View mProgressView;
-    private View mSuccessText;
     private EditText mPasswordView2;
     private View mPassTextView2;
     private EditText mNameView;
     private View mNameTextView;
+    private View mAdminSwitchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +46,12 @@ public class RegistrationActivity extends AppCompatActivity {
         mRegisView = findViewById(R.id.regisLayout);
         mPassTextView = findViewById(R.id.regPassText);
         mUserTextView = findViewById(R.id.regUserText);
-        mSuccessText = findViewById(R.id.successText);
         mPasswordView2 = findViewById(R.id.regPasswordField2);
         mPassTextView2 = findViewById(R.id.regPassText2);
         mNameView = findViewById(R.id.regNameField);
         mNameTextView = findViewById(R.id.regNameText);
+        mAdminSwitchView = findViewById(R.id.adminSwitch);
 
-
-        mSuccessText.setVisibility(View.GONE);
         mPasswordView2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -85,13 +83,12 @@ public class RegistrationActivity extends AppCompatActivity {
         mPasswordView.setError(null);
         mPasswordView2.setError(null);
 
-        //Hide success text
-        mSuccessText.setVisibility(View.GONE);
-
         // Store values at the time of the login attempt.
         String email = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
         String password2 = mPasswordView2.getText().toString();
+        String name = mNameView.getText().toString();
+        boolean isAdmin = mAdminSwitchView.isActivated();
         mPasswordView.getText().clear();
         mPasswordView2.getText().clear();
 
@@ -134,7 +131,7 @@ public class RegistrationActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserRegistrationTask(email, password);
+            mAuthTask = new UserRegistrationTask(name, email, password, isAdmin);
             mAuthTask.execute((Void) null);
         }
     }
@@ -147,10 +144,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
         private final String mUsername;
         private final String mPassword;
+        private final String mName;
+        private final boolean mIsAdmin;
 
-        UserRegistrationTask(String username, String password) {
+        UserRegistrationTask(String name, String username, String password, boolean isAdmin) {
             mUsername = username;
             mPassword = password;
+            mName = name;
+            mIsAdmin = isAdmin;
         }
 
         @Override
@@ -164,24 +165,21 @@ public class RegistrationActivity extends AppCompatActivity {
                 return false;
             }
 
-            if (UserVerificationModel.user_list.containsKey(mUsername)) {
-                return false;
-            }
-
-            UserVerificationModel.user_list.put(mUsername, mPassword);
-            return true;
+            return UserVerificationModel.attemptRegistration(mName, mUsername, mPassword, mIsAdmin);
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
+            Log.d("I", "attempt");
             mPasswordView.getText().clear();
             if (success) {
                 Log.d("I", "Registered");
-                mSuccessText.setVisibility(View.VISIBLE);
-                LinearLayout myLayout = findViewById(R.id.regisLayout);
-                myLayout.requestFocus();
+                Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
+                launchIntent.putExtra("justRegistered", true);
+                startActivity(launchIntent);
+                finish();
             } else {
                 mUsernameView.setError(getString(R.string.error_account_exists));
                 mUsernameView.requestFocus();
@@ -237,6 +235,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mPasswordView2.setVisibility(show ? View.GONE : View.VISIBLE);
         mNameTextView.setVisibility(show ? View.GONE : View.VISIBLE);
         mNameView.setVisibility(show ? View.GONE : View.VISIBLE);
+        mAdminSwitchView.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 
     private RegistrationActivity getInstance() {
