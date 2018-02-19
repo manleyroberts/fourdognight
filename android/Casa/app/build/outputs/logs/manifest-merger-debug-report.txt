@@ -1,0 +1,199 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:2:1-33:12
+INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:2:1-33:12
+INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:2:1-33:12
+INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:2:1-33:12
+MERGED from [com.android.support:design:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/e95854b7b48ce89c628ca1377c52a3cb/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:appcompat-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/1807ad074d471242cadddedebbb6410a/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/bf5ee5a6e89ec4079ed18b99d57490c5/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/a9a8143863fab0cd58550cdadbd8a0a5/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/81916910dbb42e5fb0769df5f9df5ec6/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/d32b903fafd1073198aa39fcb2451a11/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:transition:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/ffe314bcdf98eeb346a46e7b9909ea7f/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v4:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/afd694fc4c9d83d17f8d762b51ed487f/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-media-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/99f6a0527ae14c7caa5d6a18b89e625b/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-fragment:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/d5eed05f59536adf94116fb0f44364f3/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-utils:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1856267612b7c59b8d7ffc648e72913d/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-ui:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/86f74eae75bb24b2269a38e4a73aaa28/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/ef8eb18cfda0ad67f3ee44f799576b30/AndroidManifest.xml:17:1-31:12
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/159ea9e366d9c2562d38cc99be22384c/AndroidManifest.xml:17:1-30:12
+INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:2:1-33:12
+INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:2:1-33:12
+INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:2:1-33:12
+	package
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:3:5-43
+		INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:2:1-33:12
+		INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:2:1-33:12
+		INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.GET_ACCOUNTS
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:6:5-71
+	android:name
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:6:22-68
+uses-permission#android.permission.READ_PROFILE
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:7:5-71
+	android:name
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:7:22-68
+uses-permission#android.permission.READ_CONTACTS
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:8:5-72
+	android:name
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:8:22-69
+application
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:10:5-31:19
+MERGED from [com.android.support:design:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/e95854b7b48ce89c628ca1377c52a3cb/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:design:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/e95854b7b48ce89c628ca1377c52a3cb/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:appcompat-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/1807ad074d471242cadddedebbb6410a/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:appcompat-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/1807ad074d471242cadddedebbb6410a/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/bf5ee5a6e89ec4079ed18b99d57490c5/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/bf5ee5a6e89ec4079ed18b99d57490c5/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/a9a8143863fab0cd58550cdadbd8a0a5/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/a9a8143863fab0cd58550cdadbd8a0a5/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/81916910dbb42e5fb0769df5f9df5ec6/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/81916910dbb42e5fb0769df5f9df5ec6/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/d32b903fafd1073198aa39fcb2451a11/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/d32b903fafd1073198aa39fcb2451a11/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:transition:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/ffe314bcdf98eeb346a46e7b9909ea7f/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:transition:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/ffe314bcdf98eeb346a46e7b9909ea7f/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-v4:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/afd694fc4c9d83d17f8d762b51ed487f/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-v4:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/afd694fc4c9d83d17f8d762b51ed487f/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-media-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/99f6a0527ae14c7caa5d6a18b89e625b/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-media-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/99f6a0527ae14c7caa5d6a18b89e625b/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-fragment:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/d5eed05f59536adf94116fb0f44364f3/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-fragment:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/d5eed05f59536adf94116fb0f44364f3/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-utils:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1856267612b7c59b8d7ffc648e72913d/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-utils:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1856267612b7c59b8d7ffc648e72913d/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-ui:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/86f74eae75bb24b2269a38e4a73aaa28/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-core-ui:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/86f74eae75bb24b2269a38e4a73aaa28/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/ef8eb18cfda0ad67f3ee44f799576b30/AndroidManifest.xml:25:5-29:19
+MERGED from [com.android.support:support-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/ef8eb18cfda0ad67f3ee44f799576b30/AndroidManifest.xml:25:5-29:19
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/159ea9e366d9c2562d38cc99be22384c/AndroidManifest.xml:24:5-28:19
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/159ea9e366d9c2562d38cc99be22384c/AndroidManifest.xml:24:5-28:19
+	android:supportsRtl
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:15:9-35
+	android:label
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:13:9-41
+	android:roundIcon
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:14:9-54
+	android:icon
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:12:9-43
+	android:allowBackup
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:11:9-35
+	android:theme
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:16:9-40
+activity#fourdognight.github.com.casa.LoginActivity
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:17:9-19:48
+	android:label
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:19:13-45
+	android:name
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:18:13-42
+activity#fourdognight.github.com.casa.SplashActivity
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:20:9-28:20
+	android:label
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:22:13-45
+	android:name
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:21:13-43
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:23:13-27:29
+action#android.intent.action.MAIN
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:24:17-69
+	android:name
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:24:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:26:17-77
+	android:name
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:26:27-74
+activity#fourdognight.github.com.casa.MainScreenActivity
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:29:9-56
+	android:name
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:29:19-53
+activity#fourdognight.github.com.casa.RegistrationActivity
+ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:30:9-58
+	android:name
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml:30:19-55
+uses-sdk
+INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:design:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/e95854b7b48ce89c628ca1377c52a3cb/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:design:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/e95854b7b48ce89c628ca1377c52a3cb/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/1807ad074d471242cadddedebbb6410a/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/1807ad074d471242cadddedebbb6410a/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/bf5ee5a6e89ec4079ed18b99d57490c5/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/bf5ee5a6e89ec4079ed18b99d57490c5/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/a9a8143863fab0cd58550cdadbd8a0a5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/a9a8143863fab0cd58550cdadbd8a0a5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/81916910dbb42e5fb0769df5f9df5ec6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/81916910dbb42e5fb0769df5f9df5ec6/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/d32b903fafd1073198aa39fcb2451a11/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/d32b903fafd1073198aa39fcb2451a11/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/ffe314bcdf98eeb346a46e7b9909ea7f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/ffe314bcdf98eeb346a46e7b9909ea7f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/afd694fc4c9d83d17f8d762b51ed487f/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/afd694fc4c9d83d17f8d762b51ed487f/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-media-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/99f6a0527ae14c7caa5d6a18b89e625b/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-media-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/99f6a0527ae14c7caa5d6a18b89e625b/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-fragment:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/d5eed05f59536adf94116fb0f44364f3/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-fragment:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/d5eed05f59536adf94116fb0f44364f3/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-utils:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1856267612b7c59b8d7ffc648e72913d/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-utils:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1856267612b7c59b8d7ffc648e72913d/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-ui:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/86f74eae75bb24b2269a38e4a73aaa28/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-ui:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/86f74eae75bb24b2269a38e4a73aaa28/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/ef8eb18cfda0ad67f3ee44f799576b30/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/ef8eb18cfda0ad67f3ee44f799576b30/AndroidManifest.xml:21:5-23:58
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/159ea9e366d9c2562d38cc99be22384c/AndroidManifest.xml:20:5-22:41
+MERGED from [android.arch.lifecycle:runtime:1.0.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/159ea9e366d9c2562d38cc99be22384c/AndroidManifest.xml:20:5-22:41
+INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/e95854b7b48ce89c628ca1377c52a3cb/AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+		ADDED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/src/main/AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:design:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/e95854b7b48ce89c628ca1377c52a3cb/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:appcompat-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/1807ad074d471242cadddedebbb6410a/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:appcompat-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/1807ad074d471242cadddedebbb6410a/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/a9a8143863fab0cd58550cdadbd8a0a5/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:animated-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/a9a8143863fab0cd58550cdadbd8a0a5/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/81916910dbb42e5fb0769df5f9df5ec6/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-vector-drawable:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/81916910dbb42e5fb0769df5f9df5ec6/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/d32b903fafd1073198aa39fcb2451a11/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:recyclerview-v7:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/d32b903fafd1073198aa39fcb2451a11/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:transition:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/ffe314bcdf98eeb346a46e7b9909ea7f/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:transition:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/ffe314bcdf98eeb346a46e7b9909ea7f/AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:support-v4:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/afd694fc4c9d83d17f8d762b51ed487f/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-v4:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/afd694fc4c9d83d17f8d762b51ed487f/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-media-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/99f6a0527ae14c7caa5d6a18b89e625b/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-media-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/99f6a0527ae14c7caa5d6a18b89e625b/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-fragment:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/d5eed05f59536adf94116fb0f44364f3/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-fragment:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/d5eed05f59536adf94116fb0f44364f3/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-utils:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1856267612b7c59b8d7ffc648e72913d/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-utils:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/1856267612b7c59b8d7ffc648e72913d/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-ui:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/86f74eae75bb24b2269a38e4a73aaa28/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-core-ui:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/86f74eae75bb24b2269a38e4a73aaa28/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/ef8eb18cfda0ad67f3ee44f799576b30/AndroidManifest.xml:26:9-28:38
+MERGED from [com.android.support:support-compat:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/ef8eb18cfda0ad67f3ee44f799576b30/AndroidManifest.xml:26:9-28:38
+	android:value
+		ADDED from [com.android.support:design:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/e95854b7b48ce89c628ca1377c52a3cb/AndroidManifest.xml:28:13-35
+	android:name
+		ADDED from [com.android.support:design:26.1.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/e95854b7b48ce89c628ca1377c52a3cb/AndroidManifest.xml:27:13-51
+meta-data#android.arch.lifecycle.VERSION
+ADDED from [android.arch.lifecycle:runtime:1.0.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/159ea9e366d9c2562d38cc99be22384c/AndroidManifest.xml:25:9-27:47
+	android:value
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/159ea9e366d9c2562d38cc99be22384c/AndroidManifest.xml:27:13-44
+	android:name
+		ADDED from [android.arch.lifecycle:runtime:1.0.0] /Users/IsaacWeintraub/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/159ea9e366d9c2562d38cc99be22384c/AndroidManifest.xml:26:13-58
