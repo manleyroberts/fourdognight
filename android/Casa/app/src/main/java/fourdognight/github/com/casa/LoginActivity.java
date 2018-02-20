@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private View mPassTextView;
     private View mLoginView;
     private View mProgressView;
+    private View mSuccessText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mPasswordView = findViewById(R.id.passwordField);
         mUsernameView = findViewById(R.id.usernameField);
+        mSuccessText = findViewById(R.id.successText);
         mLoginView = findViewById(R.id.loginLayout);
         mPassTextView = findViewById(R.id.passText);
         mUserTextView = findViewById(R.id.userText);
@@ -54,6 +56,9 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        mSuccessText.setVisibility((Boolean) (getIntent().getExtras().get("justRegistered"))
+                ? View.VISIBLE : View.GONE);
 
         final Button button = findViewById(R.id.loginSubmitButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +167,7 @@ public class LoginActivity extends AppCompatActivity {
 
         private final String mUsername;
         private final String mPassword;
+        private AbstractUser loggedInUser = null;
 
         UserLoginTask(String username, String password) {
             mUsername = username;
@@ -179,12 +185,8 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
 
-            if (UserVerificationModel.user_list.containsKey(mUsername)) {
-                // Account exists, return true if the password matches.
-                return UserVerificationModel.user_list.get(mUsername).equals(mPassword);
-            }
-
-            return false;
+            loggedInUser = UserVerificationModel.attemptLogin(mUsername, mPassword);
+            return loggedInUser != null;
         }
 
         @Override
@@ -195,6 +197,9 @@ public class LoginActivity extends AppCompatActivity {
             if (success) {
                 Log.d("I", "Logged in");
                 Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
+                launchIntent.putExtra("currentUser", loggedInUser.getUsername());
+                launchIntent.putExtra("currentUserIsAdmin", loggedInUser instanceof Admin);
+                launchIntent.putExtra("currentUserName", loggedInUser.getName());
                 startActivity(launchIntent);
                 finish();
             } else {

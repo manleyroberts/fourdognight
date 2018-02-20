@@ -17,6 +17,7 @@ public class SplashActivity extends AppCompatActivity {
         logButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
+                launchIntent.putExtra("justRegistered", false);
                 startActivity(launchIntent);
             }
         });

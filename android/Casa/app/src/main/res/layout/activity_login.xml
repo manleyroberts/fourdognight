@@ -67,4 +67,10 @@
         android:autoSizePresetSizes="12"
         android:text="Login" />
 
+    <TextView
+        android:id="@+id/successText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Successfully registered!" />
+
 </LinearLayout>
