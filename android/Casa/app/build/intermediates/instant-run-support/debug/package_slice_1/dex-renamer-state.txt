@@ -1,0 +1,4 @@
+#Sun Feb 18 16:33:19 EST 2018
+base.0=/Users/IsaacWeintraub/Documents/gatech/ cs2340/fourdognight/android/Casa/app/build/intermediates/transforms/dexMerger/debug/1
+path.0=classes.dex
+renamed.0=classes.dex
