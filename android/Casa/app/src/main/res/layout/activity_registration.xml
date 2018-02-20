@@ -100,6 +100,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"></LinearLayout>
 
+        <Switch
+            android:id="@+id/adminSwitch"
+            android:layout_width="147dp"
+            android:layout_height="wrap_content"
+            android:switchTextAppearance="@android:style/TextAppearance.Material.Small"
+            android:text="Admin Account" />
+
         <Button
             android:id="@+id/regisSubmitButton"
             android:layout_width="match_parent"
@@ -107,12 +114,6 @@
             android:autoSizeMinTextSize="12dp"
             android:autoSizePresetSizes="12"
             android:text="Register" />
-
-        <TextView
-            android:id="@+id/successText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Successfully registered!" />
 
     </LinearLayout>
 
