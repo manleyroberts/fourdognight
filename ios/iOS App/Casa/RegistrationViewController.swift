@@ -61,16 +61,16 @@ class RegistrationViewController: UIViewController {
                 error += "Password must be at least 8 characters long\n"
             }
             if (error != "") {
-                errorLabel.text = "Correct these errors:\n" + error
+                errorLabel.text = "Correct these errors:\n\(error)"
             } else {
                 registrationTaskRunning = true
                 progressBar.setProgress(0, animated: false)
                 showProgress(visibility: false)
                 DispatchQueue.global(qos: .background).async {
                     // "attempt authentication"
-                    let max: Int = 10
+                    let max: Int = 40
                     for i in 1...max {
-                        Thread.sleep(forTimeInterval: 0.200 / Double(max))
+                        Thread.sleep(forTimeInterval: 1.00 / Double(max))
                         DispatchQueue.main.async {
                             self.progressBar.setProgress(Float(i) / Float(max), animated: true)
                         }
@@ -83,6 +83,9 @@ class RegistrationViewController: UIViewController {
                         self.pwField2.text = ""
                         if (success) {
                             self.successLabel.isHidden = false
+                            let loginViewController: LoginViewController = UIStoryboard(name: "LoginScreen", bundle: nil).instantiateViewController(withIdentifier: "login") as! LoginViewController
+                            self.present(loginViewController, animated: true, completion: nil)
+                            loginViewController.cameFromRegistration()
                         } else {
                             self.errorLabel.text = "Account already exists"
                         }

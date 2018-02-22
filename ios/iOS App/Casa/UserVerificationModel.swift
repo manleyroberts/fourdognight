@@ -21,7 +21,7 @@ class UserVerificationModel {
     
     static func attemptLogin(username: String, password: String) -> AbstractUser? {
         let user: AbstractUser? = user_list[username]
-        if !(user!.authenticate(password: password)) {
+        if (user == nil || !user!.authenticate(password: password)) {
             return nil
         }
         return user
