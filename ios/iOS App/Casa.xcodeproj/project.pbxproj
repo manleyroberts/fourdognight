@@ -16,6 +16,9 @@
 		6F7DDD15203B081800B7963F /* UserVerificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7DDD14203B081800B7963F /* UserVerificationModel.swift */; };
 		6F7DDD17203B1CB100B7963F /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6F7DDD16203B1CB000B7963F /* loading.gif */; };
 		6F7DDD1A203B80B600B7963F /* RegistrationScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F7DDD18203B80B600B7963F /* RegistrationScreen.storyboard */; };
+		6FA3628A203E0249000F018D /* AbstractUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA36289203E0249000F018D /* AbstractUser.swift */; };
+		6FA3628C203E5F46000F018D /* Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3628B203E5F46000F018D /* Admin.swift */; };
+		6FA3628E203E605F000F018D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3628D203E605F000F018D /* User.swift */; };
 		6FDD486E203CCC5500A0AB33 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDD486D203CCC5500A0AB33 /* RegistrationViewController.swift */; };
 		6FDD4870203DC95E00A0AB33 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDD486F203DC95E00A0AB33 /* LoginViewController.swift */; };
 		6FDD4873203DC98700A0AB33 /* LoginScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FDD4871203DC98700A0AB33 /* LoginScreen.storyboard */; };
@@ -33,6 +36,9 @@
 		6F7DDD14203B081800B7963F /* UserVerificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVerificationModel.swift; sourceTree = "<group>"; };
 		6F7DDD16203B1CB000B7963F /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = loading.gif; path = ../../../../../../../Downloads/loading.gif; sourceTree = "<group>"; };
 		6F7DDD19203B80B600B7963F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RegistrationScreen.storyboard; sourceTree = "<group>"; };
+		6FA36289203E0249000F018D /* AbstractUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractUser.swift; sourceTree = "<group>"; };
+		6FA3628B203E5F46000F018D /* Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Admin.swift; sourceTree = "<group>"; };
+		6FA3628D203E605F000F018D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6FDD486D203CCC5500A0AB33 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		6FDD486F203DC95E00A0AB33 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6FDD4872203DC98700A0AB33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LoginScreen.storyboard; sourceTree = "<group>"; };
@@ -71,10 +77,13 @@
 			children = (
 				6F7DDD14203B081800B7963F /* UserVerificationModel.swift */,
 				6F72CA4D202E6111007FE392 /* AppDelegate.swift */,
+				6FA36289203E0249000F018D /* AbstractUser.swift */,
 				6F72CA4F202E6111007FE392 /* ViewController.swift */,
 				6FDD486F203DC95E00A0AB33 /* LoginViewController.swift */,
 				6FDD4871203DC98700A0AB33 /* LoginScreen.storyboard */,
 				6FDD486D203CCC5500A0AB33 /* RegistrationViewController.swift */,
+				6FA3628B203E5F46000F018D /* Admin.swift */,
+				6FA3628D203E605F000F018D /* User.swift */,
 				6F72CA51202E6111007FE392 /* Main.storyboard */,
 				6F7DDD18203B80B600B7963F /* RegistrationScreen.storyboard */,
 				6F72CA54202E6111007FE392 /* Assets.xcassets */,
@@ -161,8 +170,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FA3628A203E0249000F018D /* AbstractUser.swift in Sources */,
 				6F72CA50202E6111007FE392 /* ViewController.swift in Sources */,
 				6F72CA4E202E6111007FE392 /* AppDelegate.swift in Sources */,
+				6FA3628C203E5F46000F018D /* Admin.swift in Sources */,
+				6FA3628E203E605F000F018D /* User.swift in Sources */,
 				6FDD486E203CCC5500A0AB33 /* RegistrationViewController.swift in Sources */,
 				6FDD4870203DC95E00A0AB33 /* LoginViewController.swift in Sources */,
 				6F7DDD15203B081800B7963F /* UserVerificationModel.swift in Sources */,

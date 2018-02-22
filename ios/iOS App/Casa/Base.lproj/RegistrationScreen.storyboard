@@ -103,11 +103,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HMW-Zr-mrD">
+                                <rect key="frame" x="237" y="348" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Admin account:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="en9-k7-yWO">
+                                <rect key="frame" x="200" y="323" width="120" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="OJR-hB-Bfi"/>
                     </view>
                     <connections>
+                        <outlet property="adminLabel" destination="en9-k7-yWO" id="3sV-Pp-OvI"/>
+                        <outlet property="adminSwitch" destination="HMW-Zr-mrD" id="o3R-pS-k38"/>
                         <outlet property="emailField" destination="C7r-nx-N9z" id="7jg-PR-kO7"/>
                         <outlet property="emailLabel" destination="wz5-Ik-n53" id="QVm-sk-cUB"/>
                         <outlet property="errorLabel" destination="6M6-Rf-FO0" id="03e-m5-yF1"/>

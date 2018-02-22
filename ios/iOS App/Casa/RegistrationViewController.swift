@@ -23,6 +23,8 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var errorLabel: UITextView!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var successLabel: UILabel!
+    @IBOutlet weak var adminLabel: UILabel!
+    @IBOutlet weak var adminSwitch: UISwitch!
     
     var registrationTaskRunning: Bool = false
     let MIN_PASSWORD_LENGTH: Int = 8
@@ -34,17 +36,18 @@ class RegistrationViewController: UIViewController {
             errorLabel.text = ""
             var error: String = ""
             let name: String = nameField.text!
+            let email: String = emailField.text!
+            let pw: String = pwField.text!
+            let pw2: String = pwField.text!
+            let admin: Bool = adminSwitch.isOn
             if (name == "") {
                 error += "\"Name\" field is empty\n"
             }
-            let email: String = emailField.text!
             if (email == "") {
                 error += "\"Email\" field is empty\n"
             } else if (!email.contains("@")) {
                 error += "Invalid email \n"
             }
-            let pw: String = pwField.text!
-            let pw2: String = pwField.text!
             if (pw == "") {
                 error += "\"Password\" field is empty\n"
             }
@@ -72,12 +75,7 @@ class RegistrationViewController: UIViewController {
                             self.progressBar.setProgress(Float(i) / Float(max), animated: true)
                         }
                     }
-                    var success: Bool = true
-                    if let _ = UserVerificationModel.user_list[email] {
-                        success = false
-                    } else {
-                        UserVerificationModel.user_list[email] = pw
-                    }
+                    let success: Bool = UserVerificationModel.attemptRegistration(name: name, username: email, password: pw, isAdmin: admin)
                     DispatchQueue.main.async {
                         self.registrationTaskRunning = false
                         self.showProgress(visibility: true)
@@ -114,5 +112,7 @@ class RegistrationViewController: UIViewController {
         pwLabel2.isHidden = !visibility
         pwField2.isHidden = !visibility
         progressBar.isHidden = visibility
+        adminLabel.isHidden = !visibility
+        adminSwitch.isHidden = !visibility
     }
 }
