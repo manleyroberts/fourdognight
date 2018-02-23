@@ -11,81 +11,71 @@ import UIKit
 class LoginViewController: UIViewController {
     
     //MARK: Properties
+    @IBOutlet weak var fromRegis: UILabel!
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var pwField: UITextField!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var pwLabel: UILabel!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var errorLabel: UITextView!
+    @IBOutlet weak var progressBar: UIProgressView!
     
     var loginTaskRunning: Bool = false
     
     //MARK: Actions
     @IBAction func loginAttempt(_ sender: Any) {
         if (!loginTaskRunning) {
-            
-        }
-        
-        /*
-         registration attempt code:
-         if (!registrationTaskRunning) {
-             successLabel.isHidden = true
-             errorLabel.text = ""
-             var error: String = ""
-             let name: String = nameField.text!
-             if (name == "") {
-                error += "\"Name\" field is empty\n"
-             }
-             let email: String = emailField.text!
-             if (email == "") {
+            fromRegis.isHidden = true
+            errorLabel.text = ""
+            var error: String = ""
+            let email: String = emailField.text!
+            let pw: String = pwField.text!
+            if (email == "") {
                 error += "\"Email\" field is empty\n"
-             } else if (!email.contains("@")) {
-                error += "Invalid email \n"
-             }
-             let pw: String = pwField.text!
-             let pw2: String = pwField.text!
-             if (pw == "") {
+            }
+            if (pw == "") {
                 error += "\"Password\" field is empty\n"
-             }
-             if (pw2 == "") {
-                error += "\"Re-enter password\" field is empty\n"
-             }
-             if (pw != pw2) {
-                error += "Passwords do not match\n"
-             }
-             if (pw.count < MIN_PASSWORD_LENGTH) {
-                error += "Password must be at least 8 characters long\n"
-             }
-             if (error != "") {
-                errorLabel.text = "Correct these errors:\n" + error
-             } else {
-                 registrationTaskRunning = true
-                 progressBar.setProgress(0, animated: false)
-                 showProgress(visibility: false)
-                 DispatchQueue.global(qos: .background).async {
-                     // "attempt authentication"
-                     let max: Int = 10
-                     for i in 1...max {
-                         Thread.sleep(forTimeInterval: 0.200 / Double(max))
-                         DispatchQueue.main.async {
-                             self.progressBar.setProgress(Float(i) / Float(max), animated: true)
-                         }
-                    }
-                    var success: Bool = true
-                    if let _ = UserVerificationModel.user_list[email] {
-                        success = false
-                    } else {
-                        UserVerificationModel.user_list[email] = pw
-                    }
+            }
+            if (error != "") {
+                errorLabel.text = "Correct these errors:\n\(error)"
+            } else {
+                loginTaskRunning = true
+                progressBar.setProgress(0, animated: false)
+                showProgress(visibility: false)
+                DispatchQueue.global(qos: .background).async {
+                    // "attempt authentication"
                     DispatchQueue.main.async {
-                        self.registrationTaskRunning = false
+                        self.progressBar.setProgress(1.00, animated: true)
+                    }
+                    Thread.sleep(forTimeInterval: 1.00)
+                    let loggedInUser: AbstractUser? = UserVerificationModel.attemptLogin(username: email, password: pw)
+                    DispatchQueue.main.async {
+                        self.loginTaskRunning = false
                         self.showProgress(visibility: true)
                         self.pwField.text = ""
-                        self.pwField2.text = ""
-                        if (success) {
-                            self.successLabel.isHidden = false
+                        if loggedInUser != nil  {
+                            let mainViewController: MainViewController = UIStoryboard(name: "MainScreen", bundle: nil).instantiateViewController(withIdentifier: "main") as! MainViewController
+                            self.present(mainViewController, animated: true, completion: nil)
+                            mainViewController.passUser(user: loggedInUser!)
                         } else {
-                            self.errorLabel.text = "Account already exists"
+                            self.errorLabel.text = "Invalid username/ password"
                         }
                     }
                 }
-             }
-         }
-         */
+            }
+        }
+    }
+    
+    func cameFromRegistration() {
+        fromRegis.isHidden = false
+    }
+    
+    private func showProgress(visibility: Bool) {
+        emailLabel.isHidden = !visibility
+        emailField.isHidden = !visibility
+        pwLabel.isHidden = !visibility
+        pwField.isHidden = !visibility
+        progressBar.isHidden = visibility
     }
     
     override func viewDidLoad() {
