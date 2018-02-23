@@ -44,24 +44,22 @@ class LoginViewController: UIViewController {
                 showProgress(visibility: false)
                 DispatchQueue.global(qos: .background).async {
                     // "attempt authentication"
-                    let max: Int = 40
-                    for i in 1...max {
-                        Thread.sleep(forTimeInterval: 1.00 / Double(max))
-                        DispatchQueue.main.async {
-                            self.progressBar.setProgress(Float(i) / Float(max), animated: true)
+                    DispatchQueue.main.async {
+                        self.progressBar.setProgress(1.00, animated: true)
+                    }
+                    Thread.sleep(forTimeInterval: 1.00)
+                    let loggedInUser: AbstractUser? = UserVerificationModel.attemptLogin(username: email, password: pw)
+                    DispatchQueue.main.async {
+                        self.loginTaskRunning = false
+                        self.showProgress(visibility: true)
+                        self.pwField.text = ""
+                        if loggedInUser != nil  {
+                            let mainViewController: MainViewController = UIStoryboard(name: "MainScreen", bundle: nil).instantiateViewController(withIdentifier: "main") as! MainViewController
+                            self.present(mainViewController, animated: true, completion: nil)
+                            mainViewController.passUser(user: loggedInUser!)
+                        } else {
+                            self.errorLabel.text = "Invalid username/ password"
                         }
-                        let loggedInUser: AbstractUser? = UserVerificationModel.attemptLogin(username: email, password: pw)
-                        DispatchQueue.main.async {
-                            self.loginTaskRunning = false
-                            self.showProgress(visibility: true)
-                            self.pwField.text = ""
-                            if loggedInUser != nil  {
-                                // launch home screen
-                            } else {
-                                self.errorLabel.text = "Invalid username/ password"
-                            }
-                        }
-                        
                     }
                 }
             }

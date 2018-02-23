@@ -68,13 +68,10 @@ class RegistrationViewController: UIViewController {
                 showProgress(visibility: false)
                 DispatchQueue.global(qos: .background).async {
                     // "attempt authentication"
-                    let max: Int = 40
-                    for i in 1...max {
-                        Thread.sleep(forTimeInterval: 1.00 / Double(max))
-                        DispatchQueue.main.async {
-                            self.progressBar.setProgress(Float(i) / Float(max), animated: true)
-                        }
+                    DispatchQueue.main.async {
+                        self.progressBar.setProgress(1.00, animated: true)
                     }
+                    Thread.sleep(forTimeInterval: 1.00)
                     let success: Bool = UserVerificationModel.attemptRegistration(name: name, username: email, password: pw, isAdmin: admin)
                     DispatchQueue.main.async {
                         self.registrationTaskRunning = false
