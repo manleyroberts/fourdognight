@@ -91,6 +91,10 @@ class RegistrationViewController: UIViewController {
             }
         }
     }
+    @IBAction func goBack(_ sender: UIButton) {
+        let previousViewController: UIViewController = UIStoryboard(name: "SplashScreen", bundle: nil).instantiateViewController(withIdentifier: "splash")
+        self.present(previousViewController, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

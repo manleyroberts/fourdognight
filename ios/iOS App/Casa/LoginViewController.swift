@@ -65,6 +65,11 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    @IBAction func goBack(_ sender: UIButton) {
+        let previousViewController: UIViewController = UIStoryboard(name: "SplashScreen", bundle: nil).instantiateViewController(withIdentifier: "splash")
+        self.present(previousViewController, animated: true, completion: nil)
+    }
+    
     
     func cameFromRegistration() {
         fromRegis.isHidden = false

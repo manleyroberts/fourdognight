@@ -114,6 +114,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Vc-XI-QEF">
+                                <rect key="frame" x="31" y="637" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.90042098445595853" green="0.90042098445595853" blue="0.90042098445595853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="back"/>
+                                <connections>
+                                    <action selector="goBack:" destination="Uta-ns-qpM" eventType="touchUpInside" id="tri-0K-tSg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="OJR-hB-Bfi"/>
