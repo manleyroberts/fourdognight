@@ -24,8 +24,12 @@ app.post("/login", function(req, res) {
 });
 
 app.post("/register", function(req, res) {
-  new User(req.body.name, req.body.email, req.body.password);
-  res.redirect("/login.html");
+  if (req.body.email.includes('@')) {
+    new User(req.body.name, req.body.email, req.body.password);
+    res.redirect("/login.html");
+  } else {
+    res.status(401).send(null);
+  }
 });
 
 app.get("/mainpage.html", function(req, res) {

@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
   <body>
-    <form action="/register" method="POST">
+    <form id="registerForm" onsubmit="return register()">
+      <p id="errmsg" style="display:none; color:red">Invalid email address.</p>
       <div class="container">
         <label for="name">Name</label>
         <input type="text" placeholder="Enter Name" name="name">
@@ -34,4 +35,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
+  <script>
+    function register() {
+      var form = document.getElementById("registerForm");
+      var formRequest = new XMLHttpRequest();
+      formRequest.onreadystatechange = function () {
+        if (formRequest.readyState == 4) {
+          if (formRequest.status == 401) {
+            document.getElementById("errmsg").style.display = "block";
+          } else if (formRequest.status == 200) {
+            window.location = "/login.html";
+          }
+        }
+      }
+      formRequest.open("POST", "/register", true);
+      formRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      formRequest.send("name=" + form.name.value + "&email=" + form.email.value + "&password=" + form.password.value);
+      return false;
+    }
+  </script>
 </html>
