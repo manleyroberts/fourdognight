@@ -14,16 +14,16 @@
 <body>
   <div class="container-fluid">
   <form id="loginForm" onsubmit="return login()">
-    <p id="errmsg" style="display:none; color:red">The username or password you entered was incorrect.</p>
+    <p id="errmsg" style="display:none; color:red">The email or password you entered was incorrect.</p>
     <div class="container">
-      <label for="username">
-        <b>Username</b>
+      <label for="email">
+        Email
       </label>
-      <input type="text" placeholder="Enter Username" name="username" required>
+      <input type="text" placeholder="Enter Email" name="email" required>
     </div>
     <div class="container">
       <label for="password">
-        <b>Password</b>
+        Password
       </label>
       <input type="password" placeholder="Enter Password" name="password" required>
     </div>
@@ -49,7 +49,7 @@
     }
     formRequest.open("POST", "/login", true);
     formRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    formRequest.send("username=" + form.username.value + "&password=" + form.password.value);
+    formRequest.send("email=" + form.email.value + "&password=" + form.password.value);
     return false;
   }
 </script>
