@@ -24,11 +24,12 @@ app.post("/login", function(req, res) {
 });
 
 app.post("/register", function(req, res) {
-  if (req.body.email.includes('@')) {
+  var errors = userModel.TestValidUser(req.body.name, req.body.email, req.body.password);
+  if (errors == null) {
     new User(req.body.name, req.body.email, req.body.password);
     res.redirect("/login.html");
   } else {
-    res.status(401).send(null);
+    res.status(401).send(errors);
   }
 });
 

@@ -11,7 +11,6 @@
   </head>
   <body>
     <form id="registerForm" onsubmit="return register()">
-      <p id="errmsg" style="display:none; color:red">Invalid email address.</p>
       <div class="container">
         <label for="name">Name</label>
         <input type="text" placeholder="Enter Name" name="name">
@@ -24,6 +23,10 @@
         <label for="password">Password</label>
         <input type="password" placeholder="Enter Password" name="password" required>
       </div>
+      <p id="error" style="display:none; color:red">Fix the following errors:</p>
+      <p id="bademail" style="display:none; color:red">Invalid email address</p>
+      <p id="badpassword" style="display:none; color:red">Password is less than 8 characters long</p>
+      <p id="userexists" style="display:none; color:red">User already exists</p>
       <div class="container">
         <input type="submit">
         <button onclick="window.location = '/'">Cancel</button>
@@ -40,11 +43,24 @@
       var form = document.getElementById("registerForm");
       var formRequest = new XMLHttpRequest();
       formRequest.onreadystatechange = function () {
+        document.getElementById("error").style.display = "none";
+        document.getElementById("bademail").style.display = "none";
+        document.getElementById("badpassword").style.display = "none";
+        document.getElementById("userexists").style.display = "none";
         if (formRequest.readyState == 4) {
-          if (formRequest.status == 401) {
-            document.getElementById("errmsg").style.display = "block";
-          } else if (formRequest.status == 200) {
+          if (formRequest.status == 200) {
             window.location = "/login.html";
+          } else if (formRequest.status == 401) {
+            document.getElementById("error").style.display = "block";
+            if (formRequest.responseText.includes("EMAIL")) {
+              document.getElementById("bademail").style.display = "block";
+            }
+            if (formRequest.responseText.includes("PASSWORD")) {
+              document.getElementById("badpassword").style.display = "block";
+            }
+            if (formRequest.responseText.includes("EXISTS")) {
+              document.getElementById("userexists").style.display = "block";
+            }
           }
         }
       }
