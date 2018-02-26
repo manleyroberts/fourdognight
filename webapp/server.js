@@ -24,8 +24,8 @@ app.post("/login", function(req, res) {
 });
 
 app.post("/register", function(req, res) {
-  var errors = userModel.TestValidUser(req.body.name, req.body.email, req.body.password);
-  if (errors == null) {
+  var errors = userModel.TestValidRegistration(req.body.name, req.body.email, req.body.password, req.body.password2);
+  if (errors === "") {
     new User(req.body.name, req.body.email, req.body.password);
     res.redirect("/login.html");
   } else {

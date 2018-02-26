@@ -12,19 +12,27 @@ module.exports.User = function(name, email, password) {
     return this;
 }
 
-module.exports.TestValidUser = function(name, email, password) {
-    var errors = null;
+module.exports.TestValidRegistration = function(name, email, password, confirmpassword) {
+    var errors = "";
     if (!email.includes('@')) {
-        errors = "EMAIL";
+        errors += "EMAIL";
     }
     if (password.length < 8) {
-        errors = (errors == null) ? "PASSWORD" : errors + "PASSWORD";
+        errors += "PASSWORD";
+    }
+    if (password !== confirmpassword) {
+        errors += "MISMATCH";
     }
     for (var user of users) {
-        if (user.email == email) {
-            errors = (errors == null) ? "EXISTS" : errors + "EXISTS";
+        if (user.email === email) {
+            errors += "EXISTS";
             break;
         }
     }
     return errors;
 }
+
+/*
+ * TO DO to make webapp current:
+ * - Admin account
+ */
