@@ -1,8 +1,6 @@
 var express = require('express');
 var bodyparser = require('body-parser');
-var userModel = require('./model/User.js');
-var User = userModel.User;
-var users = userModel.users;
+var userModel = require('./model/UserModel.js');
 var app = express();
 
 app.use(bodyparser.urlencoded({extended: true}));
@@ -14,22 +12,31 @@ app.get("/", function(req, res) {
 });
 
 app.post("/login", function(req, res) {
-  for (var user of users) {
-    if (user.email === req.body.email && user.password === req.body.password) {
-      res.status(200).send(null);
-      return;
-    }
+  var luser = userModel.attemptLogin(req.body.email, req.body.password);
+  if (luser == null) {
+    res.status(401).send(null);
+  } else {
+    res.status(200).send(null);
   }
-  res.status(401).send(null);
 });
 
 app.post("/register", function(req, res) {
-  var errors = userModel.TestValidRegistration(req.body.name, req.body.email, req.body.password, req.body.password2);
-  if (errors === "") {
-    new User(req.body.name, req.body.email, req.body.password);
+  var errors = "";
+  if (!req.body.email.includes('@')) {
+    errors += "EMAIL";
+  }
+  if (req.body.password.length < 8) {
+    errors += "PASSWORD";
+  }
+  if (req.body.password !== req.body.password2) {
+    errors += "MISMATCH";
+  }
+  if (errors !== "") {
+    res.status(401).send(errors);
+  } else if (userModel.attemptRegistration(req.body.name, req.body.email, req.body.password, false)) {
     res.redirect("/login.html");
   } else {
-    res.status(401).send(errors);
+    res.status(401).send("EXISTS");
   }
 });
 
