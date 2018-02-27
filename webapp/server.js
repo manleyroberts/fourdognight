@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyparser = require('body-parser');
 var userModel = require('./model/UserModel.js');
+var Admin = userModel.Admin;
 var app = express();
 
 app.use(bodyparser.urlencoded({extended: true}));
@@ -16,7 +17,7 @@ app.post("/login", function(req, res) {
   if (luser == null) {
     res.status(401).send(null);
   } else {
-    res.status(200).send(null);
+    res.status(200).send('$' + luser.name + ' | ' + luser.username + ' | '  + ((luser instanceof Admin) ? 'Admin' : 'User') + '$');
   }
 });
 
@@ -33,7 +34,7 @@ app.post("/register", function(req, res) {
   }
   if (errors !== "") {
     res.status(401).send(errors);
-  } else if (userModel.attemptRegistration(req.body.name, req.body.email, req.body.password, false)) {
+  } else if (userModel.attemptRegistration(req.body.name, req.body.email, req.body.password, req.body.admin)) {
     res.redirect("/login.html");
   } else {
     res.status(401).send("EXISTS");

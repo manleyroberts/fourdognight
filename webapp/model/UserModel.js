@@ -8,7 +8,7 @@ module.exports.attemptRegistration = function(name, username, password, isAdmin)
         }
     }
     if (isAdmin) {
-        users.push(new Admin(name, username, password));
+        users.push(new module.exports.Admin(name, username, password));
     } else {
         users.push(new User(name, username, password));
     }
@@ -18,31 +18,34 @@ module.exports.attemptRegistration = function(name, username, password, isAdmin)
 
 module.exports.attemptLogin = function(username, password) {
     for (var user of users) {
-        if (user.username === username && user.authenticate(password)) {
+        if (user.username === username && user.password === password) {
             return user;
         }
     }
     return null;
 }
 
-BaseUser = function(name, email, password) {
+BaseUser = function(name, username, password) {
     this.name = name;
-    this.email = email;
+    this.username = username;
     this.password = password;
-    this.authenticate = function(password) {
-        return this.password === password;
-    };
     return this;
 }
 
-Admin = function(name, username, password) {
+module.exports.Admin = function(name, username, password) {
     BaseUser.call(this);
+    this.name = name;
+    this.username = username;
+    this.password = password;
     return this;
 }
-Admin.prototype = Object.create(BaseUser.prototype);
+module.exports.Admin.prototype = Object.create(BaseUser.prototype);
 
 User = function(name, username, password) {
     BaseUser.call(this);
+    this.name = name;
+    this.username = username;
+    this.password = password;
     return this;
 }
 User.prototype = Object.create(BaseUser.prototype);
