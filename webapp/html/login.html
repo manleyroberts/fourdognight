@@ -11,9 +11,10 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
+<body onload="return checkLoading()">
   <div class="container-fluid">
   <form id="loginForm" onsubmit="return login()">
+    <p id="justregistered" style="display:none">Registration successful</p>
     <p id="errmsg" style="display:none; color:red">The email or password you entered was incorrect.</p>
     <div class="container">
       <label for="email">
@@ -43,6 +44,9 @@
         if (formRequest.status == 401) {
           document.getElementById("errmsg").style.display = "block";
         } else if (formRequest.status == 200) {
+          var rt = formRequest.responseText;
+          sessionStorage.userdata = rt.substring(rt.indexOf('$') + 1, rt.lastIndexOf('$'));
+          console.log("sessionStorage.userdata = " + sessionStorage.userdata);
           window.location = "/mainpage.html";
         }
       }
@@ -53,5 +57,12 @@
     return false;
   }
 </script>
-
+<script>
+  function checkLoading() {
+    if (sessionStorage.fr === 'y') {
+      document.getElementById("justregistered").style.display = "block";
+      sessionStorage.fr = '';
+    }
+  }
+</script>
 </html>
