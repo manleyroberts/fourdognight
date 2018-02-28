@@ -16,7 +16,7 @@ public class ListActivity extends AppCompatActivity {
     TextView address;
     TextView special;
     TextView phone;
-
+    //Creates all the "text boxes" for the shelter information on page when shelter is clicked
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

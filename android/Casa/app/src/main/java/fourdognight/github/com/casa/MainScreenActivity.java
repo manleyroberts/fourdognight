@@ -48,6 +48,7 @@ public class MainScreenActivity extends AppCompatActivity {
             topText += " | User";
         }
         mUsernameView.setText(topText);
+        // Reads the CSV data
         readHomelessShelterData();
         List<String> shelters = new ArrayList();
         int count = 0;
@@ -66,7 +67,7 @@ public class MainScreenActivity extends AppCompatActivity {
         }
 
         ArrayAdapter adapter  = new ArrayAdapter<>(this, R.layout.shelterlist, shelters);
-
+        //Creates the info page
         final List<String> info = results;
         final ListView listView = findViewById(R.id.shelterList);
         listView.setAdapter(adapter);
@@ -87,7 +88,8 @@ public class MainScreenActivity extends AppCompatActivity {
             }
         });
     }
-
+    //splits the csv into commas and if there are quotation marks then the commas inside quotations
+    // are not removed
     private void readHomelessShelterData() {
         InputStream is = getResources().openRawResource(R.raw.homelessshelterdatabase);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
