@@ -2,6 +2,10 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var userModel = require('./model/UserModel.js');
 var Admin = userModel.Admin;
+var shelterModel = require('./model/ShelterModel.js');
+var readShelters = shelterModel.readShelters;
+var shelters = shelterModel.shelters;
+var readCompleted = shelterModel.readCompleted;
 var app = express();
 
 app.use(bodyparser.urlencoded({extended: true}));
@@ -38,6 +42,18 @@ app.post("/register", function(req, res) {
     res.redirect("/login.html");
   } else {
     res.status(401).send("EXISTS");
+  }
+});
+
+app.post("/mainpage", function(req, res) {
+  if (req.body.query.includes('names')) {
+    readShelters(function() {
+      var resbody = '';
+      for (i = 1; i < shelters.length; i++) {
+        resbody += '<li>' + shelters[i][1] + '</li>';
+      }
+      res.status(200).send(resbody);
+    });
   }
 });
 
