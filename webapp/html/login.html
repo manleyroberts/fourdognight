@@ -46,7 +46,6 @@
         } else if (formRequest.status == 200) {
           var rt = formRequest.responseText;
           sessionStorage.userdata = rt.substring(rt.indexOf('$') + 1, rt.lastIndexOf('$'));
-          console.log("sessionStorage.userdata = " + sessionStorage.userdata);
           window.location = "/mainpage.html";
         }
       }
