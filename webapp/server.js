@@ -2,6 +2,9 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var userModel = require('./model/UserModel.js');
 var Admin = userModel.Admin;
+var shelterModel = require('./model/ShelterModel.js');
+var readShelters = shelterModel.readShelters;
+var shelters = shelterModel.shelters;
 var app = express();
 
 app.use(bodyparser.urlencoded({extended: true}));
@@ -41,6 +44,29 @@ app.post("/register", function(req, res) {
   }
 });
 
+app.post("/mainpage", function(req, res) {
+  readShelters(function() {
+    var resbody = '';
+    for (i = 1; i < shelters.length; i++) {
+      var san1 = shelters[i][1].replace(/&/g, 'and');
+      var san2 = san1.replace(/'/g, '\\\'');
+      resbody += '<li onclick="displayShelter(\'' + san2 + '\')">' + san1 + '</li>';
+    }
+    res.status(200).send(resbody);
+  });
+});
+
+app.post("/shelter", function(req, res) {
+  var shelter = shelters.find(function(entry) {
+    return entry[1] === req.body.shelter;
+  });
+  res.status(200).send('<h4>Name:</h4><p>' + shelter[1].replace(/"/g, '') + '</p><h4>ID:</h4><p>'
+    + shelter[0] + '</p><h4>Capacity:</h4><p>' + shelter[2].replace(/"/g, '') + '</p><h4>Notes:</h4><p>'
+    + shelter[7].replace(/"/g, '') + '</p><h4>Restrictions:</h4><p>' + shelter[3].replace(/"/g, '') + '</p><h4>Phone:</h4><p>'
+    + shelter[8].replace(/"/g, '') + '</p><h4>Longitude:</h4><p>' + shelter[4].replace(/"/g, '') + '</p><h4>Latitude:</h4><p>'
+    + shelter[5].replace(/"/g, '') + '</p><h4>Address:</h4><p>' + shelter[6].replace(/"/g, '') + '</p>');
+});
+
 app.get("/mainpage.html", function(req, res) {
   res.sendFile(__dirname + "/html/mainpage.html");
 });
@@ -51,6 +77,10 @@ app.get("/login.html", function(req, res) {
 
 app.get("/register.html", function(req, res) {
   res.sendFile(__dirname + "/html/register.html");
+});
+
+app.get("/shelter.html", function(req, res) {
+  res.sendFile(__dirname + "/html/shelter.html");
 });
 
 app.listen(8080);
