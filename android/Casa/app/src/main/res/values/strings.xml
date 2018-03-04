@@ -18,4 +18,5 @@
     </string>
     <string name="title_activity_title_screen">TitleScreen</string>
     <string name="title_activity_login2">Sign</string>
+    <string name="title_activity_search">SearchActivity</string>
 </resources>

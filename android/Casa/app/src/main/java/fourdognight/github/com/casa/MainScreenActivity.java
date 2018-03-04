@@ -1,19 +1,18 @@
 package fourdognight.github.com.casa;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +24,8 @@ import java.util.List;
 public class MainScreenActivity extends AppCompatActivity {
 
     private TextView mUsernameView;
-    private List<String> results = new ArrayList();
+    public static List<String> results = new ArrayList();
+    private ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,43 +50,64 @@ public class MainScreenActivity extends AppCompatActivity {
         mUsernameView.setText(topText);
         // Reads the CSV data
         readHomelessShelterData();
-        List<String> shelters = new ArrayList();
-        int count = 0;
-        for (int i = 0; i < results.size(); i ++) {
-            if (results.get(i).equals( "" + count)) {
-                if (i > 2 && results.get(i - 2).equals("" + (count - 1))){
-                    count += 0;
-                } else {
-                    shelters.add(results.get(i + 1));
-                    count++;
-                }
-            }
-        }
-        for (int i = 0; i < results.size(); i++) {
-            System.out.println(results.get(i));
+        final List<String> shelters = new ArrayList();
+        //gets the shelter names for listview
+        for (int i = 0; i < results.size()/9; i++) {
+            shelters.add(results.get(9 * i + 1));
         }
 
-        ArrayAdapter adapter  = new ArrayAdapter<>(this, R.layout.shelterlist, shelters);
+        adapter  = new ArrayAdapter<>(this, R.layout.shelterlist, shelters);
         //Creates the info page
         final List<String> info = results;
         final ListView listView = findViewById(R.id.shelterList);
         listView.setAdapter(adapter);
+        // Creates search bar for names
+        EditText search = findViewById(R.id.searchbar2);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                MainScreenActivity.this.adapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        // retrieves information for the info page
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainScreenActivity.this, fourdognight.github.com.casa.ListActivity.class);
-                intent.putExtra("ShelterName", listView.getItemAtPosition(i).toString());
-                intent.putExtra("ShelterInfo", info.get(9 * i + 2));
-                intent.putExtra("UniqueKey", info.get(9*i));
-                intent.putExtra("Restrictions", info.get(9 * i + 3));
-                intent.putExtra("Longitude", info.get(9 * i + 4));
-                intent.putExtra("Latitude", info.get(9 * i + 5));
-                intent.putExtra("Address", info.get(9 * i + 6));
-                intent.putExtra("Special", info.get(9 * i + 7));
-                intent.putExtra("Phone", info.get(9 * i + 8));
+                String sheltername = listView.getItemAtPosition(i).toString();
+                int index = info.indexOf(sheltername);
+                intent.putExtra("ShelterName", sheltername);
+                intent.putExtra("ShelterInfo", info.get(index + 1));
+                intent.putExtra("UniqueKey", info.get(index - 1));
+                intent.putExtra("Restrictions", info.get(index + 2));
+                intent.putExtra("Longitude", info.get(index + 3));
+                intent.putExtra("Latitude", info.get(index + 4));
+                intent.putExtra("Address", info.get(index + 5));
+                intent.putExtra("Special", info.get(index + 6));
+                intent.putExtra("Phone", info.get(index + 7));
                 startActivity(intent);
             }
         });
+        // goes to the advanced search page to look for the restrictions and other stuff
+        Button searchbar = findViewById(R.id.search);
+        searchbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainScreenActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     //splits the csv into commas and if there are quotation marks then the commas inside quotations
     // are not removed
@@ -109,6 +130,7 @@ public class MainScreenActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
     private MainScreenActivity getInstance() {
         return this;
