@@ -60,11 +60,11 @@ app.post("/shelter", function(req, res) {
   var shelter = shelters.find(function(entry) {
     return entry[1] === req.body.shelter;
   });
-  res.status(200).send('<h4>Name:</h4><p>' + shelter[1].replace(/"/g, '') + '</p><h4>ID:</h4><p>'
-    + shelter[0] + '</p><h4>Capacity:</h4><p>' + shelter[2].replace(/"/g, '') + '</p><h4>Notes:</h4><p>'
-    + shelter[7].replace(/"/g, '') + '</p><h4>Restrictions:</h4><p>' + shelter[3].replace(/"/g, '') + '</p><h4>Phone:</h4><p>'
-    + shelter[8].replace(/"/g, '') + '</p><h4>Longitude:</h4><p>' + shelter[4].replace(/"/g, '') + '</p><h4>Latitude:</h4><p>'
-    + shelter[5].replace(/"/g, '') + '</p><h4>Address:</h4><p>' + shelter[6].replace(/"/g, '') + '</p>');
+  res.status(200).send('<h4>Name:</h4><p>' + shelter[1] + '</p><h4>ID:</h4><p>'
+    + shelter[0] + '</p><h4>Capacity:</h4><p>' + shelter[2] + '</p><h4>Notes:</h4><p>'
+    + shelter[7] + '</p><h4>Restrictions:</h4><p>' + shelter[3] + '</p><h4>Phone:</h4><p>'
+    + shelter[8] + '</p><h4>Longitude:</h4><p>' + shelter[4] + '</p><h4>Latitude:</h4><p>'
+    + shelter[5] + '</p><h4>Address:</h4><p>' + shelter[6] + '</p>');
 });
 
 app.get("/mainpage.html", function(req, res) {

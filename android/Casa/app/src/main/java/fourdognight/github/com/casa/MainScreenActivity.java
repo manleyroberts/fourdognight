@@ -24,7 +24,7 @@ import java.util.List;
 public class MainScreenActivity extends AppCompatActivity {
 
     private TextView mUsernameView;
-    public static List<String> results = new ArrayList();
+    public static List<String> results = new ArrayList<>();
     private ArrayAdapter adapter;
 
     @Override
@@ -40,9 +40,10 @@ public class MainScreenActivity extends AppCompatActivity {
         });
 
         mUsernameView = findViewById(R.id.mainScreenUsernameField);
-        String topText = (String) getIntent().getExtras().get("currentUserName");
-        topText += " | " + (String) getIntent().getExtras().get("currentUser");
-        if ((Boolean) getIntent().getExtras().get("currentUserIsAdmin")) {
+        AbstractUser user = (AbstractUser) getIntent().getExtras().get("currentUser");
+        String topText = user.getName();
+        topText += " | " + user.getUsername();
+        if (user instanceof Admin) {
             topText += " | Admin";
         } else {
             topText += " | User";
@@ -50,7 +51,7 @@ public class MainScreenActivity extends AppCompatActivity {
         mUsernameView.setText(topText);
         // Reads the CSV data
         readHomelessShelterData();
-        final List<String> shelters = new ArrayList();
+        final List<String> shelters = new ArrayList<>();
         //gets the shelter names for listview
         for (int i = 0; i < results.size()/9; i++) {
             shelters.add(results.get(9 * i + 1));
