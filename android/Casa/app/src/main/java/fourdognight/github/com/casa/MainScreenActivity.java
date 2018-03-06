@@ -122,8 +122,10 @@ public class MainScreenActivity extends AppCompatActivity {
             String read;
             while ((read = reader.readLine()) != null) {
                 String[] row = read.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                for (int i = 0; i < row.length; i++) {
-                    results.add(row[i]);
+                if (!results.contains(row[0])) {
+                    for (int i = 0; i < row.length; i++) {
+                        results.add(row[i]);
+                    }
                 }
             }
         } catch (IOException e) {
