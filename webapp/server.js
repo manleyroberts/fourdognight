@@ -48,9 +48,11 @@ app.post("/mainpage", function(req, res) {
   readShelters(function() {
     var resbody = '';
     for (i = 1; i < shelters.length; i++) {
-      var san1 = shelters[i][1].replace(/&/g, 'and');
-      var san2 = san1.replace(/'/g, '\\\'');
-      resbody += '<li onclick="displayShelter(\'' + san2 + '\')">' + san1 + '</li>';
+      if (req.body.query === null || shelters[i][1].search(new RegExp(req.body.query, 'i')) != -1) {
+        var san1 = shelters[i][1].replace(/&/g, 'and');
+        var san2 = san1.replace(/'/g, '\\\'');
+        resbody += '<li onclick="displayShelter(\'' + san2 + '\')">' + san1 + '</li>';
+      }
     }
     res.status(200).send(resbody);
   });
