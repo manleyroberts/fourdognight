@@ -58,6 +58,21 @@ app.post("/mainpage", function(req, res) {
   });
 });
 
+app.post("/asearch", function(req, res) {
+  var resbody = '';
+  for (i = 1; i < shelters.length; i++) {
+    for (var data of shelters[i]) {
+      if (req.body.query === null || data.search(new RegExp(req.body.query, 'i')) != -1) {
+        var san1 = shelters[i][1].replace(/&/g, 'and');
+        var san2 = san1.replace(/'/g, '\\\'');
+        resbody += '<li onclick="displayShelter(\'' + san2 + '\')">' + san1 + '</li>';
+        break;
+      }
+    }
+  }
+  res.status(200).send(resbody);
+});
+
 app.post("/shelter", function(req, res) {
   var shelter = shelters.find(function(entry) {
     return entry[1] === req.body.shelter;
@@ -83,6 +98,10 @@ app.get("/register.html", function(req, res) {
 
 app.get("/shelter.html", function(req, res) {
   res.sendFile(__dirname + "/html/shelter.html");
+});
+
+app.get("/asearch.html", function(req, res) {
+  res.sendFile(__dirname + "/html/asearch.html");
 });
 
 app.listen(8080);
