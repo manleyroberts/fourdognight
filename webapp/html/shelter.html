@@ -22,7 +22,7 @@
     formRequest.onreadystatechange = function() {
       if (formRequest.readyState == 4) {
         if (formRequest.status == 200) {
-          document.getElementById("shelter").innerHTML = formRequest.responseText;
+          document.getElementById("shelter").innerHTML = formRequest.responseText.replace(/"/g, '');
         }
       }
     }

@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.support.design.widget.Snackbar;
 
@@ -34,7 +35,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private View mPassTextView2;
     private EditText mNameView;
     private View mNameTextView;
-    private View mAdminSwitchView;
+    private Switch mAdminSwitchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mPassTextView2 = findViewById(R.id.regPassText2);
         mNameView = findViewById(R.id.regNameField);
         mNameTextView = findViewById(R.id.regNameText);
-        mAdminSwitchView = findViewById(R.id.adminSwitch);
+        mAdminSwitchView = (Switch) findViewById(R.id.adminSwitch);
 
         mPasswordView2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -88,7 +89,8 @@ public class RegistrationActivity extends AppCompatActivity {
         String password = mPasswordView.getText().toString();
         String password2 = mPasswordView2.getText().toString();
         String name = mNameView.getText().toString();
-        boolean isAdmin = mAdminSwitchView.isActivated();
+        boolean isAdmin = mAdminSwitchView.isChecked();
+        Log.e("isAdmin ", isAdmin + " (RegistrationActivity.java: 91)");
         mPasswordView.getText().clear();
         mPasswordView2.getText().clear();
 

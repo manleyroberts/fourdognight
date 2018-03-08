@@ -1,10 +1,12 @@
 package fourdognight.github.com.casa;
 
+import java.io.Serializable;
+
 /**
  * Created by manle on 2/19/2018.
  */
 
-abstract class AbstractUser {
+abstract class AbstractUser implements Serializable {
     private String name;
     private String username;
     private String password;

@@ -13,26 +13,26 @@
 
 <body onload="return checkLoading()">
   <div class="container-fluid">
-  <form id="loginForm" onsubmit="return login()">
-    <p id="justregistered" style="display:none">Registration successful</p>
-    <p id="errmsg" style="display:none; color:red">The email or password you entered was incorrect.</p>
-    <div class="container">
-      <label for="email">
-        Email
-      </label>
-      <input type="text" placeholder="Enter Email" name="email" required>
-    </div>
-    <div class="container">
-      <label for="password">
-        Password
-      </label>
-      <input type="password" placeholder="Enter Password" name="password" required>
-    </div>
-    <div class="container">
-      <button type="submit">Login</button>
-      <button onclick="window.location = '/'">Cancel</button>
-    </div>
-  </form>
+    <form id="loginForm" onsubmit="return login()">
+      <p id="justregistered" style="display:none">Registration successful</p>
+      <p id="errmsg" style="display:none; color:red">The email or password you entered was incorrect.</p>
+      <div class="container">
+        <label for="email">
+          Email
+        </label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+      </div>
+      <div class="container">
+        <label for="password">
+          Password
+        </label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+      </div>
+      <div class="container">
+        <button type="submit">Login</button>
+        <button onclick="window.location = '/'">Cancel</button>
+      </div>
+    </form>
   </div>
 </body>
 <script>

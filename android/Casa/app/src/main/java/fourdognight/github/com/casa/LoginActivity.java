@@ -197,9 +197,7 @@ public class LoginActivity extends AppCompatActivity {
             if (success) {
                 Log.d("I", "Logged in");
                 Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
-                launchIntent.putExtra("currentUser", loggedInUser.getUsername());
-                launchIntent.putExtra("currentUserIsAdmin", loggedInUser instanceof Admin);
-                launchIntent.putExtra("currentUserName", loggedInUser.getName());
+                launchIntent.putExtra("currentUser", loggedInUser);
                 startActivity(launchIntent);
                 finish();
             } else {
