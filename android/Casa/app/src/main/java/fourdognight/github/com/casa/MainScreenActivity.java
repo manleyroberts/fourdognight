@@ -13,6 +13,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +30,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainScreenActivity extends AppCompatActivity {
 
@@ -50,12 +61,51 @@ public class MainScreenActivity extends AppCompatActivity {
         }
         mUsernameView.setText(topText);
         // Reads the CSV data
-        readHomelessShelterData();
-        final List<String> shelters = new ArrayList<>();
+//        readHomelessShelterData();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("shelterList");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                results.clear();
+                for (DataSnapshot itemSnapshot: dataSnapshot.getChildren()) {
+                    results.add(itemSnapshot.getValue(String.class));
+                    Log.d("Firebase", results.get(results.size() - 1));
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Firebase", "Error reading shelter list.");
+            }
+        });
+//        myRef.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+//                results.add()
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String prevChildKey) {}
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String prevChildKey) {}
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {}
+//        });
+
+        List<String> shelters = new ArrayList<>();
         //gets the shelter names for listview
+        Log.d("Firebase", "" + results.size());
         for (int i = 0; i < results.size()/9; i++) {
             shelters.add(results.get(9 * i + 1));
+            Log.d("Firebase", shelters.get(shelters.size() - 1));
         }
+
+
 
         adapter  = new ArrayAdapter<>(this, R.layout.shelterlist, shelters);
         //Creates the info page
@@ -108,31 +158,35 @@ public class MainScreenActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+//        myRef.setValue(results);
     }
     //splits the csv into commas and if there are quotation marks then the commas inside quotations
     // are not removed
-    private void readHomelessShelterData() {
-        InputStream is = getResources().openRawResource(R.raw.homelessshelterdatabase);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-
-        String line = "";
-        try {
-            reader.readLine();
-            String read;
-            while ((read = reader.readLine()) != null) {
-                String[] row = read.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (!results.contains(row[0])) {
-                    for (int i = 0; i < row.length; i++) {
-                        results.add(row[i]);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            Log.wtf("MyActivity", "Error reading data file on line " + line, e);
-            e.printStackTrace();
-        }
-    }
+//    private void readHomelessShelterData() {
+//        InputStream is = getResources().openRawResource(R.raw.homelessshelterdatabase);
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+//
+//        String line = "";
+//        try {
+//            reader.readLine();
+//            String read;
+//            while ((read = reader.readLine()) != null) {
+//                String[] row = read.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+//                if (!results.contains(row[0])) {
+//                    for (int i = 0; i < row.length; i++) {
+//                        if (row[i].indexOf('\"') > -1) {
+//                            row[i] = row[i].split("\"")[1];
+//                        }
+//                        row[i] = row[i].trim();
+//                        results.add(row[i]);
+//                    }
+//                }
+//            }
+//        } catch (IOException e) {
+//            Log.wtf("MyActivity", "Error reading data file on line " + line, e);
+//            e.printStackTrace();
+//        }
+//    }
 
 
     private MainScreenActivity getInstance() {

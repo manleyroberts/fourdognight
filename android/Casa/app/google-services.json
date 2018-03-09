@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "773214277729",
+    "firebase_url": "https://casa-db572.firebaseio.com",
+    "project_id": "casa-db572",
+    "storage_bucket": "casa-db572.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773214277729:android:3f685af97343e82e",
+        "android_client_info": {
+          "package_name": "fourdognight.github.com.casa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "773214277729-ko2mmfpptsf6ieudrr9nvgv18ga47hig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtrX_sjvbL8fxRLZOqvkdsaKF3yt6PxQE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773214277729:android:6951912f2e7c7d9e",
+        "android_client_info": {
+          "package_name": "fourdognight.github.com.tent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "773214277729-jp03v6op3p37h4eus6u34e8ci694rjlu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fourdognight.github.com.tent",
+            "certificate_hash": "8b523e32639d522b62e8a22a55af5e81a5b19f69"
+          }
+        },
+        {
+          "client_id": "773214277729-ko2mmfpptsf6ieudrr9nvgv18ga47hig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtrX_sjvbL8fxRLZOqvkdsaKF3yt6PxQE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "773214277729-ko2mmfpptsf6ieudrr9nvgv18ga47hig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

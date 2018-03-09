@@ -11,7 +11,7 @@ public class ListActivity extends AppCompatActivity {
     TextView capacity;
     TextView key;
     TextView restriction;
-    TextView longitde;
+    TextView longitude;
     TextView latitude;
     TextView address;
     TextView special;
@@ -26,7 +26,7 @@ public class ListActivity extends AppCompatActivity {
         capacity = findViewById(R.id.infotext);
         key = findViewById(R.id.uniqueKey);
         restriction = findViewById(R.id.restrict);
-        longitde = findViewById(R.id.longitude);
+        longitude = findViewById(R.id.longitude);
         latitude = findViewById(R.id.latitude);
         address = findViewById(R.id.address);
         special = findViewById(R.id.special);
@@ -37,7 +37,7 @@ public class ListActivity extends AppCompatActivity {
             capacity.setText(bundle.getString("ShelterInfo"));
             key.setText(bundle.getString("UniqueKey"));
             restriction.setText(bundle.getString("Restrictions"));
-            longitde.setText(bundle.getString("Longitude"));
+            longitude.setText(bundle.getString("Longitude"));
             latitude.setText(bundle.getString("Latitude"));
             address.setText(bundle.getString("Address"));
             special.setText(bundle.getString("Special"));
