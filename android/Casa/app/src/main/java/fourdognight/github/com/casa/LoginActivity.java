@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.util.Log;
 
+import fourdognight.github.com.casa.model.AbstractUser;
+import fourdognight.github.com.casa.model.ModelFacade;
+
 /**
  * A login screen that offers login via username/password.
  */
@@ -24,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    private boolean taskActive = false;
 
     // UI references.
     private EditText mUsernameView;
@@ -76,10 +79,10 @@ public class LoginActivity extends AppCompatActivity {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
+        if (taskActive) {
             return;
         }
-
+        taskActive = true;
         // Reset errors.
         mUsernameView.setError(null);
         mPasswordView.setError(null);
@@ -112,10 +115,26 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            ModelFacade model = new ModelFacade();
+            model.attemptLogin(this, email, password);
+//            mAuthTask = new UserLoginTask(email, password);
+//            mAuthTask.execute((Void) null);
         }
+    }
+
+    public void completeLogin(AbstractUser user) {
+        if (user != null) {
+            Log.d("I", "Logged in");
+            Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
+            launchIntent.putExtra("currentUser", user);
+            startActivity(launchIntent);
+            finish();
+        } else {
+            Log.d("Login", "Tried");
+            mPasswordView.setError(getString(R.string.error_incorrect_password));
+            mPasswordView.requestFocus();
+        }
+        taskActive = false;
     }
 
     /**
@@ -159,59 +178,60 @@ public class LoginActivity extends AppCompatActivity {
 //        }
     }
 
-    /**
-     * Represents an asynchronous login task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mUsername;
-        private final String mPassword;
-        private AbstractUser loggedInUser = null;
-
-        UserLoginTask(String username, String password) {
-            mUsername = username;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            loggedInUser = UserVerificationModel.attemptLogin(mUsername, mPassword);
-            return loggedInUser != null;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                Log.d("I", "Logged in");
-                Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
-                launchIntent.putExtra("currentUser", loggedInUser);
-                startActivity(launchIntent);
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-    }
+//    /**
+//     * Represents an asynchronous login task used to authenticate
+//     * the user.
+//     */
+//    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+//
+//        private final String mUsername;
+//        private final String mPassword;
+//        private AbstractUser loggedInUser = null;
+//        private final ModelFacade model = new ModelFacade();
+//
+//        UserLoginTask(String username, String password) {
+//            mUsername = username;
+//            mPassword = password;
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//            // TODO: attempt authentication against a network service.
+//
+//            try {
+//                // Simulate network access.
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                return false;
+//            }
+//
+//            model.attemptLogin(getInstance(), mUsername, mPassword);
+//            return loggedInUser != null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(final Boolean success) {
+//            mAuthTask = null;
+//            showProgress(false);
+//
+//            if (success) {
+//                Log.d("I", "Logged in");
+//                Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
+//                launchIntent.putExtra("currentUser", loggedInUser);
+//                startActivity(launchIntent);
+//                finish();
+//            } else {
+//                mPasswordView.setError(getString(R.string.error_incorrect_password));
+//                mPasswordView.requestFocus();
+//            }
+//        }
+//
+//        @Override
+//        protected void onCancelled() {
+//            mAuthTask = null;
+//            showProgress(false);
+//        }
+//    }
 
     private LoginActivity getInstance() {
         return this;

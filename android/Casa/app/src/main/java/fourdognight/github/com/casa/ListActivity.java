@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import fourdognight.github.com.casa.model.AbstractUser;
+
 public class ListActivity extends AppCompatActivity {
 
 
@@ -33,6 +35,7 @@ public class ListActivity extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+            AbstractUser user = (AbstractUser) bundle.get("Shelter");
             shelterName.setText(bundle.getString("ShelterName"));
             capacity.setText(bundle.getString("ShelterInfo"));
             key.setText(bundle.getString("UniqueKey"));

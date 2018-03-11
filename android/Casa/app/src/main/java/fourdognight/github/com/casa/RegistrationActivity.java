@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,16 +13,20 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.support.design.widget.Snackbar;
+
+import fourdognight.github.com.casa.model.AbstractUser;
+import fourdognight.github.com.casa.model.ModelFacade;
+import fourdognight.github.com.casa.model.UserVerificationModel;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private UserRegistrationTask mAuthTask = null;
+//    private UserRegistrationTask mAuthTask = null;
 
     private static final int MIN_PASSWORD_LENGTH = 8;
+
+    private boolean taskActive = false;
 
     private EditText mUsernameView;
     private EditText mPasswordView;
@@ -75,7 +78,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void attemptRegistration() {
-        if (mAuthTask != null) {
+        if (taskActive) {
             return;
         }
 
@@ -125,6 +128,7 @@ public class RegistrationActivity extends AppCompatActivity {
             cancel = true;
         }
 
+        ModelFacade model = new ModelFacade();
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -132,68 +136,86 @@ public class RegistrationActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            taskActive = true;
             showProgress(true);
-            mAuthTask = new UserRegistrationTask(name, email, password, isAdmin);
-            mAuthTask.execute((Void) null);
+            model.attemptRegistration(getInstance(), name, email, password, isAdmin);
+//            mAuthTask = new UserRegistrationTask(name, email, password, isAdmin);
+//            mAuthTask.execute((Void) null);
         }
     }
 
-    /**
-     * Represents an asynchronous login task used to authenticate
-     * the user.
-     */
-    public class UserRegistrationTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mUsername;
-        private final String mPassword;
-        private final String mName;
-        private final boolean mIsAdmin;
-
-        UserRegistrationTask(String name, String username, String password, boolean isAdmin) {
-            mUsername = username;
-            mPassword = password;
-            mName = name;
-            mIsAdmin = isAdmin;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            return UserVerificationModel.attemptRegistration(mName, mUsername, mPassword, mIsAdmin);
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-            Log.d("I", "attempt");
-            mPasswordView.getText().clear();
-            if (success) {
-                Log.d("I", "Registered");
-                Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
-                launchIntent.putExtra("justRegistered", true);
-                startActivity(launchIntent);
-                finish();
-            } else {
-                mUsernameView.setError(getString(R.string.error_account_exists));
-                mUsernameView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
+    public void completeRegistrationSuccess() {
+        Log.d("I", "Registered");
+        Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
+        launchIntent.putExtra("justRegistered", true);
+        startActivity(launchIntent);
+        finish();
+        taskActive = false;
     }
+
+    public void completeRegistrationFailed() {
+        mUsernameView.setError(getString(R.string.error_account_exists));
+        mUsernameView.requestFocus();
+        taskActive = false;
+    }
+
+
+//    /**
+//     * Represents an asynchronous login task used to authenticate
+//     * the user.
+//     */
+//    public class UserRegistrationTask extends AsyncTask<Void, Void, Boolean> {
+//
+//        private final String mUsername;
+//        private final String mPassword;
+//        private final String mName;
+//        private final boolean mIsAdmin;
+//
+//        UserRegistrationTask(String name, String username, String password, boolean isAdmin) {
+//            mUsername = username;
+//            mPassword = password;
+//            mName = name;
+//            mIsAdmin = isAdmin;
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//            // TODO: attempt authentication against a network service.
+//
+//            try {
+//                // Simulate network access.
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                return false;
+//            }
+//
+//            return model.attemptRegistration(mName, mUsername, mPassword, mIsAdmin);
+//        }
+//
+//        @Override
+//        protected void onPostExecute(final Boolean success) {
+//            mAuthTask = null;
+//            showProgress(false);
+//            Log.d("I", "attempt");
+//            mPasswordView.getText().clear();
+//            if (success) {
+//                Log.d("I", "Registered");
+//                Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
+//                launchIntent.putExtra("justRegistered", true);
+//                startActivity(launchIntent);
+//                finish();
+//            } else {
+//                mUsernameView.setError(getString(R.string.error_account_exists));
+//                mUsernameView.requestFocus();
+//            }
+//        }
+//
+//        @Override
+//        protected void onCancelled() {
+//            mAuthTask = null;
+//            showProgress(false);
+//        }
+//    }
 
     /**
      * Shows the progress UI and hides the login form.
