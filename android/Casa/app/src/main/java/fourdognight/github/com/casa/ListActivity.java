@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import fourdognight.github.com.casa.model.Shelter;
+
 public class ListActivity extends AppCompatActivity {
 
 
@@ -11,7 +13,7 @@ public class ListActivity extends AppCompatActivity {
     TextView capacity;
     TextView key;
     TextView restriction;
-    TextView longitde;
+    TextView longitude;
     TextView latitude;
     TextView address;
     TextView special;
@@ -26,22 +28,23 @@ public class ListActivity extends AppCompatActivity {
         capacity = findViewById(R.id.infotext);
         key = findViewById(R.id.uniqueKey);
         restriction = findViewById(R.id.restrict);
-        longitde = findViewById(R.id.longitude);
+        longitude = findViewById(R.id.longitude);
         latitude = findViewById(R.id.latitude);
         address = findViewById(R.id.address);
         special = findViewById(R.id.special);
         phone = findViewById(R.id.phone);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            shelterName.setText(bundle.getString("ShelterName"));
-            capacity.setText(bundle.getString("ShelterInfo"));
-            key.setText(bundle.getString("UniqueKey"));
-            restriction.setText(bundle.getString("Restrictions"));
-            longitde.setText(bundle.getString("Longitude"));
-            latitude.setText(bundle.getString("Latitude"));
-            address.setText(bundle.getString("Address"));
-            special.setText(bundle.getString("Special"));
-            phone.setText(bundle.getString("Phone"));
+            Shelter shelter = (Shelter) bundle.get("Shelter");
+            shelterName.setText(shelter.getShelterName());
+            capacity.setText(shelter.getShelterInfo());
+            key.setText(shelter.getUniqueKey());
+            restriction.setText(shelter.getRestriction());
+            longitude.setText(shelter.getLongitude());
+            latitude.setText(shelter.getLatitude());
+            address.setText(shelter.getAddress());
+            special.setText(shelter.getSpecial());
+            phone.setText(shelter.getPhone());
         }
 
 

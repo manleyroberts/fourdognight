@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -13,19 +12,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+
+
 import java.util.ArrayList;
 import java.util.List;
+
+import fourdognight.github.com.casa.model.AbstractUser;
+import fourdognight.github.com.casa.model.Admin;
+import fourdognight.github.com.casa.model.ModelFacade;
+import fourdognight.github.com.casa.model.Shelter;
+import fourdognight.github.com.casa.model.ShelterManager;
 
 public class MainScreenActivity extends AppCompatActivity {
 
     private TextView mUsernameView;
-    public static List<String> results = new ArrayList<>();
+    public static List<String> results;
     private ArrayAdapter adapter;
+    private ModelFacade model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +52,16 @@ public class MainScreenActivity extends AppCompatActivity {
             topText += " | User";
         }
         mUsernameView.setText(topText);
-        // Reads the CSV data
-        readHomelessShelterData();
-        final List<String> shelters = new ArrayList<>();
-        //gets the shelter names for listview
-        for (int i = 0; i < results.size()/9; i++) {
-            shelters.add(results.get(9 * i + 1));
-        }
 
-        adapter  = new ArrayAdapter<>(this, R.layout.shelterlist, shelters);
+        model = new ModelFacade();
+        // Reads the CSV data
+//        readHomelessShelterData();
+        model.getShelterData(this);
+    }
+
+    public void reload(final List<String> sheltersDisplay) {
+        adapter  = new ArrayAdapter<>(this, R.layout.shelterlist, sheltersDisplay);
         //Creates the info page
-        final List<String> info = results;
         final ListView listView = findViewById(R.id.shelterList);
         listView.setAdapter(adapter);
         // Creates search bar for names
@@ -85,17 +87,8 @@ public class MainScreenActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainScreenActivity.this, fourdognight.github.com.casa.ListActivity.class);
-                String sheltername = listView.getItemAtPosition(i).toString();
-                int index = info.indexOf(sheltername);
-                intent.putExtra("ShelterName", sheltername);
-                intent.putExtra("ShelterInfo", info.get(index + 1));
-                intent.putExtra("UniqueKey", info.get(index - 1));
-                intent.putExtra("Restrictions", info.get(index + 2));
-                intent.putExtra("Longitude", info.get(index + 3));
-                intent.putExtra("Latitude", info.get(index + 4));
-                intent.putExtra("Address", info.get(index + 5));
-                intent.putExtra("Special", info.get(index + 6));
-                intent.putExtra("Phone", info.get(index + 7));
+                Shelter shelter = model.getShelter(sheltersDisplay.get(i));
+                intent.putExtra("Shelter", shelter);
                 startActivity(intent);
             }
         });
@@ -108,32 +101,7 @@ public class MainScreenActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
-    //splits the csv into commas and if there are quotation marks then the commas inside quotations
-    // are not removed
-    private void readHomelessShelterData() {
-        InputStream is = getResources().openRawResource(R.raw.homelessshelterdatabase);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-
-        String line = "";
-        try {
-            reader.readLine();
-            String read;
-            while ((read = reader.readLine()) != null) {
-                String[] row = read.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                if (!results.contains(row[0])) {
-                    for (int i = 0; i < row.length; i++) {
-                        results.add(row[i]);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            Log.wtf("MyActivity", "Error reading data file on line " + line, e);
-            e.printStackTrace();
-        }
-    }
-
 
     private MainScreenActivity getInstance() {
         return this;

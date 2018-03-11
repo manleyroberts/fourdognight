@@ -1,4 +1,4 @@
-package fourdognight.github.com.casa;
+package fourdognight.github.com.casa.model;
 
 import java.io.Serializable;
 
@@ -6,18 +6,18 @@ import java.io.Serializable;
  * Created by manle on 2/19/2018.
  */
 
-abstract class AbstractUser implements Serializable {
+public abstract class AbstractUser implements Serializable {
     private String name;
     private String username;
     private String password;
 
-    AbstractUser(String name, String username, String password) {
+    public AbstractUser(String name, String username, String password) {
         this.name = name;
         this.username = username;
         this.password = password;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -25,7 +25,7 @@ abstract class AbstractUser implements Serializable {
         this.name = name;
     }
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 
