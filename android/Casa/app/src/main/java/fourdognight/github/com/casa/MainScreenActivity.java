@@ -59,17 +59,9 @@ public class MainScreenActivity extends AppCompatActivity {
         model.getShelterData(this);
     }
 
-    public void reload(List<String> shelterResults) {
-        results = shelterResults;
-        final List<String> sheltersDisplay = new ArrayList<>();
-        //gets the shelter names for listview
-        for (int i = 0; i < results.size()/9; i++) {
-            sheltersDisplay.add(results.get(9 * i + 1));
-        }
-
+    public void reload(final List<String> sheltersDisplay) {
         adapter  = new ArrayAdapter<>(this, R.layout.shelterlist, sheltersDisplay);
         //Creates the info page
-        final List<String> info = results;
         final ListView listView = findViewById(R.id.shelterList);
         listView.setAdapter(adapter);
         // Creates search bar for names
@@ -95,17 +87,7 @@ public class MainScreenActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainScreenActivity.this, fourdognight.github.com.casa.ListActivity.class);
-                Shelter shelter = ShelterManager.getInstance().getShelter(sheltersDisplay.get(i));
-//                int index = info.indexOf(sheltername);
-//                intent.putExtra("ShelterName", sheltername);
-//                intent.putExtra("ShelterInfo", info.get(index + 1));
-//                intent.putExtra("UniqueKey", info.get(index - 1));
-//                intent.putExtra("Restrictions", info.get(index + 2));
-//                intent.putExtra("Longitude", info.get(index + 3));
-//                intent.putExtra("Latitude", info.get(index + 4));
-//                intent.putExtra("Address", info.get(index + 5));
-//                intent.putExtra("Special", info.get(index + 6));
-//                intent.putExtra("Phone", info.get(index + 7));
+                Shelter shelter = model.getShelter(sheltersDisplay.get(i));
                 intent.putExtra("Shelter", shelter);
                 startActivity(intent);
             }

@@ -30,7 +30,7 @@ public class FirebaseInterfacer {
         database = FirebaseDatabase.getInstance();
     }
 
-    void getShelterData(final MainScreenActivity instance) {
+    void getShelterData(final ShelterManager instance) {
         DatabaseReference myRef = database.getReference("shelterList");
 
         myRef.addValueEventListener(new ValueEventListener() {

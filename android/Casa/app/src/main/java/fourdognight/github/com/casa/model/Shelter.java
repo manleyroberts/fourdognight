@@ -17,11 +17,43 @@ public class Shelter implements Serializable{
     private String special;
     private String phone;
 
-    String getShelterName() {
+    public String getShelterName() {
         return shelterName;
     }
 
-    private Shelter (String shelterName, String shelterInfo, String uniqueKey, String restriction, String longitude,
+    public String getShelterInfo() {
+        return shelterInfo;
+    }
+
+    public String getUniqueKey() {
+        return uniqueKey;
+    }
+
+    public String getRestriction() {
+        return restriction;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getSpecial() {
+        return special;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    Shelter (String shelterName, String shelterInfo, String uniqueKey, String restriction, String longitude,
                     String latitude, String address, String special, String phone) {
         this.shelterName = shelterName;
         this.shelterInfo = shelterInfo;

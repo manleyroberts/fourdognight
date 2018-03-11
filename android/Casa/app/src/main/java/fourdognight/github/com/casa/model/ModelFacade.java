@@ -9,20 +9,23 @@ import fourdognight.github.com.casa.RegistrationActivity;
  */
 
 public class ModelFacade {
-    private FirebaseInterfacer firebaseInterfacer;
     private UserVerificationModel userVerificationModel;
+    private ShelterManager shelterManager;
 
     public ModelFacade() {
-        firebaseInterfacer = new FirebaseInterfacer();
         userVerificationModel = new UserVerificationModel();
+        shelterManager = new ShelterManager();
     }
     public void getShelterData(MainScreenActivity instance) {
-        firebaseInterfacer.getShelterData(instance);
+        shelterManager.getShelterData(instance);
     }
     public void attemptLogin(LoginActivity instance, String username, String password) {
         userVerificationModel.attemptLogin(instance, username, password);
     }
     public void attemptRegistration(RegistrationActivity instance, String name, String username, String password, boolean isAdmin) {
         userVerificationModel.attemptRegistration(instance, name, username, password, isAdmin);
+    }
+    public Shelter getShelter(String shelterName) {
+        return shelterManager.getShelter(shelterName);
     }
 }

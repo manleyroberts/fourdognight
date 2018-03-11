@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import fourdognight.github.com.casa.model.AbstractUser;
+import fourdognight.github.com.casa.model.Shelter;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -35,16 +35,16 @@ public class ListActivity extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            AbstractUser user = (AbstractUser) bundle.get("Shelter");
-            shelterName.setText(bundle.getString("ShelterName"));
-            capacity.setText(bundle.getString("ShelterInfo"));
-            key.setText(bundle.getString("UniqueKey"));
-            restriction.setText(bundle.getString("Restrictions"));
-            longitude.setText(bundle.getString("Longitude"));
-            latitude.setText(bundle.getString("Latitude"));
-            address.setText(bundle.getString("Address"));
-            special.setText(bundle.getString("Special"));
-            phone.setText(bundle.getString("Phone"));
+            Shelter shelter = (Shelter) bundle.get("Shelter");
+            shelterName.setText(shelter.getShelterName());
+            capacity.setText(shelter.getShelterInfo());
+            key.setText(shelter.getUniqueKey());
+            restriction.setText(shelter.getRestriction());
+            longitude.setText(shelter.getLongitude());
+            latitude.setText(shelter.getLatitude());
+            address.setText(shelter.getAddress());
+            special.setText(shelter.getSpecial());
+            phone.setText(shelter.getPhone());
         }
 
 
