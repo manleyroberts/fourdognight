@@ -23,4 +23,8 @@ class ShelterRestrictionList {
         self.male = male
         self.female = female
     }
+    
+    convenience init() {
+        self.init(children: true, youngAdults: true, adults: true, familiesOnly: false, veteransOnly: false, male: true, female: true)
+    }
 }

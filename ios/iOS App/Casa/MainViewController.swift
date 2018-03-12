@@ -10,7 +10,9 @@ import UIKit
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var shelterListView: UITableView!
     var shelters = ShelterAdapter.getAllShelters()
+    private weak var selectedShelter: Shelter?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return shelters.count
@@ -20,6 +22,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
         cell.textLabel?.text = shelters[indexPath.row].name
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedShelter = shelters[indexPath.row]
+        performSegue(withIdentifier: "shelterDetailSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let shelterDetail = segue.destination as! ShelterDetailViewController
+        shelterDetail.shelter = self.selectedShelter
     }
     
     
@@ -37,6 +49,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.shelterListView.delegate = self
+        self.shelterListView.dataSource = self
     }
 
     override func viewDidAppear(_ animated: Bool) {

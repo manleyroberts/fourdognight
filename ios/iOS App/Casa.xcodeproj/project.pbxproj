@@ -29,6 +29,7 @@
 		7FCFC53D20566142005EEA14 /* ShelterRestrictionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC53C20566141005EEA14 /* ShelterRestrictionList.swift */; };
 		7FCFC53F20566240005EEA14 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC53E20566240005EEA14 /* Location.swift */; };
 		7FCFC54120566720005EEA14 /* homelessshelterdatabase.csv in Resources */ = {isa = PBXBuildFile; fileRef = 7FCFC54020566720005EEA14 /* homelessshelterdatabase.csv */; };
+		7FCFC5432056A5B2005EEA14 /* ShelterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC5422056A5B2005EEA14 /* ShelterDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		7FCFC53C20566141005EEA14 /* ShelterRestrictionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShelterRestrictionList.swift; path = "/Users/jared/Documents/School/CS2340/fourdognight/ios/iOS App/Casa/ShelterRestrictionList.swift"; sourceTree = "<absolute>"; };
 		7FCFC53E20566240005EEA14 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Location.swift; path = "/Users/jared/Documents/School/CS2340/fourdognight/ios/iOS App/Casa/Location.swift"; sourceTree = "<absolute>"; };
 		7FCFC54020566720005EEA14 /* homelessshelterdatabase.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = homelessshelterdatabase.csv; sourceTree = "<group>"; };
+		7FCFC5422056A5B2005EEA14 /* ShelterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				6F72CA54202E6111007FE392 /* Assets.xcassets */,
 				6F72CA56202E6111007FE392 /* LaunchScreen.storyboard */,
 				6F72CA59202E6111007FE392 /* Info.plist */,
+				7FCFC5422056A5B2005EEA14 /* ShelterDetailViewController.swift */,
 			);
 			path = Casa;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 				7FCFC53F20566240005EEA14 /* Location.swift in Sources */,
 				6FDD486E203CCC5500A0AB33 /* RegistrationViewController.swift in Sources */,
 				6F6C784C203F876E009EC7C4 /* MainViewController.swift in Sources */,
+				7FCFC5432056A5B2005EEA14 /* ShelterDetailViewController.swift in Sources */,
 				7F15F3A0205335E800D169F3 /* DatabaseInterfacer.swift in Sources */,
 				7FCFC53B20565B55005EEA14 /* ShelterAdapter.swift in Sources */,
 				6FDD4870203DC95E00A0AB33 /* LoginViewController.swift in Sources */,

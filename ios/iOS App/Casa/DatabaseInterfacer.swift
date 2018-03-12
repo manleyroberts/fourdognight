@@ -42,7 +42,6 @@ class DatabaseInterfacer {
                 var columnData = results.map {
                     String(row[Range($0.range, in: row)!])
                 }
-                let restrictions = processRestrictions(restrictionsString: columnData[columns["Restrictions"]!].lowercased())
                 let location = Location(
                     latitude: Double(columnData[columns["Latitude"]!])!,
                     longitude: Double(columnData[columns["Longitude"]!])!,
@@ -55,7 +54,7 @@ class DatabaseInterfacer {
                     notes: columnData[columns["Special Notes"]!],
                     phone: columnData[columns["Phone Number"]!],
                     location: location,
-                    restrictions: restrictions
+                    restrictionsString: columnData[columns["Restrictions"]!]
                 ))
             } catch let error {
                 print("invalid regex: \(error.localizedDescription)")
@@ -63,42 +62,5 @@ class DatabaseInterfacer {
             }
         }
         return shelters
-    }
-    
-    private static func processRestrictions(restrictionsString: String) -> ShelterRestrictionList {
-        var restrictions: ShelterRestrictionList
-        if (restrictionsString.range(of: "anyone") != nil) {
-            restrictions = ShelterRestrictionList(
-                children: true,
-                youngAdults: true,
-                adults: true,
-                familiesOnly: true,
-                veteransOnly: true,
-                male: true,
-                female: true
-            )
-        } else {
-            restrictions = ShelterRestrictionList(
-                children: restrictionsString.range(of: "children") != nil,
-                youngAdults: restrictionsString.range(of: "young adults") != nil,
-                adults: false,
-                familiesOnly: restrictionsString.range(of: "families") != nil,
-                veteransOnly: restrictionsString.range(of: "veteran") != nil,
-                male: restrictionsString.range(of: "men") != nil && restrictionsString.range(of: "women") == nil, // men is a substring of women
-                female: restrictionsString.range(of: "women") != nil
-            )
-            // Set both genders to true if neither were in the string
-            if (!restrictions.male && !restrictions.female) {
-                restrictions.male = true
-                restrictions.female = true
-            }
-            // Set adults to true if children/young adults not specified
-            if ((!restrictions.children && !restrictions.youngAdults) || restrictions.familiesOnly) {
-                restrictions.children = true
-                restrictions.youngAdults = true
-                restrictions.adults = true
-            }
-        }
-        return restrictions
     }
 }
