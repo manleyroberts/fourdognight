@@ -8,7 +8,20 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var shelters = ShelterAdapter.getAllShelters()
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return shelters.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+        cell.textLabel?.text = shelters[indexPath.row].name
+        return cell
+    }
+    
     
     //MARK: Properties
     @IBOutlet weak var usernameLabel: UILabel!
