@@ -16,7 +16,6 @@
 		6F72CA58202E6111007FE392 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F72CA56202E6111007FE392 /* LaunchScreen.storyboard */; };
 		6F72CA60202E6C9B007FE392 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F72CA5F202E6C9B007FE392 /* Default-568h@2x.png */; };
 		6F7DDD15203B081800B7963F /* UserVerificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7DDD14203B081800B7963F /* UserVerificationModel.swift */; };
-		6F7DDD17203B1CB100B7963F /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6F7DDD16203B1CB000B7963F /* loading.gif */; };
 		6F7DDD1A203B80B600B7963F /* RegistrationScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F7DDD18203B80B600B7963F /* RegistrationScreen.storyboard */; };
 		6FA3628A203E0249000F018D /* AbstractUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA36289203E0249000F018D /* AbstractUser.swift */; };
 		6FA3628C203E5F46000F018D /* Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3628B203E5F46000F018D /* Admin.swift */; };
@@ -24,11 +23,17 @@
 		6FDD486E203CCC5500A0AB33 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDD486D203CCC5500A0AB33 /* RegistrationViewController.swift */; };
 		6FDD4870203DC95E00A0AB33 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDD486F203DC95E00A0AB33 /* LoginViewController.swift */; };
 		6FDD4873203DC98700A0AB33 /* LoginScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FDD4871203DC98700A0AB33 /* LoginScreen.storyboard */; };
+		7F15F3A0205335E800D169F3 /* DatabaseInterfacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F15F39F205335E800D169F3 /* DatabaseInterfacer.swift */; };
+		7F15F3A2205336B300D169F3 /* Shelter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F15F3A1205336B300D169F3 /* Shelter.swift */; };
+		7FCFC53B20565B55005EEA14 /* ShelterCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC53A20565B55005EEA14 /* ShelterCollection.swift */; };
+		7FCFC53D20566142005EEA14 /* ShelterRestrictionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC53C20566141005EEA14 /* ShelterRestrictionList.swift */; };
+		7FCFC53F20566240005EEA14 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC53E20566240005EEA14 /* Location.swift */; };
+		7FCFC54120566720005EEA14 /* homelessshelterdatabase.csv in Resources */ = {isa = PBXBuildFile; fileRef = 7FCFC54020566720005EEA14 /* homelessshelterdatabase.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6F6C784B203F876E009EC7C4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		6F6C784D203F8867009EC7C4 /* MainScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainScreen.storyboard; sourceTree = "<group>"; };
+		6F6C784D203F8867009EC7C4 /* MainScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = MainScreen.storyboard; path = Base.lproj/MainScreen.storyboard; sourceTree = "<group>"; };
 		6F72CA4A202E6111007FE392 /* Casa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Casa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F72CA4D202E6111007FE392 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F72CA4F202E6111007FE392 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -38,7 +43,6 @@
 		6F72CA59202E6111007FE392 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F72CA5F202E6C9B007FE392 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6F7DDD14203B081800B7963F /* UserVerificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVerificationModel.swift; sourceTree = "<group>"; };
-		6F7DDD16203B1CB000B7963F /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = loading.gif; path = ../../../../../../../Downloads/loading.gif; sourceTree = "<group>"; };
 		6F7DDD19203B80B600B7963F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RegistrationScreen.storyboard; sourceTree = "<group>"; };
 		6FA36289203E0249000F018D /* AbstractUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractUser.swift; sourceTree = "<group>"; };
 		6FA3628B203E5F46000F018D /* Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Admin.swift; sourceTree = "<group>"; };
@@ -46,6 +50,13 @@
 		6FDD486D203CCC5500A0AB33 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		6FDD486F203DC95E00A0AB33 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6FDD4872203DC98700A0AB33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LoginScreen.storyboard; sourceTree = "<group>"; };
+		7F15F39F205335E800D169F3 /* DatabaseInterfacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseInterfacer.swift; sourceTree = "<group>"; };
+		7F15F3A1205336B300D169F3 /* Shelter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shelter.swift; sourceTree = "<group>"; };
+		7FCFC53920565AFE005EEA14 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = loading.gif; path = "/Users/jared/Documents/School/CS2340/fourdognight/ios/iOS App/Casa/loading.gif"; sourceTree = "<absolute>"; };
+		7FCFC53A20565B55005EEA14 /* ShelterCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShelterCollection.swift; path = "/Users/jared/Documents/School/CS2340/fourdognight/ios/iOS App/Casa/ShelterCollection.swift"; sourceTree = "<absolute>"; };
+		7FCFC53C20566141005EEA14 /* ShelterRestrictionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShelterRestrictionList.swift; path = "/Users/jared/Documents/School/CS2340/fourdognight/ios/iOS App/Casa/ShelterRestrictionList.swift"; sourceTree = "<absolute>"; };
+		7FCFC53E20566240005EEA14 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Location.swift; path = "/Users/jared/Documents/School/CS2340/fourdognight/ios/iOS App/Casa/Location.swift"; sourceTree = "<absolute>"; };
+		7FCFC54020566720005EEA14 /* homelessshelterdatabase.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = homelessshelterdatabase.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +90,13 @@
 		6F72CA4C202E6111007FE392 /* Casa */ = {
 			isa = PBXGroup;
 			children = (
+				7FCFC54020566720005EEA14 /* homelessshelterdatabase.csv */,
+				7FCFC53E20566240005EEA14 /* Location.swift */,
+				7FCFC53C20566141005EEA14 /* ShelterRestrictionList.swift */,
+				7FCFC53A20565B55005EEA14 /* ShelterCollection.swift */,
+				7FCFC53920565AFE005EEA14 /* loading.gif */,
+				7F15F3A1205336B300D169F3 /* Shelter.swift */,
+				7F15F39F205335E800D169F3 /* DatabaseInterfacer.swift */,
 				6F7DDD14203B081800B7963F /* UserVerificationModel.swift */,
 				6F72CA4D202E6111007FE392 /* AppDelegate.swift */,
 				6FA36289203E0249000F018D /* AbstractUser.swift */,
@@ -94,7 +112,6 @@
 				6F7DDD18203B80B600B7963F /* RegistrationScreen.storyboard */,
 				6F72CA54202E6111007FE392 /* Assets.xcassets */,
 				6F72CA56202E6111007FE392 /* LaunchScreen.storyboard */,
-				6F7DDD16203B1CB000B7963F /* loading.gif */,
 				6F72CA59202E6111007FE392 /* Info.plist */,
 			);
 			path = Casa;
@@ -160,10 +177,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F72CA58202E6111007FE392 /* LaunchScreen.storyboard in Resources */,
+				7FCFC54120566720005EEA14 /* homelessshelterdatabase.csv in Resources */,
 				6F6C784E203F8867009EC7C4 /* MainScreen.storyboard in Resources */,
 				6FDD4873203DC98700A0AB33 /* LoginScreen.storyboard in Resources */,
 				6F72CA60202E6C9B007FE392 /* Default-568h@2x.png in Resources */,
-				6F7DDD17203B1CB100B7963F /* loading.gif in Resources */,
 				6F7DDD1A203B80B600B7963F /* RegistrationScreen.storyboard in Resources */,
 				6F72CA55202E6111007FE392 /* Assets.xcassets in Resources */,
 				6F72CA53202E6111007FE392 /* SplashScreen.storyboard in Resources */,
@@ -180,12 +197,17 @@
 				6FA3628A203E0249000F018D /* AbstractUser.swift in Sources */,
 				6F72CA50202E6111007FE392 /* SplashViewController.swift in Sources */,
 				6F72CA4E202E6111007FE392 /* AppDelegate.swift in Sources */,
+				7F15F3A2205336B300D169F3 /* Shelter.swift in Sources */,
 				6FA3628C203E5F46000F018D /* Admin.swift in Sources */,
 				6FA3628E203E605F000F018D /* User.swift in Sources */,
+				7FCFC53F20566240005EEA14 /* Location.swift in Sources */,
 				6FDD486E203CCC5500A0AB33 /* RegistrationViewController.swift in Sources */,
 				6F6C784C203F876E009EC7C4 /* MainViewController.swift in Sources */,
+				7F15F3A0205335E800D169F3 /* DatabaseInterfacer.swift in Sources */,
+				7FCFC53B20565B55005EEA14 /* ShelterCollection.swift in Sources */,
 				6FDD4870203DC95E00A0AB33 /* LoginViewController.swift in Sources */,
 				6F7DDD15203B081800B7963F /* UserVerificationModel.swift in Sources */,
+				7FCFC53D20566142005EEA14 /* ShelterRestrictionList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
