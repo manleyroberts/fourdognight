@@ -30,8 +30,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let shelterDetail = segue.destination as! ShelterDetailViewController
-        shelterDetail.shelter = self.selectedShelter
+        if (segue.identifier == "shelterDetailSegue") {
+            let shelterDetail = segue.destination as! ShelterDetailViewController
+            shelterDetail.shelter = self.selectedShelter
+        }
     }
     
     
