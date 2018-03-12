@@ -1,5 +1,7 @@
 package fourdognight.github.com.casa.model;
 
+import android.graphics.ColorSpace;
+
 import fourdognight.github.com.casa.LoginActivity;
 import fourdognight.github.com.casa.MainScreenActivity;
 import fourdognight.github.com.casa.RegistrationActivity;
@@ -11,6 +13,7 @@ import fourdognight.github.com.casa.RegistrationActivity;
 public class ModelFacade {
     private UserVerificationModel userVerificationModel;
     private ShelterManager shelterManager;
+    static ModelFacade model = new ModelFacade();
 
     public ModelFacade() {
         userVerificationModel = new UserVerificationModel();
@@ -25,7 +28,15 @@ public class ModelFacade {
     public void attemptRegistration(RegistrationActivity instance, String name, String username, String password, boolean isAdmin) {
         userVerificationModel.attemptRegistration(instance, name, username, password, isAdmin);
     }
-    public Shelter getShelter(String shelterName) {
-        return shelterManager.getShelter(shelterName);
+    public Shelter getShelter(int uniqueKey) {
+        return shelterManager.getShelter(uniqueKey);
+    }
+
+    public static ModelFacade getInstance() {
+        return model;
+    }
+
+    public boolean updateVacancy(Shelter shelter, User user, int bedsHeld) {
+        return shelterManager.updateVacancy(shelter, user, bedsHeld);
     }
 }

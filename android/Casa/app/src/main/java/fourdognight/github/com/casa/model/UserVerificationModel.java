@@ -48,7 +48,7 @@ public class UserVerificationModel {
         if (isAdmin) {
             heldUser = new Admin(name, username, password);
         } else {
-            heldUser = new User(name, username, password);
+            heldUser = new User(name, username, password, -1, -1);
         }
         firebaseInterfacer.attemptRegistration(this, username);
     }

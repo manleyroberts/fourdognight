@@ -19,4 +19,6 @@
     <string name="title_activity_title_screen">TitleScreen</string>
     <string name="title_activity_login2">Sign</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="error_held_beds_elsewhere">You hold beds elsewhere, and cannot stay here without releasing those beds.</string>
+    <string name="error_wrong_bed_number">You can\'t reserve that number of beds.</string>
 </resources>
