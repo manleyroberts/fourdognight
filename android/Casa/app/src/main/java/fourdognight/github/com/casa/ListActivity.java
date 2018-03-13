@@ -1,8 +1,10 @@
 package fourdognight.github.com.casa;
 
 import android.content.Intent;
+import android.graphics.ColorSpace;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.View;
@@ -68,17 +70,22 @@ public class ListActivity extends AppCompatActivity {
             final Button button = findViewById(R.id.updateVacancyButton);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    ModelFacade model = ModelFacade.getInstance();
                     if (user instanceof User) {
                         selfReport.setError(null);
-                        int intendedBeds = Integer.parseInt(selfReport.getText().toString());
-                        if (((User) user).getCurrentShelter() != null
-                                && ((User) user).getCurrentShelter().getUniqueKey()
-                                != shelter.getUniqueKey() && ((User) user).getHeldBeds() > 0) {
+                        Editable text = selfReport.getText();
+                        int intendedBeds;
+                        if (text.toString().isEmpty()) {
+                            intendedBeds = 0;
+                        } else {
+                            intendedBeds = Integer.parseInt(text.toString());
+                        }
+                        if (!((User) user).canStayAt(shelter)) {
                             selfReport.setError(getString(R.string.error_held_beds_elsewhere));
                             selfReport.requestFocus();
-                        } else if (TextUtils.isEmpty(selfReport.getText()) || intendedBeds < 0 ||
-                                !ModelFacade.getInstance().updateVacancy(shelter, (User) user,
-                                        Integer.parseInt(selfReport.getText().toString()))) {
+                        } else if (TextUtils.isEmpty(text) || intendedBeds < 0 ||
+                                !model.updateVacancy(shelter, (User) user,
+                                        Integer.parseInt(text.toString()))) {
                             selfReport.setError(getString(R.string.error_wrong_bed_number));
                             selfReport.requestFocus();
                         } else {
@@ -89,6 +96,7 @@ public class ListActivity extends AppCompatActivity {
                             finish();
                         }
                     }
+
                 }
             });
         }

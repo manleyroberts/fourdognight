@@ -3,7 +3,11 @@ package fourdognight.github.com.casa.model;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by manle on 3/10/2018.
@@ -20,7 +24,7 @@ public class Shelter implements Serializable{
     private String address;
     private String special;
     private String phone;
-    private List<User> currentPatrons;
+    private List<String> currentPatrons;
 
     public String getShelterName() {
         return shelterName;
@@ -62,12 +66,12 @@ public class Shelter implements Serializable{
         return phone;
     }
 
-    public List<User> getCurrentPatrons() {
+    List<String> getCurrentPatrons() {
         return currentPatrons;
     }
 
     public Shelter (int uniqueKey, String shelterName, int capacity, int vacancy, String restriction, double longitude,
-                    double latitude, String address, String special, String phone, List<User> currentPatrons) {
+                    double latitude, String address, String special, String phone, List<String> newPatrons) {
         this.shelterName = shelterName;
         this.capacity = capacity;
         this.vacancy = vacancy;
@@ -78,10 +82,30 @@ public class Shelter implements Serializable{
         this.address = address;
         this.special = special;
         this.phone = phone;
-        this.currentPatrons = currentPatrons;
+        this.currentPatrons = new LinkedList<>();
+        for (String user : newPatrons) {
+            this.currentPatrons.add(user);
+        }
+
     }
 
-    public void removePatron(User user) {
-        currentPatrons.remove(user);
+    void addPatron(User user) {
+        currentPatrons.add(user.getUsername());
+    }
+
+    void removePatron(User user) {
+        if (currentPatrons.contains(user.getUsername())) {
+            currentPatrons.remove(user.getUsername());
+        }
+    }
+
+    @Override
+    public String toString() {
+        return shelterName + " " + restriction + " " + address + " " + special + " " + phone
+                + " ";
+    }
+
+    public boolean containsText(String text) {
+        return toString().contains(text);
     }
 }

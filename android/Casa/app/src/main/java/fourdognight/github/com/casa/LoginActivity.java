@@ -39,10 +39,14 @@ public class LoginActivity extends AppCompatActivity {
     private View mProgressView;
     private View mSuccessText;
 
+    private ModelFacade model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        model = ModelFacade.getInstance();
 
         mPasswordView = findViewById(R.id.passwordField);
         mUsernameView = findViewById(R.id.usernameField);
@@ -116,7 +120,8 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            ModelFacade.getInstance().attemptLogin(this, email, password);
+            Log.d("Login", "Task fired");
+            model.attemptLogin(this, email, password);
 //            mAuthTask = new UserLoginTask(email, password);
 //            mAuthTask.execute((Void) null);
         }

@@ -7,14 +7,15 @@ import android.view.Display;
  */
 
 public class User extends AbstractUser {
-    private Shelter currentShelter;
+    private transient Shelter currentShelter;
+    private int currentShelterUniqueKey;
     private int heldBeds;
 //    private boolean locked;
 
     public User(String name, String username, String password, int currentShelterUniqueKey, int heldBeds) {
         super(name, username, password);
-        setCurrentShelter(currentShelterUniqueKey);
-        setHeldBeds(heldBeds);
+        this.currentShelterUniqueKey = currentShelterUniqueKey;
+        setCurrentStatus(currentShelterUniqueKey, heldBeds);
     }
 
     public Shelter getCurrentShelter() {
@@ -25,11 +26,36 @@ public class User extends AbstractUser {
         return heldBeds;
     }
 
-    public void setCurrentShelter(int newShelterUniqueKey) {
-        this.currentShelter = ModelFacade.getInstance().getShelter(newShelterUniqueKey);
+    void setCurrentStatus(int newShelterUniqueKey, int heldBeds) {
+        ModelFacade model = ModelFacade.getInstance();
+        this.currentShelter = model.getShelter(newShelterUniqueKey);
+        this.currentShelterUniqueKey = newShelterUniqueKey;
+        this.heldBeds = heldBeds;
+        pushUserChanges();
     }
 
-    public void setHeldBeds(int heldBeds) {
-        this.heldBeds = heldBeds;
+    void releaseCurrentShelter() {
+        if (currentShelter != null) {
+            currentShelter.removePatron(this);
+        }
+        currentShelter = null;
+        heldBeds = 0;
+    }
+
+    public boolean canStayAt(Shelter shelter) {
+        return currentShelter == null || (currentShelter.getUniqueKey()
+                == shelter.getUniqueKey()) || heldBeds == 0;
+    }
+
+    int getCurrentShelterUniqueKey() {
+        return currentShelterUniqueKey;
+    }
+
+    void pushUserChanges() {
+        super.pushUserChanges();
+        ShelterManager manager = ShelterManager.getInstance();
+        manager.refactorVacancy(currentShelter);
+        UserVerificationModel model = UserVerificationModel.getInstance();
+        model.updateUserList(this);
     }
 }
