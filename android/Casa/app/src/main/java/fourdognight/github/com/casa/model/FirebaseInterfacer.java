@@ -153,50 +153,11 @@ public class FirebaseInterfacer {
         myRef.updateChildren(updatedUsers);
     }
 
-//    void updateVacancy(Shelter shelter, User user, int bedsHeld) {
-//        DatabaseReference myRef = database.getReference("userList/" + user.getUsername());
-//        Map<String, Object> updatedEntries = new HashMap<>();
-//
-//        updatedEntries.put("heldBeds", bedsHeld);
-//        updatedEntries.put("currentShelterUniqueKey", shelter.getUniqueKey());
-//        myRef.updateChildren(updatedEntries);
-//
-//        myRef = database.getReference("shelterList/" + shelter.getUniqueKey());
-//        updatedEntries.clear();
-//        List<String> shelterPatrons = shelter.getCurrentPatrons();
-//        shelterPatrons.add(user.getUsername());
-//        updatedEntries.put("currentPatrons", shelterPatrons);
-//        updatedEntries.put("vacancy", shelter.getVacancy() - bedsHeld);
-//        myRef.updateChildren(updatedEntries);
-//    }
-
     void refactorVacancy(final Shelter shelter, final List<String> users, final int newVacancy) {
         final DatabaseReference myRef = database.getReference("shelterList/" + shelter.getUniqueKey());
-//        myRef.addListenerForSingleValueEvent((new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot subSnapshot : dataSnapshot.getChildren()) {
-//                    Task task = subSnapshot.getRef().removeValue();
-//                    task.addOnCompleteListener(new OnCompleteListener() {
-//                        @Override
-//                        public void onComplete(@NonNull Task task) {
                             Map<String, Object> updatedEntries = new HashMap<>();
-//                            for (String user : users) {
-//
-//                                updatedEntries.put("currentPatrons", user);
-//                            }
                             updatedEntries.put("vacancy", newVacancy);
                             myRef.updateChildren(updatedEntries);
-//                            Log.d("Vacancy", shelter.getCurrentPatrons().toString());
-//                        }
-//                    });
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.d("Firebase", "Error refactoring vacancy.");
-//            }
-//        }));
     }
 
     static FirebaseInterfacer getInstance() {
