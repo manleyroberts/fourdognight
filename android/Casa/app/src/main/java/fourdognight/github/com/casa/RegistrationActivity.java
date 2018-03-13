@@ -128,7 +128,6 @@ public class RegistrationActivity extends AppCompatActivity {
             cancel = true;
         }
 
-        ModelFacade model = new ModelFacade();
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -138,7 +137,7 @@ public class RegistrationActivity extends AppCompatActivity {
             // perform the user login attempt.
             taskActive = true;
             showProgress(true);
-            model.attemptRegistration(getInstance(), name, email, password, isAdmin);
+            ModelFacade.getInstance().attemptRegistration(getInstance(), name, email, password, isAdmin);
 //            mAuthTask = new UserRegistrationTask(name, email, password, isAdmin);
 //            mAuthTask.execute((Void) null);
         }

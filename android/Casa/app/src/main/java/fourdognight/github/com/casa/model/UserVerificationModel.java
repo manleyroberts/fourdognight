@@ -1,8 +1,9 @@
 package fourdognight.github.com.casa.model;
 
-import android.util.Log;
-
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import fourdognight.github.com.casa.LoginActivity;
 import fourdognight.github.com.casa.RegistrationActivity;
 
@@ -10,23 +11,26 @@ import fourdognight.github.com.casa.RegistrationActivity;
  * Created by manle on 2/12/2018.
  */
 
-public class UserVerificationModel {
-    private static HashMap<String, AbstractUser> userList = new HashMap<>();
-    private FirebaseInterfacer firebaseInterfacer;
+public class UserVerificationModel{
+    private FirebaseInterfacer firebaseInterfacer = FirebaseInterfacer.getInstance();
     private String heldUsername;
     private String heldPassword;
     private LoginActivity heldLogin;
     private RegistrationActivity heldRegistration;
     private AbstractUser heldUser;
+    private Map<String, AbstractUser> users;
+
+    private static UserVerificationModel instance = new UserVerificationModel();
 
     public UserVerificationModel() {
-        firebaseInterfacer = new FirebaseInterfacer();
+        users = new HashMap<>();
+        firebaseInterfacer.getUserData(this);
     }
 
     void loadUserLogin(AbstractUser loadedUser) {
         if (loadedUser == null) {
             heldLogin.completeLogin(null);
-        } else if (loadedUser.getUsername().equals(heldUsername) && loadedUser.getPassword().equals(heldPassword)) {
+        } else if (loadedUser.usernameMatches(heldUsername) && loadedUser.authenticate(heldPassword)) {
             heldLogin.completeLogin(loadedUser);
         } else {
             heldLogin.completeLogin(null);
@@ -34,7 +38,7 @@ public class UserVerificationModel {
     }
 
     void createNewUser() {
-        firebaseInterfacer.addNewUser(heldUser);
+        firebaseInterfacer.updateUser(heldUser);
         heldRegistration.completeRegistrationSuccess();
     }
 
@@ -48,7 +52,7 @@ public class UserVerificationModel {
         if (isAdmin) {
             heldUser = new Admin(name, username, password);
         } else {
-            heldUser = new User(name, username, password);
+            heldUser = new User(name, username, password, -1, 0);
         }
         firebaseInterfacer.attemptRegistration(this, username);
     }
@@ -58,5 +62,27 @@ public class UserVerificationModel {
         heldUsername = username;
         heldPassword = password;
         firebaseInterfacer.attemptLogin(this, username);
+    }
+
+    AbstractUser findUserByUsername(String username) {
+        return users.get(username);
+    }
+
+    void updateUserList(List<AbstractUser> list) {
+        for (AbstractUser user : list) {
+            updateUserList(user);
+        }
+    }
+
+    void updateUserList(AbstractUser user) {
+        users.put(user.getUsername(), user);
+    }
+
+    void pushUserChanges(AbstractUser user) {
+        firebaseInterfacer.updateUser(user);
+    }
+
+    static UserVerificationModel getInstance() {
+        return instance;
     }
 }

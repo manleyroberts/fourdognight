@@ -1,5 +1,9 @@
 package fourdognight.github.com.casa.model;
 
+import android.support.design.widget.BaseTransientBottomBar;
+
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 
 /**
@@ -10,6 +14,9 @@ public abstract class AbstractUser implements Serializable {
     private String name;
     private String username;
     private String password;
+
+    private transient final UserVerificationModel userVerificationModel = UserVerificationModel.getInstance();
+
 
     public AbstractUser(String name, String username, String password) {
         this.name = name;
@@ -39,5 +46,14 @@ public abstract class AbstractUser implements Serializable {
 
     boolean authenticate(String password) {
         return password.equals(this.password);
+    }
+
+    boolean usernameMatches(String username) {
+        return this.username.equals(username);
+    }
+
+    void pushUserChanges() {
+        UserVerificationModel model = UserVerificationModel.getInstance();
+        model.pushUserChanges(this);
     }
 }
