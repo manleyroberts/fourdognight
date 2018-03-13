@@ -7,7 +7,8 @@
 //
 
 class UserVerificationModel {
-    private static var user_list: [String: AbstractUser] = [:]
+    private static var user_list: [String: AbstractUser] = DatabaseInterfacer.getUsers()
+    
     static func attemptRegistration(name: String, username: String, password: String, isAdmin: Bool) -> Bool {
         if let _ = user_list[username] {
             return false

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Casa</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h3>Advanced Search</h3>
+    <form id="searchForm" onsubmit="return search()">
+      <input type="text" placeholder="Search..." name="query">
+      <ul id="resultList"></ul>
+      <div class="container">
+        <button onclick="window.location = '/asearch.html'">Clear</button>
+        <button type="submit">Search</button>
+      </div>
+      <button onclick="window.location = '/mainpage.html'">Back</button>
+    </form>
+  </div>
+</body>
+<script>
+  function search() {
+    var form = document.getElementById('searchForm');
+    var formRequest = new XMLHttpRequest();
+    formRequest.onreadystatechange = function() {
+      if (formRequest.readyState == 4) {
+        if (formRequest.status == 200) {
+          document.getElementById('resultList').innerHTML = formRequest.responseText;
+        }
+      }
+    }
+    formRequest.open("POST", "/asearch", true);
+    formRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    formRequest.send("query=" + form.query.value);
+    return false;
+  }
+</script>
+<script>
+  function displayShelter(shelter) {
+    sessionStorage.shelter = shelter;
+    window.location = "/shelter.html";
+  }
+</script>
+</html>
