@@ -12,29 +12,57 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+
+import fourdognight.github.com.casa.model.AbstractUser;
+import fourdognight.github.com.casa.model.ModelFacade;
+import fourdognight.github.com.casa.model.Shelter;
+import fourdognight.github.com.casa.model.User;
 
 
 public class SearchActivity extends AppCompatActivity {
-    final List<String> shelters = new ArrayList<>();
+    List<Shelter> shelters;
     List<String> result = new ArrayList<>();
     Toolbar toolbar;
     EditText search;
     Button button;
     String input;
+    ModelFacade model;
+    AbstractUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        model = ModelFacade.getInstance();
         search = findViewById(R.id.editText4);
 
-        getSupportActionBar().setTitle("Advanced Search");
-        for (int i = 0; i < MainScreenActivity.results.size(); i++) {
-            shelters.add(MainScreenActivity.results.get(i));
+        model.getShelterData(this);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            user = (AbstractUser) bundle.get("User");
         }
+
+        Button clear = findViewById(R.id.button2);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                result.clear();
+                ListView listview = findViewById(R.id.SearchV);
+                ArrayAdapter adapter = new ArrayAdapter<>(SearchActivity.this,R.layout.searchlist, result);
+                listview.setAdapter(adapter);
+                listview.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    public void reload(final List<Shelter> shelters) {
+        getSupportActionBar().setTitle("Advanced Search");
 
         // creates the list upon a click of the button
         button = findViewById(R.id.button);
@@ -52,17 +80,10 @@ public class SearchActivity extends AppCompatActivity {
             if (input.contains("with")) {
                 input.replaceAll("with","w/");
             }
-            int count = 1;
             final List<Integer> index = new ArrayList<>();
-            for (int i = 0; i < shelters.size(); i++) {
-                if (shelters.get(i).contains(input) || shelters.get(i).equalsIgnoreCase(input)) {
-                    if (!result.contains(shelters.get(count))) {
-                        result.add(shelters.get(count));
-                        index.add(count);
-                    }
-                }
-                if ( i % 9 == 0 && i > 0) {
-                    count += 9;
+            for (Shelter shelter : shelters) {
+                if (shelter.containsText(input)) {
+                    result.add(shelter.getShelterName());
                 }
             }
 
@@ -74,36 +95,16 @@ public class SearchActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(SearchActivity.this, fourdognight.github.com.casa.ListActivity.class);
-                intent.putExtra("ShelterName", listview.getItemAtPosition(i).toString());
-                intent.putExtra("ShelterInfo", shelters.get(index.get(i) + 1));
-                intent.putExtra("UniqueKey", shelters.get(index.get(i) - 1));
-                intent.putExtra("Restrictions", shelters.get(index.get(i) + 2));
-                intent.putExtra("Longitude", shelters.get(index.get(i) + 3));
-                intent.putExtra("Latitude", shelters.get(index.get(i) + 4));
-                intent.putExtra("Address", shelters.get(index.get(i) + 5));
-                intent.putExtra("Special", shelters.get(index.get(i) + 6));
-                intent.putExtra("Phone", shelters.get(index.get(i) + 7));
+                intent.putExtra("Shelter", shelters.get(i));
+                intent.putExtra("User", user);
                 startActivity(intent);
                 }
             });
             }
         });
-        //Clears the list
-        Button clear = findViewById(R.id.button2);
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            result.clear();
-            ListView listview = findViewById(R.id.SearchV);
-            ArrayAdapter adapter = new ArrayAdapter<>(SearchActivity.this,R.layout.searchlist, result);
-            listview.setAdapter(adapter);
-            listview.setVisibility(View.VISIBLE);
-            }
-        });
-
-
-
-
     }
 
+    private SearchActivity getInstance() {
+        return this;
+    }
 }
