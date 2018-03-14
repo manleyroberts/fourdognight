@@ -2,8 +2,10 @@ package fourdognight.github.com.casa.model;
 
 import android.util.Log;
 
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,16 +20,21 @@ import fourdognight.github.com.casa.MainScreenActivity;
  */
 
 public class ShelterManager {
-    private FirebaseInterfacer firebaseInterfacer = FirebaseInterfacer.getInstance();
+    private FirebaseInterfacer firebaseInterfacer;
     private HashMap<Integer, Shelter> shelterList;
     private ModelFacade model;
-    private UserVerificationModel userModel = UserVerificationModel.getInstance();
+    private UserVerificationModel userModel;
 
     static private ShelterManager instance = new ShelterManager();
 
     ShelterManager() {
-        userModel = UserVerificationModel.getInstance();
         shelterList = new HashMap<>();
+    }
+
+    void init() {
+        firebaseInterfacer = FirebaseInterfacer.getInstance();
+        userModel = UserVerificationModel.getInstance();
+        firebaseInterfacer.init();
     }
 
     public void addShelter(Shelter shelter) {
@@ -40,10 +47,11 @@ public class ShelterManager {
 
     void getShelterData(ModelFacade model) {
         this.model = model;
-        firebaseInterfacer.getShelterData(this);
+        firebaseInterfacer.getShelterData();
     }
 
     void reload(List<Shelter> results) {
+        shelterList.clear();
         final List<String> sheltersDisplay = new ArrayList<>();
         for (int i = 0; i < results.size(); i++) {
             shelterList.put(results.get(i).getUniqueKey(), results.get(i));
@@ -54,28 +62,27 @@ public class ShelterManager {
 
     void refactorVacancy(Shelter shelter) {
         if (shelter != null) {
-            List<String> oldPatrons = shelter.getCurrentPatrons();
-            List<User> patrons = new LinkedList<>();
+//            List<String> oldPatrons = shelter.getCurrentPatrons();
+//
             int newVacancy = shelter.getCapacity();
-            for (String patron : oldPatrons) {
-                User user;
-                if (userModel.findUserByUsername(patron) != null) {
-                    Log.d("Refactor", "" + userModel.toString());
-                    user = (User) userModel.findUserByUsername(patron);
-                    if (user.getCurrentShelterUniqueKey() == shelter.getUniqueKey()) {
-                        patrons.add(user);
-                        Log.d("Refactor", "" + user.getHeldBeds());
-                    }
-                }
-            }
+//            for (String patron : oldPatrons) {
+//                User user;
+//                if (userModel.findUserByUsername(patron) != null) {
+//                    Log.d("Refactor", "" + userModel.toString());
+//                    user = (User) userModel.findUserByUsername(patron);
+//                    if (user.getCurrentShelterUniqueKey() == shelter.getUniqueKey()) {
+//                        patrons.add(user);
+//                        Log.d("Refactor", "" + user.getHeldBeds());
+//                    }
+//                }
+//            }
 
-            List<String> outputPatrons = new LinkedList<String>();
+            List<User> patrons = userModel.usersAtShelter(shelter);
             for (User patron : patrons) {
                 newVacancy -= patron.getHeldBeds();
-                outputPatrons.add(patron.getUsername());
             }
             Log.d("Refactor", "" + newVacancy);
-            firebaseInterfacer.refactorVacancy(shelter, outputPatrons, newVacancy);
+            firebaseInterfacer.refactorVacancy(shelter, newVacancy);
         }
     }
 

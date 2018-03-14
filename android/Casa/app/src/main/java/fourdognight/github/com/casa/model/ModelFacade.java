@@ -3,6 +3,7 @@ package fourdognight.github.com.casa.model;
 import android.graphics.ColorSpace;
 import android.support.v7.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import fourdognight.github.com.casa.LoginActivity;
@@ -17,20 +18,25 @@ import fourdognight.github.com.casa.SearchActivity;
 public class ModelFacade {
     private UserVerificationModel userVerificationModel;
     private ShelterManager shelterManager;
-    static ModelFacade model = new ModelFacade();
+    private static ModelFacade model = new ModelFacade();
     private MainScreenActivity mainScreenActivity;
     private SearchActivity searchActivity;
 
-    public ModelFacade() {
+    private ModelFacade() {    }
+
+    public void init() {
         userVerificationModel = UserVerificationModel.getInstance();
         shelterManager = ShelterManager.getInstance();
+        userVerificationModel.init();
+        shelterManager.init();
     }
+
     public void getShelterData(MainScreenActivity instance) {
-        mainScreenActivity = instance;
+        this.mainScreenActivity = instance;
         shelterManager.getShelterData(this);
     }
     public void getShelterData(SearchActivity instance) {
-        searchActivity = instance;
+        this.searchActivity = instance;
         shelterManager.getShelterData(this);
     }
     public void attemptLogin(LoginActivity instance, String username, String password) {
@@ -55,5 +61,13 @@ public class ModelFacade {
         if (mainScreenActivity != null) {
             mainScreenActivity.reload(sheltersDisplay);
         }
+    }
+
+    public void setCurrentUser (AbstractUser user) {
+        userVerificationModel.setCurrentUser(user);
+    }
+
+    public AbstractUser getCurrentUser() {
+        return userVerificationModel.getCurrentUser();
     }
 }

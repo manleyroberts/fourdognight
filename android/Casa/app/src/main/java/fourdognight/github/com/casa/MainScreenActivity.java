@@ -45,13 +45,17 @@ public class MainScreenActivity extends AppCompatActivity {
     private TextView mUsernameView;
     public static List<String> results;
     private ArrayAdapter adapter;
-    private ModelFacade model = ModelFacade.getInstance();
+    private ModelFacade model;
     private AbstractUser user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        model = ModelFacade.getInstance();
+        model.init();
+
         setContentView(R.layout.activity_main_screen);
         final Button button = findViewById(R.id.logOutButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +65,7 @@ public class MainScreenActivity extends AppCompatActivity {
         });
 
         mUsernameView = findViewById(R.id.mainScreenUsernameField);
-        user = (AbstractUser) getIntent().getExtras().get("currentUser");
+        user = model.getCurrentUser();
         String topText = user.getName();
         topText += " | " + user.getUsername();
         if (user instanceof Admin) {
@@ -106,7 +110,6 @@ public class MainScreenActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainScreenActivity.this, fourdognight.github.com.casa.ListActivity.class);
                 Shelter shelter = model.getShelter(i);
                 intent.putExtra("Shelter", shelter);
-                intent.putExtra("User", user);
                 startActivity(intent);
             }
         });
@@ -116,7 +119,6 @@ public class MainScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainScreenActivity.this, SearchActivity.class);
-                intent.putExtra("User", user);
                 startActivity(intent);
             }
         });

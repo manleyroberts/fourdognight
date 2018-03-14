@@ -16,6 +16,7 @@ import fourdognight.github.com.casa.model.AbstractUser;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 import fourdognight.github.com.casa.model.User;
+import fourdognight.github.com.casa.model.UserVerificationModel;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -51,7 +52,9 @@ public class ListActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             final Shelter shelter = (Shelter) bundle.get("Shelter");
-            final AbstractUser user = (AbstractUser) bundle.get("User");
+
+            final ModelFacade model = ModelFacade.getInstance();
+            final AbstractUser user = model.getCurrentUser();
             shelterName.setText(shelter.getShelterName());
             capacity.setText(String.format("%d", shelter.getCapacity()));
             key.setText(String.format("%d", shelter.getUniqueKey()));
@@ -70,7 +73,7 @@ public class ListActivity extends AppCompatActivity {
             final Button button = findViewById(R.id.updateVacancyButton);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    ModelFacade model = ModelFacade.getInstance();
+                    model.init();
                     if (user instanceof User) {
                         selfReport.setError(null);
                         Editable text = selfReport.getText();
@@ -91,7 +94,6 @@ public class ListActivity extends AppCompatActivity {
                         } else {
                             Intent intent = new Intent(ListActivity.this, fourdognight.github.com.casa.ListActivity.class);
                             intent.putExtra("Shelter", shelter);
-                            intent.putExtra("User", user);
                             startActivity(intent);
                             finish();
                         }

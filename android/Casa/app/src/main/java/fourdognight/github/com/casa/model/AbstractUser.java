@@ -15,10 +15,12 @@ public abstract class AbstractUser implements Serializable {
     private String username;
     private String password;
 
-    private transient final UserVerificationModel userVerificationModel = UserVerificationModel.getInstance();
+    @Exclude
+    protected UserVerificationModel userVerificationModel;
 
 
     public AbstractUser(String name, String username, String password) {
+        userVerificationModel = UserVerificationModel.getInstance();
         this.name = name;
         this.username = username;
         this.password = password;
@@ -53,7 +55,7 @@ public abstract class AbstractUser implements Serializable {
     }
 
     void pushUserChanges() {
-        UserVerificationModel model = UserVerificationModel.getInstance();
-        model.pushUserChanges(this);
+        userVerificationModel.updateUserList(this);
+        userVerificationModel.pushUserChanges();
     }
 }

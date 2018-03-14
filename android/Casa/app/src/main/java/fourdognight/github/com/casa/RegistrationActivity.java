@@ -40,10 +40,14 @@ public class RegistrationActivity extends AppCompatActivity {
     private View mNameTextView;
     private Switch mAdminSwitchView;
 
+    private ModelFacade model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        model = ModelFacade.getInstance();
 
         mPasswordView = findViewById(R.id.regPasswordField);
         mUsernameView = findViewById(R.id.regUsernameField);
@@ -137,7 +141,7 @@ public class RegistrationActivity extends AppCompatActivity {
             // perform the user login attempt.
             taskActive = true;
             showProgress(true);
-            ModelFacade.getInstance().attemptRegistration(getInstance(), name, email, password, isAdmin);
+            model.attemptRegistration(getInstance(), name, email, password, isAdmin);
 //            mAuthTask = new UserRegistrationTask(name, email, password, isAdmin);
 //            mAuthTask.execute((Void) null);
         }

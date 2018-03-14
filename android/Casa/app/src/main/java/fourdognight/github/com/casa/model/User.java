@@ -1,19 +1,25 @@
 package fourdognight.github.com.casa.model;
 
+import android.util.Log;
 import android.view.Display;
+
+import com.google.firebase.database.Exclude;
 
 /**
  * Created by manle on 2/19/2018.
  */
 
 public class User extends AbstractUser {
-    private transient Shelter currentShelter;
+    private Shelter currentShelter;
     private int currentShelterUniqueKey;
     private int heldBeds;
+    @Exclude
+    private ShelterManager manager;
 //    private boolean locked;
 
-    public User(String name, String username, String password, int currentShelterUniqueKey, int heldBeds) {
+    User(String name, String username, String password, int currentShelterUniqueKey, int heldBeds) {
         super(name, username, password);
+        manager = ShelterManager.getInstance();
         this.currentShelterUniqueKey = currentShelterUniqueKey;
         setCurrentStatus(currentShelterUniqueKey, heldBeds);
     }
@@ -27,8 +33,7 @@ public class User extends AbstractUser {
     }
 
     void setCurrentStatus(int newShelterUniqueKey, int heldBeds) {
-        ModelFacade model = ModelFacade.getInstance();
-        this.currentShelter = model.getShelter(newShelterUniqueKey);
+        this.currentShelter = manager.getShelter(newShelterUniqueKey);
         this.currentShelterUniqueKey = newShelterUniqueKey;
         this.heldBeds = heldBeds;
         pushUserChanges();
@@ -38,8 +43,11 @@ public class User extends AbstractUser {
         if (currentShelter != null) {
             currentShelter.removePatron(this);
         }
-        currentShelter = null;
         heldBeds = 0;
+        pushUserChanges();
+        currentShelterUniqueKey = -1;
+        currentShelter = null;
+        pushUserChanges();
     }
 
     public boolean canStayAt(Shelter shelter) {
@@ -52,10 +60,10 @@ public class User extends AbstractUser {
     }
 
     void pushUserChanges() {
-        super.pushUserChanges();
-        ShelterManager manager = ShelterManager.getInstance();
+
+        Log.d("Vacancy", manager == null ? "YES" : "NOT");
         manager.refactorVacancy(currentShelter);
-        UserVerificationModel model = UserVerificationModel.getInstance();
-        model.updateUserList(this);
+        userVerificationModel.updateUserList(this);
+        super.pushUserChanges();
     }
 }

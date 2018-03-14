@@ -43,10 +43,7 @@ public class SearchActivity extends AppCompatActivity {
 
         model.getShelterData(this);
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            user = (AbstractUser) bundle.get("User");
-        }
+        user = model.getCurrentUser();
 
         Button clear = findViewById(R.id.button2);
         clear.setOnClickListener(new View.OnClickListener() {

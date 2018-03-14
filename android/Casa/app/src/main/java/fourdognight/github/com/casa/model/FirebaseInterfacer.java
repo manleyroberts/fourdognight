@@ -26,15 +26,23 @@ import java.util.Set;
  */
 
 public class FirebaseInterfacer {
-    List<Shelter> results;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    static FirebaseInterfacer instance = new FirebaseInterfacer();
+    private List<Shelter> results;
+    private FirebaseDatabase database;
+    private ShelterManager shelterManager;
+    private UserVerificationModel userVerificationModel;
+    private static FirebaseInterfacer instance = new FirebaseInterfacer();
 
-    public FirebaseInterfacer() {
+    private FirebaseInterfacer() {
         results = new LinkedList<Shelter>();
+        database = FirebaseDatabase.getInstance();
     }
 
-    void getShelterData(final ShelterManager instance) {
+    void init() {
+        shelterManager = ShelterManager.getInstance();
+        userVerificationModel = UserVerificationModel.getInstance();
+    }
+
+    void getShelterData() {
         DatabaseReference myRef = database.getReference("shelterList");
 
         myRef.addValueEventListener(new ValueEventListener() {
@@ -58,7 +66,7 @@ public class FirebaseInterfacer {
                             currentPatrons);
                     results.add(next);
                 }
-                instance.reload(results);
+                shelterManager.reload(results);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -67,7 +75,7 @@ public class FirebaseInterfacer {
         });
     }
 
-    void getUserData(final UserVerificationModel instance) {
+    void getUserData() {
         DatabaseReference myRef = database.getReference("userList");
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -83,7 +91,7 @@ public class FirebaseInterfacer {
                             ((Long) map.get("heldBeds")).intValue());
                     list.add(loadedUser);
                 }
-                instance.updateUserList(list);
+                userVerificationModel.updateUserList(list);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -92,7 +100,7 @@ public class FirebaseInterfacer {
         });
     }
 
-    void attemptLogin(final UserVerificationModel instance, final String username) {
+    void attemptLogin(final String username) {
         DatabaseReference myRef = database.getReference("userList/" + username);
 
 
@@ -100,7 +108,7 @@ public class FirebaseInterfacer {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null) {
-                    instance.loadUserLogin(null);
+                    userVerificationModel.loadUserLogin(null);
                 } else {
                     HashMap<String, Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
                     Log.d("Vacancy", (map.get("isAdmin") == null) ? "NULL" : "NOTNULL");
@@ -108,7 +116,7 @@ public class FirebaseInterfacer {
                             : new User((String) map.get("name"), (String) map.get("username"),
                             (String) map.get("password"), ((Long) map.get("currentShelterUniqueKey")).intValue(),
                             ((Long) map.get("heldBeds")).intValue());
-                    instance.loadUserLogin(loadedUser);
+                    userVerificationModel.loadUserLogin(loadedUser);
                 }
             }
             @Override
@@ -118,16 +126,16 @@ public class FirebaseInterfacer {
         });
     }
 
-    void attemptRegistration(final UserVerificationModel instance, final String username) {
+    void attemptRegistration(final String username) {
         DatabaseReference myRef = database.getReference("userList/" + username);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null) {
-                    instance.createNewUser();
+                    userVerificationModel.createNewUser();
                 } else {
-                    instance.userExists();
+                    userVerificationModel.userExists();
                 }
             }
             @Override
@@ -153,7 +161,7 @@ public class FirebaseInterfacer {
         myRef.updateChildren(updatedUsers);
     }
 
-    void refactorVacancy(final Shelter shelter, final List<String> users, final int newVacancy) {
+    void refactorVacancy(final Shelter shelter, final int newVacancy) {
         final DatabaseReference myRef = database.getReference("shelterList/" + shelter.getUniqueKey());
                             Map<String, Object> updatedEntries = new HashMap<>();
                             updatedEntries.put("vacancy", newVacancy);

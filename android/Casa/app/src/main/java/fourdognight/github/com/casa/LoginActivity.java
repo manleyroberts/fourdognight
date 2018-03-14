@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
         if (user != null) {
             Log.d("I", "Logged in");
             Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
-            launchIntent.putExtra("currentUser", user);
+            model.setCurrentUser(user);
             startActivity(launchIntent);
             finish();
         } else {
