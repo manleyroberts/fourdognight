@@ -75,6 +75,30 @@ public class FirebaseInterfacer {
         });
     }
 
+    void getShelterDataUnique(int uniqueKey) {
+        DatabaseReference myRef = database.getReference("shelterList/" + uniqueKey);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                HashMap<String, Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
+
+                Shelter next = new Shelter(((Long) map.get("uniqueKey")).intValue(),
+                        (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
+                        ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
+                        (double) map.get("longitude"), (double) map.get("latitude"),
+                        (String) map.get("address"), (String) map.get("special"), (String) map.get("phone"),
+                        new LinkedList<String>());
+                results.add(next);
+                shelterManager.reloadUnique(next);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("Firebase", "Error reading shelter list.");
+            }
+        });
+    }
+
     void getUserData() {
         DatabaseReference myRef = database.getReference("userList");
 

@@ -32,11 +32,15 @@ public class ListActivity extends AppCompatActivity {
     TextView phone;
     TextView vacancy;
     EditText selfReport;
+
+    ModelFacade model;
     //Creates all the "text boxes" for the shelter information on page when shelter is clicked
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        model = ModelFacade.getInstance();
 
         shelterName = findViewById(R.id.sheltertext);
         key = findViewById(R.id.uniqueKey);
@@ -52,24 +56,8 @@ public class ListActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             final Shelter shelter = (Shelter) bundle.get("Shelter");
-
-            final ModelFacade model = ModelFacade.getInstance();
             final AbstractUser user = model.getCurrentUser();
-            shelterName.setText(shelter.getShelterName());
-            capacity.setText(String.format("%d", shelter.getCapacity()));
-            key.setText(String.format("%d", shelter.getUniqueKey()));
-            vacancy.setText(String.format("%d", shelter.getVacancy()));
-            restriction.setText(shelter.getRestriction());
-            longitude.setText(String.format("%f", shelter.getLongitude()));
-            latitude.setText(String.format("%f", shelter.getLatitude()));
-            address.setText(shelter.getAddress());
-            special.setText(shelter.getSpecial());
-            phone.setText(shelter.getPhone());
-            if ((user instanceof User) && ((User) user).getCurrentShelter() != null &&
-                    ((User) user).getCurrentShelter().getUniqueKey() == shelter.getUniqueKey()) {
-                selfReport.setText(((Integer) ((User) user).getHeldBeds()).toString());
-            }
-
+            reload(shelter, user);
             final Button button = findViewById(R.id.updateVacancyButton);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -92,16 +80,35 @@ public class ListActivity extends AppCompatActivity {
                             selfReport.setError(getString(R.string.error_wrong_bed_number));
                             selfReport.requestFocus();
                         } else {
-                            Intent intent = new Intent(ListActivity.this, fourdognight.github.com.casa.ListActivity.class);
-                            intent.putExtra("Shelter", shelter);
-                            startActivity(intent);
-                            finish();
+                            int shelterId = shelter.getUniqueKey();
+                            model.getShelterDataList(getInstance(), shelterId);
                         }
                     }
 
                 }
             });
         }
+    }
+
+    public void reload(Shelter shelter, AbstractUser user) {
+        shelterName.setText(shelter.getShelterName());
+        capacity.setText(String.format("%d", shelter.getCapacity()));
+        key.setText(String.format("%d", shelter.getUniqueKey()));
+        vacancy.setText(String.format("%d", shelter.getVacancy()));
+        restriction.setText(shelter.getRestriction());
+        longitude.setText(String.format("%f", shelter.getLongitude()));
+        latitude.setText(String.format("%f", shelter.getLatitude()));
+        address.setText(shelter.getAddress());
+        special.setText(shelter.getSpecial());
+        phone.setText(shelter.getPhone());
+        if ((user instanceof User) && ((User) user).getCurrentShelter() != null &&
+                ((User) user).getCurrentShelter().getUniqueKey() == shelter.getUniqueKey()) {
+            selfReport.setText(((Integer) ((User) user).getHeldBeds()).toString());
+        }
+    }
+
+    private ListActivity getInstance() {
+        return this;
     }
 }
 

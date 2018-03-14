@@ -33,6 +33,7 @@ public class ShelterManager {
 
     void init() {
         firebaseInterfacer = FirebaseInterfacer.getInstance();
+        model = ModelFacade.getInstance();
         userModel = UserVerificationModel.getInstance();
         firebaseInterfacer.init();
     }
@@ -45,9 +46,12 @@ public class ShelterManager {
         return shelterList.get(uniqueKey);
     }
 
-    void getShelterData(ModelFacade model) {
-        this.model = model;
+    void getShelterData() {
         firebaseInterfacer.getShelterData();
+    }
+
+    void getShelterData(int uniqueKey) {
+        firebaseInterfacer.getShelterDataUnique(uniqueKey);
     }
 
     void reload(List<Shelter> results) {
@@ -57,7 +61,11 @@ public class ShelterManager {
             shelterList.put(results.get(i).getUniqueKey(), results.get(i));
             sheltersDisplay.add(results.get(i).getShelterName());
         }
-        model.reloadMainScreen(sheltersDisplay);
+        model.reload(sheltersDisplay, results);
+    }
+
+    void reloadUnique(Shelter shelter) {
+        model.reloadList(shelter);
     }
 
     void refactorVacancy(Shelter shelter) {

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.io.Serializable;
 import java.util.List;
 
+import fourdognight.github.com.casa.ListActivity;
 import fourdognight.github.com.casa.LoginActivity;
 import fourdognight.github.com.casa.MainScreenActivity;
 import fourdognight.github.com.casa.RegistrationActivity;
@@ -21,6 +22,7 @@ public class ModelFacade {
     private static ModelFacade model = new ModelFacade();
     private MainScreenActivity mainScreenActivity;
     private SearchActivity searchActivity;
+    private ListActivity listActivity;
 
     private ModelFacade() {    }
 
@@ -33,11 +35,15 @@ public class ModelFacade {
 
     public void getShelterData(MainScreenActivity instance) {
         this.mainScreenActivity = instance;
-        shelterManager.getShelterData(this);
+        shelterManager.getShelterData();
     }
     public void getShelterData(SearchActivity instance) {
         this.searchActivity = instance;
-        shelterManager.getShelterData(this);
+        shelterManager.getShelterData();
+    }
+    public void getShelterDataList(ListActivity instance, int uniqueKey) {
+        this.listActivity = instance;
+        shelterManager.getShelterData(uniqueKey);
     }
     public void attemptLogin(LoginActivity instance, String username, String password) {
         userVerificationModel.attemptLogin(instance, username, password);
@@ -57,9 +63,18 @@ public class ModelFacade {
         return shelterManager.updateVacancy(shelter, user, bedsHeld);
     }
 
-    void reloadMainScreen(List<String> sheltersDisplay) {
+    void reload(List<String> sheltersDisplay, List<Shelter> shelters) {
         if (mainScreenActivity != null) {
             mainScreenActivity.reload(sheltersDisplay);
+        }
+        if (searchActivity != null) {
+            searchActivity.reload(shelters);
+        }
+    }
+
+    void reloadList(Shelter shelter) {
+        if (listActivity != null) {
+            listActivity.reload(shelter, userVerificationModel.getCurrentUser());
         }
     }
 
