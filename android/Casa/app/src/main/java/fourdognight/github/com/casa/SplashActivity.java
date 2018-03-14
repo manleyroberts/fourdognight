@@ -6,12 +6,19 @@ import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
 
+import fourdognight.github.com.casa.model.ModelFacade;
+
 public class SplashActivity extends AppCompatActivity {
+
+    private ModelFacade model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        model = ModelFacade.getInstance();
+        model.init();
 
         final Button logButton = findViewById(R.id.loginChoiceButton);
         logButton.setOnClickListener(new View.OnClickListener() {

@@ -106,6 +106,8 @@ public class Shelter implements Serializable{
     }
 
     public boolean containsText(String text) {
-        return toString().contains(text);
+        String str = toString().toLowerCase();
+        text = text.toLowerCase();
+        return str.contains(text);
     }
 }
