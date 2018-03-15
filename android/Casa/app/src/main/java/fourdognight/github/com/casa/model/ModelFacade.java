@@ -3,8 +3,10 @@ package fourdognight.github.com.casa.model;
 import android.graphics.ColorSpace;
 import android.support.v7.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.util.List;
 
+import fourdognight.github.com.casa.ListActivity;
 import fourdognight.github.com.casa.LoginActivity;
 import fourdognight.github.com.casa.MainScreenActivity;
 import fourdognight.github.com.casa.RegistrationActivity;
@@ -17,21 +19,31 @@ import fourdognight.github.com.casa.SearchActivity;
 public class ModelFacade {
     private UserVerificationModel userVerificationModel;
     private ShelterManager shelterManager;
-    static ModelFacade model = new ModelFacade();
+    private static ModelFacade model = new ModelFacade();
     private MainScreenActivity mainScreenActivity;
     private SearchActivity searchActivity;
+    private ListActivity listActivity;
 
-    public ModelFacade() {
+    private ModelFacade() {    }
+
+    public void init() {
         userVerificationModel = UserVerificationModel.getInstance();
         shelterManager = ShelterManager.getInstance();
+        userVerificationModel.init();
+        shelterManager.init();
     }
+
     public void getShelterData(MainScreenActivity instance) {
-        mainScreenActivity = instance;
-        shelterManager.getShelterData(this);
+        this.mainScreenActivity = instance;
+        shelterManager.getShelterData();
     }
     public void getShelterData(SearchActivity instance) {
-        searchActivity = instance;
-        shelterManager.getShelterData(this);
+        this.searchActivity = instance;
+        shelterManager.getShelterData();
+    }
+    public void getShelterDataList(ListActivity instance, int uniqueKey) {
+        this.listActivity = instance;
+        shelterManager.getShelterData(uniqueKey);
     }
     public void attemptLogin(LoginActivity instance, String username, String password) {
         userVerificationModel.attemptLogin(instance, username, password);
@@ -51,9 +63,26 @@ public class ModelFacade {
         return shelterManager.updateVacancy(shelter, user, bedsHeld);
     }
 
-    void reloadMainScreen(List<String> sheltersDisplay) {
+    void reload(List<String> sheltersDisplay, List<Shelter> shelters) {
         if (mainScreenActivity != null) {
             mainScreenActivity.reload(sheltersDisplay);
         }
+        if (searchActivity != null) {
+            searchActivity.reload(shelters);
+        }
+    }
+
+    void reloadList(Shelter shelter) {
+        if (listActivity != null) {
+            listActivity.reload(shelter, userVerificationModel.getCurrentUser());
+        }
+    }
+
+    public void setCurrentUser (AbstractUser user) {
+        userVerificationModel.setCurrentUser(user);
+    }
+
+    public AbstractUser getCurrentUser() {
+        return userVerificationModel.getCurrentUser();
     }
 }
