@@ -1,5 +1,6 @@
 package fourdognight.github.com.casa.model;
 
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -57,13 +58,13 @@ public class FirebaseInterfacer {
                     } else {
                         currentPatrons = new ArrayList<>();
                     }
-
+                    HashMap loc = (HashMap) map.get("location");
                     Shelter next = new Shelter(((Long) map.get("uniqueKey")).intValue(),
                             (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
                             ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
-                            (double) map.get("longitude"), (double) map.get("latitude"),
-                            (String) map.get("address"), (String) map.get("special"), (String) map.get("phone"),
-                            currentPatrons);
+                            new ShelterLocation((double) loc.get("longitude"), (double) loc.get("latitude"),
+                                    (String) loc.get("address")), (String) map.get("special"),
+                            (String) map.get("phone"), currentPatrons);
                     results.add(next);
                 }
                 shelterManager.reload(results);
@@ -82,13 +83,13 @@ public class FirebaseInterfacer {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap<String, Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
-
+                HashMap<String, Object> loc = (HashMap<String, Object>) map.get("location");
                 Shelter next = new Shelter(((Long) map.get("uniqueKey")).intValue(),
                         (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
                         ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
-                        (double) map.get("longitude"), (double) map.get("latitude"),
-                        (String) map.get("address"), (String) map.get("special"), (String) map.get("phone"),
-                        new LinkedList<String>());
+                        new ShelterLocation((double) loc.get("longitude"), (double) loc.get("latitude"),
+                                (String) loc.get("address")), (String) map.get("special"),
+                            (String) map.get("phone"), new LinkedList<String>());
                 results.add(next);
                 shelterManager.reloadUnique(next);
             }
@@ -153,12 +154,15 @@ public class FirebaseInterfacer {
     void attemptRegistration(final String username) {
         DatabaseReference myRef = database.getReference("userList/" + username);
 
+        Log.d("User", "NonePrevious");
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null) {
                     userVerificationModel.createNewUser();
                 } else {
+                    Log.d("User", "NonePrevious");
                     userVerificationModel.userExists();
                 }
             }

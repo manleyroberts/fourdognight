@@ -37,6 +37,7 @@ import fourdognight.github.com.casa.model.Admin;
 import fourdognight.github.com.casa.model.FirebaseInterfacer;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
+import fourdognight.github.com.casa.model.ShelterLocation;
 import fourdognight.github.com.casa.model.ShelterManager;
 import fourdognight.github.com.casa.model.User;
 
@@ -75,7 +76,7 @@ public class MainScreenActivity extends AppCompatActivity {
         }
         mUsernameView.setText(topText);
         // Reads the CSV data
-//        readHomelessShelterData();
+        readHomelessShelterData();
         model.getShelterData(this);
     }
 
@@ -126,45 +127,45 @@ public class MainScreenActivity extends AppCompatActivity {
 
     //splits the csv into commas and if there are quotation marks then the commas inside quotations
     // are not removed
-//    private void readHomelessShelterData() {
-//        InputStream is = getResources().openRawResource(R.raw.homelessshelterdatabase);
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-//
-//        List<String> rawList = new LinkedList<>();
-//        List<Shelter> list = new LinkedList<>();
-//        String line = "";
-//        try {
-//            reader.readLine();
-//            String read;
-//            while ((read = reader.readLine()) != null) {
-//                String[] row = read.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-//                if (!list.contains(row[0])) {
-//                    for (int i = 0; i < row.length; i++) {
-//                        if (row[i].indexOf('\"') > -1) {
-//                            row[i] = row[i].split("\"")[1];
-//                        }
-//                        row[i] = row[i].trim();
-//                        rawList.add(row[i]);
-//                    }
-//                }
-//            }
-//            for (int i = 0; i < rawList.size()/10; i++) {
-//                List<String> newList = new LinkedList<>();
-//                newList.add("dummy@dummy");
-//                Shelter shelter = new Shelter(Integer.parseInt(rawList.get(10 * i)), rawList.get(10 * i + 1), Integer.parseInt(rawList.get(10 * i + 2)), Integer.parseInt(rawList.get(10 * i + 3)), rawList.get(10 * i + 4), Double.parseDouble(rawList.get(10 * i + 5)),
-//                        Double.parseDouble(rawList.get(10 * i + 6)), rawList.get(10 * i + 7), rawList.get(10 * i + 8), rawList.get(10 * i + 9), newList);
-//                list.add(shelter);
-//            } //int uniqueKey, String shelterName, int capacity, int vacancy, String restriction, double longitude,
-//            FirebaseDatabase database = FirebaseDatabase.getInstance();
-//            DatabaseReference databaseReference = database.getReference("");
-//            HashMap<String, Object> map = new HashMap<>();
-//            map.put("shelterList", list);
-//            databaseReference.updateChildren(map);
-//        } catch (IOException e) {
-//            Log.wtf("MyActivity", "Error reading data file on line " + line, e);
-//            e.printStackTrace();
-//        }
-//    }
+    private void readHomelessShelterData() {
+        InputStream is = getResources().openRawResource(R.raw.homelessshelterdatabase);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+
+        List<String> rawList = new LinkedList<>();
+        List<Shelter> list = new LinkedList<>();
+        String line = "";
+        try {
+            reader.readLine();
+            String read;
+            while ((read = reader.readLine()) != null) {
+                String[] row = read.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (!list.contains(row[0])) {
+                    for (int i = 0; i < row.length; i++) {
+                        if (row[i].indexOf('\"') > -1) {
+                            row[i] = row[i].split("\"")[1];
+                        }
+                        row[i] = row[i].trim();
+                        rawList.add(row[i]);
+                    }
+                }
+            }
+            for (int i = 0; i < rawList.size()/10; i++) {
+                List<String> newList = new LinkedList<>();
+                newList.add("dummy@dummy");
+                Shelter shelter = new Shelter(Integer.parseInt(rawList.get(10 * i)), rawList.get(10 * i + 1), Integer.parseInt(rawList.get(10 * i + 2)), Integer.parseInt(rawList.get(10 * i + 3)), rawList.get(10 * i + 4),
+                        new ShelterLocation(Double.parseDouble(rawList.get(10 * i + 5)), Double.parseDouble(rawList.get(10 * i + 6)), rawList.get(10 * i + 7)), rawList.get(10 * i + 8), rawList.get(10 * i + 9), newList);
+                list.add(shelter);
+            } //int uniqueKey, String shelterName, int capacity, int vacancy, String restriction, double longitude,
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = database.getReference("");
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("shelterList", list);
+            databaseReference.updateChildren(map);
+        } catch (IOException e) {
+            Log.wtf("MyActivity", "Error reading data file on line " + line, e);
+            e.printStackTrace();
+        }
+    }
 
     private MainScreenActivity getInstance() {
         return this;
