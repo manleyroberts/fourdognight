@@ -15,6 +15,7 @@ import android.widget.TextView;
 import fourdognight.github.com.casa.model.AbstractUser;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
+import fourdognight.github.com.casa.model.ShelterLocation;
 import fourdognight.github.com.casa.model.User;
 import fourdognight.github.com.casa.model.UserVerificationModel;
 
@@ -96,9 +97,10 @@ public class ListActivity extends AppCompatActivity {
         key.setText(String.format("%d", shelter.getUniqueKey()));
         vacancy.setText(String.format("%d", shelter.getVacancy()));
         restriction.setText(shelter.getRestriction());
-        longitude.setText(String.format("%f", shelter.getLongitude()));
-        latitude.setText(String.format("%f", shelter.getLatitude()));
-        address.setText(shelter.getAddress());
+        ShelterLocation loc = shelter.getLocation();
+        longitude.setText(String.format("%f", loc.getLongitude()));
+        latitude.setText(String.format("%f", loc.getLatitude()));
+        address.setText(loc.getAddress());
         special.setText(shelter.getSpecial());
         phone.setText(shelter.getPhone());
         if ((user instanceof User) && ((User) user).getCurrentShelter() != null &&

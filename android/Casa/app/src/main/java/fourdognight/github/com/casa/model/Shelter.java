@@ -19,9 +19,7 @@ public class Shelter implements Serializable{
     private int vacancy;
     private int uniqueKey;
     private String restriction;
-    private double longitude;
-    private double latitude;
-    private String address;
+    private ShelterLocation location;
     private String special;
     private String phone;
     private List<String> currentPatrons;
@@ -46,17 +44,7 @@ public class Shelter implements Serializable{
         return restriction;
     }
 
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public String getAddress() {
-        return address;
-    }
+    public ShelterLocation getLocation() { return location; }
 
     public String getSpecial() {
         return special;
@@ -70,16 +58,14 @@ public class Shelter implements Serializable{
         return currentPatrons;
     }
 
-    public Shelter (int uniqueKey, String shelterName, int capacity, int vacancy, String restriction, double longitude,
-                    double latitude, String address, String special, String phone, List<String> newPatrons) {
+    public Shelter (int uniqueKey, String shelterName, int capacity, int vacancy, String restriction,
+                    ShelterLocation location, String special, String phone, List<String> newPatrons) {
         this.shelterName = shelterName;
         this.capacity = capacity;
         this.vacancy = vacancy;
         this.uniqueKey = uniqueKey;
         this.restriction = restriction;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.address = address;
+        this.location = location;
         this.special = special;
         this.phone = phone;
         this.currentPatrons = new LinkedList<>();
@@ -101,7 +87,7 @@ public class Shelter implements Serializable{
 
     @Override
     public String toString() {
-        return shelterName + " " + restriction + " " + address + " " + special + " " + phone
+        return shelterName + " " + restriction + " " + location.getAddress() + " " + special + " " + phone
                 + " ";
     }
 

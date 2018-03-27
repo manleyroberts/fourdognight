@@ -1,5 +1,7 @@
 package fourdognight.github.com.casa.model;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
