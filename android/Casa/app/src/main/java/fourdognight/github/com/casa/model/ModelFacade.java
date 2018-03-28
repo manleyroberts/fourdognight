@@ -9,6 +9,7 @@ import java.util.List;
 import fourdognight.github.com.casa.ListActivity;
 import fourdognight.github.com.casa.LoginActivity;
 import fourdognight.github.com.casa.MainScreenActivity;
+import fourdognight.github.com.casa.MapsActivity;
 import fourdognight.github.com.casa.RegistrationActivity;
 import fourdognight.github.com.casa.SearchActivity;
 
@@ -23,6 +24,7 @@ public class ModelFacade {
     private MainScreenActivity mainScreenActivity;
     private SearchActivity searchActivity;
     private ListActivity listActivity;
+    private MapsActivity mapsActivity;
 
     private ModelFacade() {    }
 
@@ -39,6 +41,10 @@ public class ModelFacade {
     }
     public void getShelterData(SearchActivity instance) {
         this.searchActivity = instance;
+        shelterManager.getShelterData();
+    }
+    public void getShelterData(MapsActivity instance) {
+        this.mapsActivity = instance;
         shelterManager.getShelterData();
     }
     public void getShelterDataList(ListActivity instance, int uniqueKey) {
@@ -69,6 +75,9 @@ public class ModelFacade {
         }
         if (searchActivity != null) {
             searchActivity.reload(shelters);
+        }
+        if (mapsActivity != null) {
+            mapsActivity.reload(shelters);
         }
     }
 
