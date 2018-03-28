@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,10 +45,10 @@ import fourdognight.github.com.casa.model.User;
 public class MainScreenActivity extends AppCompatActivity {
 
     private TextView mUsernameView;
-    public static List<String> results;
     private ArrayAdapter adapter;
     private ModelFacade model;
     private AbstractUser user;
+    private List<Shelter> shelterList;
 
 
     @Override
@@ -67,7 +68,11 @@ public class MainScreenActivity extends AppCompatActivity {
         final Button mapViewButton = findViewById(R.id.mapViewButton);
         mapViewButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (adapter == null) {
+                    return;
+                }
                 Intent intent = new Intent(MainScreenActivity.this, MapsActivity.class);
+                intent.putExtra("Shelters", (Serializable)shelterList);
                 startActivity(intent);
             }
         });
@@ -87,8 +92,12 @@ public class MainScreenActivity extends AppCompatActivity {
         model.getShelterData(this);
     }
 
-    public void reload(final List<String> sheltersDisplay) {
-
+    public void reload(final List<Shelter> shelters) {
+        List<String> sheltersDisplay = new ArrayList<>(shelters.size());
+        this.shelterList = shelters;
+        for (Shelter shelter : shelters) {
+            sheltersDisplay.add(shelter.getShelterName());
+        }
         adapter  = new ArrayAdapter<>(this, R.layout.shelterlist, sheltersDisplay);
         //Creates the info page
         final ListView listView = findViewById(R.id.shelterList);

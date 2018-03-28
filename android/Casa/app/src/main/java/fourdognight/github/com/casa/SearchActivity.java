@@ -17,7 +17,7 @@ import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity{
     List<String> result = new ArrayList<>();
     Toolbar toolbar;
     EditText search;

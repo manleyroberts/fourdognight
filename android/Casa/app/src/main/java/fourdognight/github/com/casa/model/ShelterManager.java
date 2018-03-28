@@ -56,12 +56,10 @@ public class ShelterManager {
 
     void reload(List<Shelter> results) {
         shelterList.clear();
-        final List<String> sheltersDisplay = new ArrayList<>();
         for (int i = 0; i < results.size(); i++) {
             shelterList.put(results.get(i).getUniqueKey(), results.get(i));
-            sheltersDisplay.add(results.get(i).getShelterName());
         }
-        model.reload(sheltersDisplay, results);
+        model.reload(results);
     }
 
     void reloadUnique(Shelter shelter) {
