@@ -15,6 +15,7 @@ import java.util.List;
 
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
+import fourdognight.github.com.casa.model.ShelterLocation;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -37,6 +38,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void reload(List<Shelter> shelters) {
         this.shelters = shelters;
+        updateMarkers();
     }
 
 
@@ -54,8 +56,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng atlanta = new LatLng(33.753746, -84.386330);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atlanta, 10));
+        updateMarkers();
+    }
+
+    private void updateMarkers() {
+        if (mMap == null || this.shelters == null) {
+            return;
+        }
+        mMap.clear();
+        for (Shelter shelter : this.shelters) {
+            ShelterLocation location = shelter.getLocation();
+            LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(position));
+        }
     }
 }
