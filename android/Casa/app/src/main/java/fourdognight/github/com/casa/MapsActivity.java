@@ -1,5 +1,6 @@
 package fourdognight.github.com.casa;
 
+import android.content.Intent;
 import android.graphics.ColorSpace;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -9,8 +10,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.HashMap;
 import java.util.List;
 
 import fourdognight.github.com.casa.model.ModelFacade;
@@ -22,6 +25,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private List<Shelter> shelters;
     private ModelFacade model;
+    private HashMap<Marker, Shelter> markerShelterMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         LatLng atlanta = new LatLng(33.753746, -84.386330);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atlanta, 11));
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if (markerShelterMap == null) {
+                    return false;
+                }
+                Intent intent = new Intent(MapsActivity.this, ListActivity.class);
+                Shelter shelter = markerShelterMap.get(marker);
+                intent.putExtra("Shelter", shelter);
+                startActivity(intent);
+                return true;
+            }
+        });
         updateMarkers();
     }
 
@@ -66,13 +83,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         mMap.clear();
+        markerShelterMap = new HashMap<>();
         for (Shelter shelter : this.shelters) {
             ShelterLocation location = shelter.getLocation();
             LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
             MarkerOptions options = new MarkerOptions();
             options.position(position);
             options.title(shelter.getShelterName());
-            mMap.addMarker(options);
+            Marker marker = mMap.addMarker(options);
+            markerShelterMap.put(marker, shelter);
         }
     }
 }
