@@ -21,7 +21,8 @@ public class UserVerificationModel {
     private String heldPassword;
     private LoginActivity heldLogin;
     private RegistrationActivity heldRegistration;
-    private AbstractUser heldUser;
+    private String heldName;
+    private boolean heldIsAdmin;
     private Map<String, AbstractUser> users;
 
     private static UserVerificationModel instance = new UserVerificationModel();
@@ -55,7 +56,11 @@ public class UserVerificationModel {
     }
 
     void createNewUser() {
-        firebaseInterfacer.updateUser(heldUser);
+        if (heldIsAdmin) {
+            Admin admin = new Admin(heldName, heldUsername, heldPassword);
+        } else {
+            User user = new User(heldName, heldUsername, heldPassword, -1, 0);
+        }
         heldRegistration.completeRegistrationSuccess();
     }
 
@@ -66,11 +71,10 @@ public class UserVerificationModel {
     void attemptRegistration(RegistrationActivity instance, String name, String username, String password,
                                        boolean isAdmin) {
         heldRegistration = instance;
-        if (isAdmin) {
-            heldUser = new Admin(name, username, password);
-        } else {
-            heldUser = new User(name, username, password, -1, 0);
-        }
+        heldUsername = username;
+        heldPassword = password;
+        heldName = name;
+        heldIsAdmin = isAdmin;
         firebaseInterfacer.attemptRegistration(username);
     }
 
@@ -79,10 +83,6 @@ public class UserVerificationModel {
         heldUsername = username;
         heldPassword = password;
         firebaseInterfacer.attemptLogin(username);
-    }
-
-    AbstractUser findUserByUsername(String username) {
-        return users.get(username);
     }
 
     void updateUserList(List<AbstractUser> list) {
