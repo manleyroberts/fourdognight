@@ -57,7 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Add a marker in Sydney and move the camera
         LatLng atlanta = new LatLng(33.753746, -84.386330);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atlanta, 10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atlanta, 11));
         updateMarkers();
     }
 
@@ -69,7 +69,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (Shelter shelter : this.shelters) {
             ShelterLocation location = shelter.getLocation();
             LatLng position = new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(position));
+            MarkerOptions options = new MarkerOptions();
+            options.position(position);
+            options.title(shelter.getShelterName());
+            mMap.addMarker(options);
         }
     }
 }
