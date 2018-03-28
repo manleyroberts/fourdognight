@@ -64,6 +64,13 @@ public class MainScreenActivity extends AppCompatActivity {
                 finish();
             }
         });
+        final Button mapViewButton = findViewById(R.id.mapViewButton);
+        mapViewButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainScreenActivity.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         mUsernameView = findViewById(R.id.mainScreenUsernameField);
         user = model.getCurrentUser();
