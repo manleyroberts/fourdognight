@@ -152,17 +152,13 @@ public class FirebaseInterfacer {
     }
 
     void attemptRegistration(final String username) {
-        DatabaseReference myRef = database.getReference("userList/" + username);
-
-        Log.d("User", "NonePrevious");
-
-        myRef.addValueEventListener(new ValueEventListener() {
+        DatabaseReference myRef = database.getReference("userList");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() == null) {
+                if (!dataSnapshot.hasChild(username)) {
                     userVerificationModel.createNewUser();
                 } else {
-                    Log.d("User", "NonePrevious");
                     userVerificationModel.userExists();
                 }
             }
@@ -178,7 +174,7 @@ public class FirebaseInterfacer {
         Map<String, Object> updatedUsers = new HashMap<>();
         updatedUsers.put(user.getUsername(), user);
         myRef.updateChildren(updatedUsers);
-
+        Log.d("Added", user.getUsername());
         myRef = database.getReference("userList/" + user.getUsername());
         updatedUsers = new HashMap<>();
         updatedUsers.put("isAdmin", user instanceof Admin);
