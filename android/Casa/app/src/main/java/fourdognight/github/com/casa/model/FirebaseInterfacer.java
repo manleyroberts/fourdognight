@@ -170,19 +170,20 @@ public class FirebaseInterfacer {
     }
 
     void updateUser(AbstractUser user) {
-        DatabaseReference myRef = database.getReference("userList");
+        DatabaseReference listRef = database.getReference("userList");
         Map<String, Object> updatedUsers = new HashMap<>();
         updatedUsers.put(user.getUsername(), user);
-        myRef.updateChildren(updatedUsers);
+        listRef.updateChildren(updatedUsers);
         Log.d("Added", user.getUsername());
-        myRef = database.getReference("userList/" + user.getUsername());
-        updatedUsers = new HashMap<>();
-        updatedUsers.put("isAdmin", user instanceof Admin);
+        
+        DatabaseReference userRef = database.getReference("userList/" + user.getUsername());
+        Map<String, Object> updatedFields = new HashMap<>();
+        updatedFields.put("isAdmin", user instanceof Admin);
         if (user instanceof User) {
             User myUser = (User) user;
-            updatedUsers.put("currentShelterUniqueKey", myUser.getCurrentShelterUniqueKey());
+            updatedFields.put("currentShelterUniqueKey", myUser.getCurrentShelterUniqueKey());
         }
-        myRef.updateChildren(updatedUsers);
+        userRef.updateChildren(updatedFields);
     }
 
     void refactorVacancy(final Shelter shelter, final int newVacancy) {
