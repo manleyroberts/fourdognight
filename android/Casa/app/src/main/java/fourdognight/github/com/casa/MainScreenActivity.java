@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,10 +45,11 @@ import fourdognight.github.com.casa.model.User;
 public class MainScreenActivity extends AppCompatActivity {
 
     private TextView mUsernameView;
-    public static List<String> results;
     private ArrayAdapter adapter;
     private ModelFacade model;
     private AbstractUser user;
+    private List<Shelter> shelterList;
+    private String restrictionFilter;
 
 
     @Override
@@ -57,17 +59,27 @@ public class MainScreenActivity extends AppCompatActivity {
         model = ModelFacade.getInstance();
         model.init();
 
+        if (getIntent().hasExtra("restrictionFilter")) {
+            restrictionFilter = (String) getIntent().getExtras().get("restrictionFilter");
+        }
+
         setContentView(R.layout.activity_main_screen);
         final Button button = findViewById(R.id.logOutButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(MainScreenActivity.this, SplashActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         final Button mapViewButton = findViewById(R.id.mapViewButton);
         mapViewButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if (adapter == null) {
+                    return;
+                }
                 Intent intent = new Intent(MainScreenActivity.this, MapsActivity.class);
+                intent.putExtra("Shelters", (Serializable)shelterList);
                 startActivity(intent);
             }
         });
@@ -87,47 +99,47 @@ public class MainScreenActivity extends AppCompatActivity {
         model.getShelterData(this);
     }
 
-    public void reload(final List<String> sheltersDisplay) {
-
+    public void reload(final List<Shelter> shelters) {
+        List<String> sheltersDisplay = new ArrayList<>(shelters.size());
+        this.shelterList = new ArrayList<>();
+        for (Shelter shelter : shelters) {
+            if (restrictionFilter == null
+                    || shelter.getRestriction().toLowerCase().contains(restrictionFilter)
+                    || shelter.getShelterName().toLowerCase().contains(restrictionFilter)) {
+                sheltersDisplay.add(shelter.getShelterName());
+                this.shelterList.add(shelter);
+            }
+        }
         adapter  = new ArrayAdapter<>(this, R.layout.shelterlist, sheltersDisplay);
         //Creates the info page
         final ListView listView = findViewById(R.id.shelterList);
         listView.setAdapter(adapter);
-        // Creates search bar for names
-        EditText search = findViewById(R.id.searchbar2);
-        search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                MainScreenActivity.this.adapter.getFilter().filter(charSequence);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
         // retrieves information for the info page
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainScreenActivity.this, fourdognight.github.com.casa.ListActivity.class);
-                Shelter shelter = model.getShelter(i);
+                Shelter shelter = shelterList.get(i);
                 intent.putExtra("Shelter", shelter);
                 startActivity(intent);
             }
         });
-        // goes to the advanced search page to look for the restrictions and other stuff
+
         Button searchbar = findViewById(R.id.search);
         searchbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainScreenActivity.this, SearchActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        Button clearButton = findViewById(R.id.clearButton);
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                restrictionFilter = null;
+                model.getShelterData(MainScreenActivity.this);
             }
         });
     }
