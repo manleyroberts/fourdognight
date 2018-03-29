@@ -124,13 +124,22 @@ public class MainScreenActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        // goes to the advanced search page to look for the restrictions and other stuff
+
         Button searchbar = findViewById(R.id.search);
         searchbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainScreenActivity.this, SearchActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        Button clearButton = findViewById(R.id.clearButton);
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                restrictionFilter = null;
+                model.getShelterData(MainScreenActivity.this);
             }
         });
     }
