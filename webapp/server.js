@@ -16,12 +16,11 @@ app.get("/", function(req, res) {
 });
 
 app.post("/login", function(req, res) {
-  var luser = userModel.attemptLogin(req.body.email, req.body.password);
-  if (luser == null) {
+  userModel.attemptLogin(req.body.email, req.body.password, function() {
+    return res;
+  }, function() {
     res.status(401).send(null);
-  } else {
-    res.status(200).send('$' + luser.name + ' | ' + luser.username + ' | '  + ((luser instanceof Admin) ? 'Admin' : 'User') + '$');
-  }
+  });
 });
 
 app.post("/register", function(req, res) {
@@ -37,10 +36,12 @@ app.post("/register", function(req, res) {
   }
   if (errors !== "") {
     res.status(401).send(errors);
-  } else if (userModel.attemptRegistration(req.body.name, req.body.email, req.body.password, req.body.admin)) {
-    res.redirect("/login.html");
   } else {
-    res.status(401).send("EXISTS");
+    userModel.attemptRegistration(req.body.name, req.body.email, req.body.password, req.body.admin, function() {
+      res.redirect("/login.html");
+    }, function() {
+      res.status(401).send("EXISTS");
+    });
   }
 });
 
