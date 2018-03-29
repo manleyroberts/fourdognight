@@ -1,12 +1,11 @@
 var firebase = require('./FirebaseInterfacer.js');
-var users = [];
 
 module.exports.attemptRegistration = function(name, username, password, isAdmin, onSuccess, onFailure) {
   firebase.attemptRegistration(username, function() {
     if (isAdmin) {
-      var admin = new module.exports.Admin(name, username, password);
+      var admin = new Admin(name, username, password);
     } else {
-      var user = new module.exports.User(name, username, password);
+      var user = new User(name, username, password);
     }
     onSuccess();
   }, onFailure);
@@ -27,8 +26,9 @@ BaseUser = function(name, username, password) {
   this.name = name;
   this.username = username;
   this.password = password;
-  users[username] = this;
-  pushUserChanges();
+  //users[username] = this;
+  //pushUserChanges();
+  //console.log('users[username] = ' + users[username]);
   return this;
 }
 
@@ -37,23 +37,17 @@ Admin = function(name, username, password) {
   this.name = name;
   this.username = username;
   this.password = password;
+  firebase.updateUser(this, true);
   return this;
 }
 Admin.prototype = Object.create(BaseUser.prototype);
-
-module.exports.Admin = Admin;
 
 User = function(name, username, password) {
   BaseUser.call(this);
   this.name = name;
   this.username = username;
   this.password = password;
+  firebase.updateUser(this, false);
   return this;
 }
 User.prototype = Object.create(BaseUser.prototype);
-
-pushUserChanges = function() {
-  for (var user of users) {
-    firebase.updateUser(user);
-  }
-}

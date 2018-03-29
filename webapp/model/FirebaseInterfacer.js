@@ -1,6 +1,3 @@
-var userModel = require('./UserModel.js');
-var Admin = userModel.Admin;
-
 var firebase = require('firebase');
 // Initialize Firebase
 var config = {
@@ -11,6 +8,8 @@ var config = {
 };
 var app = firebase.initializeApp(config);
 var database = app.database();
+
+
 
 module.exports.attemptRegistration = function(username, onSuccess, onFailure) {
   database.ref('userList').once('value', function(snapshot) {
@@ -33,12 +32,17 @@ module.exports.attemptLogin = function(username, onPossibleSuccess, onFailure) {
   });
 }
 
-module.exports.updateUser = function(user) {
+module.exports.updateUser = function(user, isAdmin) {
+  console.log('updateUser called');
   var userRef = database.ref('userList');
-  var userUpdate = [];
-  userUpdate[user.username] = user;
-  userRef.update(userUpdate);
-  var userUpdate1 = [];
-  userRef1['isAdmin'] = user instanceof Admin;
-  userRef.ref(user.username).update(userUpdate1);
+  userRef.child(user.username).set(user).then(function() {
+    console.log('user synchronized to database');
+  }).catch(function(error) {
+    console.log('user synchronization failed');
+  });
+  userRef.child(user.username).child('isAdmin').set(isAdmin).then(function() {
+    console.log('isAdmin synchronized to database');
+  }).catch(function(error) {
+    console.log('isAdmin synchronization failed');
+  });
 }
