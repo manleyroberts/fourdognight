@@ -119,7 +119,7 @@ public class MainScreenActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainScreenActivity.this, fourdognight.github.com.casa.ListActivity.class);
-                Shelter shelter = model.getShelter(i);
+                Shelter shelter = shelterList.get(i);
                 intent.putExtra("Shelter", shelter);
                 startActivity(intent);
             }
