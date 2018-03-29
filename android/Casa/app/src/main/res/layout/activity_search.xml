@@ -6,62 +6,58 @@
     tools:context="fourdognight.github.com.casa.MainScreenActivity"
     tools:layout_editor_absoluteY="25dp">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/editText4"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-6dp" />
-
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/nameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Search..."
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/SearchV"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        android:hint="Name"
+        android:inputType="textCapCharacters|textPersonName"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/nameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="17dp"
-        android:layout_marginEnd="17dp"
-        android:text="Search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SearchV" />
+        android:layout_marginTop="8dp"
+        android:text="Search By Name"
+        app:layout_constraintTop_toBottomOf="@+id/nameField"
+        tools:layout_editor_absoluteX="16dp" />
 
-    <ListView
-        android:id="@+id/SearchV"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+    <Spinner
+        android:id="@+id/ageSpinner"
+        android:layout_width="276dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/nameButton"
+        tools:layout_editor_absoluteX="16dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/ageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="7dp"
-        android:text="Clear"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SearchV" />
+        android:layout_marginTop="8dp"
+        android:text="Search By Age"
+        app:layout_constraintTop_toBottomOf="@+id/ageSpinner"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <Spinner
+        android:id="@+id/genderSpinner"
+        android:layout_width="273dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/ageSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/ageButton" />
+
+    <Button
+        android:id="@+id/genderButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Search By Gender"
+        app:layout_constraintTop_toBottomOf="@+id/genderSpinner"
+        tools:layout_editor_absoluteX="16dp" />
+
 </android.support.constraint.ConstraintLayout>
