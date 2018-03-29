@@ -22,7 +22,6 @@ public class ModelFacade {
     private ShelterManager shelterManager;
     private static ModelFacade model = new ModelFacade();
     private MainScreenActivity mainScreenActivity;
-    private SearchActivity searchActivity;
     private ListActivity listActivity;
 
     private ModelFacade() {    }
@@ -36,10 +35,6 @@ public class ModelFacade {
 
     public void getShelterData(MainScreenActivity instance) {
         this.mainScreenActivity = instance;
-        shelterManager.getShelterData();
-    }
-    public void getShelterData(SearchActivity instance) {
-        this.searchActivity = instance;
         shelterManager.getShelterData();
     }
     public void getShelterDataList(ListActivity instance, int uniqueKey) {
@@ -67,9 +62,6 @@ public class ModelFacade {
     void reload(List<Shelter> shelters) {
         if (mainScreenActivity != null) {
             mainScreenActivity.reload(shelters);
-        }
-        if (searchActivity != null) {
-            searchActivity.reload(shelters);
         }
     }
 

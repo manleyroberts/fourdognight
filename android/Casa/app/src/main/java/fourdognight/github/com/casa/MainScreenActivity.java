@@ -49,6 +49,7 @@ public class MainScreenActivity extends AppCompatActivity {
     private ModelFacade model;
     private AbstractUser user;
     private List<Shelter> shelterList;
+    private String restrictionFilter;
 
 
     @Override
@@ -57,6 +58,10 @@ public class MainScreenActivity extends AppCompatActivity {
 
         model = ModelFacade.getInstance();
         model.init();
+
+        if (getIntent().hasExtra("restrictionFilter")) {
+            restrictionFilter = (String) getIntent().getExtras().get("restrictionFilter");
+        }
 
         setContentView(R.layout.activity_main_screen);
         final Button button = findViewById(R.id.logOutButton);
@@ -94,32 +99,19 @@ public class MainScreenActivity extends AppCompatActivity {
 
     public void reload(final List<Shelter> shelters) {
         List<String> sheltersDisplay = new ArrayList<>(shelters.size());
-        this.shelterList = shelters;
+        this.shelterList = new ArrayList<>();
         for (Shelter shelter : shelters) {
-            sheltersDisplay.add(shelter.getShelterName());
+            if (restrictionFilter == null
+                    || shelter.getRestriction().toLowerCase().contains(restrictionFilter)
+                    || shelter.getShelterName().toLowerCase().contains(restrictionFilter)) {
+                sheltersDisplay.add(shelter.getShelterName());
+                this.shelterList.add(shelter);
+            }
         }
         adapter  = new ArrayAdapter<>(this, R.layout.shelterlist, sheltersDisplay);
         //Creates the info page
         final ListView listView = findViewById(R.id.shelterList);
         listView.setAdapter(adapter);
-        // Creates search bar for names
-        EditText search = findViewById(R.id.searchbar2);
-        search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                MainScreenActivity.this.adapter.getFilter().filter(charSequence);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
         // retrieves information for the info page
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
