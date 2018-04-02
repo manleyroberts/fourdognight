@@ -1,4 +1,4 @@
-package fourdognight.github.com.casa;
+package fourdognight.github.com.casa.ui;
 
 import android.graphics.ColorSpace;
 import android.support.v4.app.FragmentActivity;
@@ -13,6 +13,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
+import fourdognight.github.com.casa.R;
+import fourdognight.github.com.casa.model.Consumer;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 import fourdognight.github.com.casa.model.ShelterLocation;
@@ -33,7 +35,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         model = ModelFacade.getInstance();
-        model.getShelterData(this);
+        model.getShelterData(new Consumer<List<Shelter>>() {
+            @Override
+            public void accept(List<Shelter> list) {
+                reload(list);
+            }
+        });
     }
 
     public void reload(List<Shelter> shelters) {

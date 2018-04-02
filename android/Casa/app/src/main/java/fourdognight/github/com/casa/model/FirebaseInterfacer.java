@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 
 /**
  * Created by manle on 3/9/2018.
@@ -34,7 +34,7 @@ public class FirebaseInterfacer {
     private static FirebaseInterfacer instance = new FirebaseInterfacer();
 
     private FirebaseInterfacer() {
-        results = new LinkedList<Shelter>();
+        results = new LinkedList<>();
         database = FirebaseDatabase.getInstance();
     }
 
@@ -43,8 +43,8 @@ public class FirebaseInterfacer {
         userVerificationModel = UserVerificationModel.getInstance();
     }
 
-    void getShelterData() {
-        DatabaseReference myRef = database.getReference("shelterList");
+    void getShelterData(final Consumer<List<Shelter>> success) {
+        DatabaseReference myRef = database.getReference("test/shelterList");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -62,12 +62,13 @@ public class FirebaseInterfacer {
                     Shelter next = new Shelter(((Long) map.get("uniqueKey")).intValue(),
                             (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
                             ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
-                            new ShelterLocation((double) loc.get("longitude"), (double) loc.get("latitude"),
-                                    (String) loc.get("address")), (String) map.get("special"),
-                            (String) map.get("phone"), currentPatrons);
+                            new ShelterLocation((double) loc.get("longitude"),
+                                    (double) loc.get("latitude"), (String) loc.get("address")),
+                            (String) map.get("special"), (String) map.get("phone"), currentPatrons);
                     results.add(next);
+                    success.accept(results);
                 }
-                shelterManager.reload(results);
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -76,23 +77,22 @@ public class FirebaseInterfacer {
         });
     }
 
-    void getShelterDataUnique(int uniqueKey) {
-        DatabaseReference myRef = database.getReference("shelterList/" + uniqueKey);
+    void getShelterDataUnique(int uniqueKey, final Consumer<Shelter> success) {
+        DatabaseReference myRef = database.getReference("test/shelterList/" + uniqueKey);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap<String, Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
                 HashMap<String, Object> loc = (HashMap<String, Object>) map.get("location");
-                Shelter next = new Shelter(((Long) map.get("uniqueKey")).intValue(),
+                Shelter shelter = new Shelter(((Long) map.get("uniqueKey")).intValue(),
                         (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
                         ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
-                        new ShelterLocation((double) loc.get("longitude"),
-                                (double) loc.get("latitude"), (String) loc.get("address")),
-                            (String) map.get("special"), (String) map.get("phone"),
-                        new LinkedList<String>());
-                results.add(next);
-                shelterManager.reloadUnique(next);
+                        new ShelterLocation((double) loc.get("longitude"), (double) loc.get("latitude"),
+                                (String) loc.get("address")), (String) map.get("special"),
+                            (String) map.get("phone"), new LinkedList<String>());
+                results.add(shelter);
+                success.accept(shelter);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -102,22 +102,13 @@ public class FirebaseInterfacer {
     }
 
     void getUserData() {
-        DatabaseReference myRef = database.getReference("userList");
+        final DatabaseReference myRef = database.getReference("test/userList");
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<AbstractUser> list = new ArrayList<>();
-                for (DataSnapshot itemSnapshot: dataSnapshot.getChildren()) {
-                    HashMap<String, Object> map = (HashMap<String, Object>) itemSnapshot.getValue();
-                    AbstractUser loadedUser = ((Boolean) map.get("isAdmin"))
-                            ? new Admin((String) map.get("name"), (String) map.get("username"),
-                            (String) map.get("password")) : new User((String) map.get("name"),
-                            (String) map.get("username"), (String) map.get("password"),
-                            ((Long) map.get("currentShelterUniqueKey")).intValue(),
-                            ((Long) map.get("heldBeds")).intValue());
-                    list.add(loadedUser);
-                }
+                List<User> list = new ArrayList<>();
+                Log.e("Count " ,"" + dataSnapshot.getChildrenCount());
                 userVerificationModel.updateUserList(list);
             }
             @Override
@@ -127,24 +118,19 @@ public class FirebaseInterfacer {
         });
     }
 
-    void attemptLogin(final String username, final String password, final Consumer<AbstractUser>
-            success, final Runnable failure) {
-        DatabaseReference myRef = database.getReference("userList/" + username);
-        myRef.addValueEventListener(new ValueEventListener() {
+    void attemptLogin(final String username, final String password, final Consumer<User> success,
+                      final Runnable failure) {
+        DatabaseReference myRef = database.getReference("test/userList/" + username);
+
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null) {
                     failure.run();
                 } else {
-                    HashMap<String, Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
-                    AbstractUser loadedUser = ((Boolean) map.get("isAdmin")) ? new Admin((String)
-                            map.get("name"), (String) map.get("username"),
-                            (String) map.get("password")) : new User((String) map.get("name"),
-                            (String) map.get("username"), (String) map.get("password"),
-                            ((Long) map.get("currentShelterUniqueKey")).intValue(),
-                            ((Long) map.get("heldBeds")).intValue());
-                    if (loadedUser.usernameMatches(username) &&
-                            loadedUser.authenticate(password)) {
+                    User loadedUser = dataSnapshot.getValue(User.class);
+                    if (loadedUser.authenticate(password)) {
                         success.accept(loadedUser);
                     } else {
                         failure.run();
@@ -158,22 +144,14 @@ public class FirebaseInterfacer {
         });
     }
 
-    void attemptRegistration(final String name, final String username,
-                             final String password, final boolean isAdmin, final Runnable success,
-                             final Runnable failure) {
-        updateUser(new User(name, username, password, -1, 0));
-        DatabaseReference myRef = database.getReference("userList");
+    void attemptRegistration(final String name, final String username, final String password,
+                             final boolean isAdmin, final Runnable success, final Runnable failure) {
+        DatabaseReference myRef = database.getReference("test/userList");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.hasChild(username)) {
-                    if (isAdmin) {
-                        Admin admin = new Admin(name, username, password);
-                        updateUser(admin);
-                    } else {
-                        User user = new User(name, username, password, -1, 0);
-                        updateUser(user);
-                    }
+                    updateUser(new User(name, username, password, -1, 0, isAdmin) );
                     success.run();
                 } else {
                     failure.run();
@@ -186,28 +164,19 @@ public class FirebaseInterfacer {
         });
     }
 
-    void updateUser(AbstractUser user) {
-        DatabaseReference listRef = database.getReference("userList");
-        Log.d("Users", "" + (listRef == null));
+    void updateUser(User user) {
+        DatabaseReference listRef = database.getReference("test/userList");
         Map<String, Object> updatedUsers = new HashMap<>();
         updatedUsers.put(user.getUsername(), user);
         listRef.updateChildren(updatedUsers);
-        
-        DatabaseReference userRef = database.getReference("userList/" + user.getUsername());
-        Map<String, Object> updatedFields = new HashMap<>();
-        updatedFields.put("isAdmin", user instanceof Admin);
-        if (user instanceof User) {
-            User myUser = (User) user;
-            updatedFields.put("currentShelterUniqueKey", myUser.getCurrentShelterUniqueKey());
-        }
-        userRef.updateChildren(updatedFields);
+        Log.d("Added", user.getUsername());
     }
 
     void refactorVacancy(final Shelter shelter, final int newVacancy) {
-        final DatabaseReference myRef = database.getReference("shelterList/" + shelter.getUniqueKey());
-                            Map<String, Object> updatedEntries = new HashMap<>();
-                            updatedEntries.put("vacancy", newVacancy);
-                            myRef.updateChildren(updatedEntries);
+        final DatabaseReference myRef = database.getReference("test/shelterList/" + shelter.getUniqueKey());
+                    Map<String, Object> updatedEntries = new HashMap<>();
+                    updatedEntries.put("vacancy", newVacancy);
+                    myRef.updateChildren(updatedEntries);
     }
 
     static FirebaseInterfacer getInstance() {

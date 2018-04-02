@@ -1,8 +1,7 @@
-package fourdognight.github.com.casa;
+package fourdognight.github.com.casa.ui;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,9 +15,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import fourdognight.github.com.casa.model.AbstractUser;
+import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.ModelFacade;
-import fourdognight.github.com.casa.model.UserVerificationModel;
 
 public class RegistrationActivity extends AppCompatActivity {
 
