@@ -126,7 +126,7 @@ public class FirebaseInterfacer {
     }
 
     void attemptLogin(final String username) {
-        DatabaseReference myRef = database.getReference("userList/" + username);
+        DatabaseReference myRef = database.getReference("userList/" + sanitize(username));
 
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -156,7 +156,7 @@ public class FirebaseInterfacer {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.hasChild(username)) {
+                if (!dataSnapshot.hasChild(sanitize(username))) {
                     userVerificationModel.createNewUser();
                 } else {
                     userVerificationModel.userExists();
@@ -172,11 +172,11 @@ public class FirebaseInterfacer {
     void updateUser(AbstractUser user) {
         DatabaseReference listRef = database.getReference("userList");
         Map<String, Object> updatedUsers = new HashMap<>();
-        updatedUsers.put(user.getUsername(), user);
+        updatedUsers.put(sanitize(user.getUsername()), user);
         listRef.updateChildren(updatedUsers);
         Log.d("Added", user.getUsername());
         
-        DatabaseReference userRef = database.getReference("userList/" + user.getUsername());
+        DatabaseReference userRef = database.getReference("userList/" + sanitize(user.getUsername()));
         Map<String, Object> updatedFields = new HashMap<>();
         updatedFields.put("isAdmin", user instanceof Admin);
         if (user instanceof User) {
@@ -195,5 +195,14 @@ public class FirebaseInterfacer {
 
     static FirebaseInterfacer getInstance() {
         return instance;
+    }
+
+    private static String sanitize(String dbPath) {
+        String sanitized = dbPath.replaceAll("[\\.#\\$\\[\\]]", "");
+        if (!sanitized.equals("")) {
+            return sanitized;
+        } else {
+            return " ";
+        }
     }
 }
