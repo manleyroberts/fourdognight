@@ -83,7 +83,7 @@ public class MainScreenActivity extends AppCompatActivity {
         }
         mUsernameView.setText(topText);
         // Reads the CSV data
-        readHomelessShelterData();
+//        readHomelessShelterData();
         model.getShelterData(this);
     }
 

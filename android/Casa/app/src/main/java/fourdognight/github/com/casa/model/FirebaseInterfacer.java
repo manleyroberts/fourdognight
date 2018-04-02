@@ -44,7 +44,7 @@ public class FirebaseInterfacer {
     }
 
     void getShelterData() {
-        DatabaseReference myRef = database.getReference("shelterList");
+        DatabaseReference myRef = database.getReference("test/shelterList");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,7 +77,7 @@ public class FirebaseInterfacer {
     }
 
     void getShelterDataUnique(int uniqueKey) {
-        DatabaseReference myRef = database.getReference("shelterList/" + uniqueKey);
+        DatabaseReference myRef = database.getReference("test/shelterList/" + uniqueKey);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -102,7 +102,7 @@ public class FirebaseInterfacer {
     }
 
     void getUserData() {
-        DatabaseReference myRef = database.getReference("userList");
+        DatabaseReference myRef = database.getReference("test/userList");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -162,7 +162,7 @@ public class FirebaseInterfacer {
                              final String password, final boolean isAdmin, final Runnable success,
                              final Runnable failure) {
         updateUser(new User(name, username, password, -1, 0));
-        DatabaseReference myRef = database.getReference("userList");
+        DatabaseReference myRef = database.getReference("test/userList");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -187,13 +187,12 @@ public class FirebaseInterfacer {
     }
 
     void updateUser(AbstractUser user) {
-        DatabaseReference listRef = database.getReference("userList");
-        Log.d("Users", "" + (listRef == null));
+        DatabaseReference listRef = database.getReference("test/userList");
         Map<String, Object> updatedUsers = new HashMap<>();
         updatedUsers.put(user.getUsername(), user);
         listRef.updateChildren(updatedUsers);
         
-        DatabaseReference userRef = database.getReference("userList/" + user.getUsername());
+        DatabaseReference userRef = database.getReference("test/userList/" + user.getUsername());
         Map<String, Object> updatedFields = new HashMap<>();
         updatedFields.put("isAdmin", user instanceof Admin);
         if (user instanceof User) {
@@ -204,7 +203,7 @@ public class FirebaseInterfacer {
     }
 
     void refactorVacancy(final Shelter shelter, final int newVacancy) {
-        final DatabaseReference myRef = database.getReference("shelterList/" + shelter.getUniqueKey());
+        final DatabaseReference myRef = database.getReference("test/shelterList/" + shelter.getUniqueKey());
                             Map<String, Object> updatedEntries = new HashMap<>();
                             updatedEntries.put("vacancy", newVacancy);
                             myRef.updateChildren(updatedEntries);
