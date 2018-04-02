@@ -1,5 +1,4 @@
 var firebase = require('firebase');
-// Initialize Firebase
 var config = {
   apiKey: "AIzaSyDtrX_sjvbL8fxRLZOqvkdsaKF3yt6PxQE",
   authDomain: "casa-db572.firebaseapp.com",
@@ -9,11 +8,9 @@ var config = {
 var app = firebase.initializeApp(config);
 var database = app.database();
 
-
-
 module.exports.attemptRegistration = function(username, onSuccess, onFailure) {
   database.ref('userList').once('value', function(snapshot) {
-    if (!snapshot.hasChild(username)) {
+    if (!snapshot.hasChild(sanitize(username))) {
       onSuccess();
     } else {
       onFailure();
@@ -22,7 +19,7 @@ module.exports.attemptRegistration = function(username, onSuccess, onFailure) {
 }
 
 module.exports.attemptLogin = function(username, onPossibleSuccess, onFailure) {
-  var userRef = database.ref('userList/' + username);
+  var userRef = database.ref('userList/' + sanitize(username));
   userRef.once('value', function(snapshot) {
     if (!snapshot.exists()) {
       onFailure();
@@ -33,16 +30,16 @@ module.exports.attemptLogin = function(username, onPossibleSuccess, onFailure) {
 }
 
 module.exports.updateUser = function(user, isAdmin) {
-  console.log('updateUser called');
   var userRef = database.ref('userList');
-  userRef.child(user.username).set(user).then(function() {
-    console.log('user synchronized to database');
-  }).catch(function(error) {
-    console.log('user synchronization failed');
-  });
-  userRef.child(user.username).child('isAdmin').set(isAdmin).then(function() {
-    console.log('isAdmin synchronized to database');
-  }).catch(function(error) {
-    console.log('isAdmin synchronization failed');
-  });
+  userRef.child(sanitize(user.username)).set(user);
+  userRef.child(sanitize(user.username)).child('isAdmin').set(isAdmin);
+}
+
+function sanitize(dbPath) {
+  var sanitized = dbPath.replace(/[\.#$\[\]]/g, '');
+  if (sanitized) {
+    return sanitized;
+  } else {
+    return ' ';
+  }
 }

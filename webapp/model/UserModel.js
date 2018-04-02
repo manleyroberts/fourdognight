@@ -26,9 +26,6 @@ BaseUser = function(name, username, password) {
   this.name = name;
   this.username = username;
   this.password = password;
-  //users[username] = this;
-  //pushUserChanges();
-  //console.log('users[username] = ' + users[username]);
   return this;
 }
 
