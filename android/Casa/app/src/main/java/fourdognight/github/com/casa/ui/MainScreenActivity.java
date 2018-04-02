@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,31 +13,18 @@ import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.User;
-import fourdognight.github.com.casa.model.Admin;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
-import fourdognight.github.com.casa.model.ShelterLocation;
 import fourdognight.github.com.casa.model.Consumer;
 
 public class MainScreenActivity extends AppCompatActivity {
 
     private TextView mUsernameView;
-    public static List<String> results;
     private ArrayAdapter adapter;
     private ModelFacade model;
     private User user;

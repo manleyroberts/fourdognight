@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.List;
 
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.Consumer;
@@ -17,7 +16,6 @@ import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 import fourdognight.github.com.casa.model.ShelterLocation;
 import fourdognight.github.com.casa.model.User;
-import fourdognight.github.com.casa.model.UserVerificationModel;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -74,11 +72,11 @@ public class ListActivity extends AppCompatActivity {
                         intendedBeds = Integer.parseInt(text.toString());
                     }
 
-                    if (user.canStayAt(shelter)) {
+                    if (!user.canStayAt(shelter)) {
                         selfReport.setError(getString(R.string.error_held_beds_elsewhere));
                         selfReport.requestFocus();
                     } else if (TextUtils.isEmpty(text) || intendedBeds < 0 ||
-                            !model.updateVacancy(shelter, (User) user,
+                            !model.updateVacancy(shelter, user,
                                     Integer.parseInt(text.toString()))) {
                         selfReport.setError(getString(R.string.error_wrong_bed_number));
                         selfReport.requestFocus();

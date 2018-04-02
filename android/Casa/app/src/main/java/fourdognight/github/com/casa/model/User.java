@@ -42,32 +42,33 @@ public class User{
         this("", "", "", -1, 0, false);
     }
 
-    public Shelter getCurrentShelter() {
-        return currentShelter;
-    }
 
     public int getHeldBeds() {
         return heldBeds;
     }
 
     void setCurrentStatus(int newShelterUniqueKey, int heldBeds) {
-        releaseCurrentShelter();
+        if (currentShelter != null) {
+            currentShelter.removePatron(this);
+        }
+        currentShelterUniqueKey = -1;
         this.currentShelter = manager.getShelter(newShelterUniqueKey);
         this.currentShelterUniqueKey = newShelterUniqueKey;
         this.heldBeds = heldBeds;
         pushUserChanges();
     }
 
-    void releaseCurrentShelter() {
-        if (currentShelter != null) {
-            currentShelter.removePatron(this);
-        }
-        heldBeds = 0;
-        pushUserChanges();
-    }
+//    void releaseCurrentShelter() {
+//        if (currentShelter != null) {
+//            currentShelter.removePatron(this);
+//        }
+//        heldBeds = 0;
+//        currentShelterUniqueKey = -1;
+//        pushUserChanges();
+//    }
 
     public boolean canStayAt(Shelter shelter) {
-        return !isAdmin && (currentShelter == null || (currentShelter.getUniqueKey()
+        return !isAdmin && (currentShelterUniqueKey == -1 || (currentShelterUniqueKey
                 == shelter.getUniqueKey()) || heldBeds == 0);
     }
 
@@ -103,6 +104,14 @@ public class User{
 
     public boolean isAdmin() {
         return isAdmin;
+    }
+
+    public boolean equals(Object other) {
+        if (other == null || !(other instanceof User)) {
+            return false;
+        }
+        String otherName = ((User) other).getUsername();
+        return otherName.equals(username);
     }
 
     boolean authenticate(String password) {

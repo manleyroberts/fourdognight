@@ -29,31 +29,17 @@ public class ModelFacade {
         shelterManager.getShelterData(success);
     }
 
-//    public void getShelterData(MainScreenActivity instance) {
-//        this.mainScreenActivity = instance;
-//        shelterManager.getShelterData();
-//    }
-//    public void getShelterData(SearchActivity instance) {
-//        this.searchActivity = instance;
-//        shelterManager.getShelterData();
-//    }
-//    public void getShelterData(MapsActivity instance) {
-//        this.mapsActivity = instance;
-//        shelterManager.getShelterData();
-//    }
-//    public void getShelterDataList(ListActivity instance, int uniqueKey) {
-//        this.listActivity = instance;
-//        shelterManager.getShelterData(uniqueKey);
-//    }
     public void attemptLogin(String username, String password, Runnable success, Runnable failure) {
         userVerificationModel.attemptLogin(username, password, success, failure);
     }
+
     public void attemptRegistration(String name, String username,
                                     String password, boolean isAdmin, Runnable success,
                                     Runnable failure) {
         userVerificationModel.attemptRegistration(name, username, password, isAdmin, success,
                 failure);
     }
+
     public Shelter getShelter(int uniqueKey) {
         return shelterManager.getShelter(uniqueKey);
     }
@@ -65,24 +51,6 @@ public class ModelFacade {
     public boolean updateVacancy(Shelter shelter, User user, int bedsHeld) {
         return shelterManager.updateVacancy(shelter, user, bedsHeld);
     }
-//
-//    void reload(List<String> sheltersDisplay, List<Shelter> shelters) {
-//        if (mainScreenActivity != null) {
-//            mainScreenActivity.reload(sheltersDisplay);
-//        }
-//        if (searchActivity != null) {
-//            searchActivity.reload(shelters);
-//        }
-//        if (mapsActivity != null) {
-//            mapsActivity.reload(shelters);
-//        }
-//    }
-
-//    void reloadList(Shelter shelter) {
-//        if (listActivity != null) {
-//            listActivity.reload(shelter);
-//        }
-//    }
 
     public void getShelterDataUnique(int uniqueKey, Consumer<Shelter> success) {
         shelterManager.getShelterDataUnique(uniqueKey, success);

@@ -1,5 +1,7 @@
 package fourdognight.github.com.casa.model;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -57,7 +59,10 @@ public class UserVerificationModel {
     }
 
     void updateUserList(User user) {
-        users.put(user.getUsername(), user);
+        Log.d("LEG", "bef" + users.keySet());
+        String username = user.getUsername();
+        users.put(username, user);
+        Log.d("LEG", "aft" + users.keySet());
     }
 
     void pushUserChanges() {
@@ -70,8 +75,9 @@ public class UserVerificationModel {
         List<User> list = new LinkedList<>();
         int shelterKey = shelter.getUniqueKey();
         for (User user : users.values()) {
-            if (user.getCurrentShelterUniqueKey() == shelterKey) {
-                list.add((User) user);
+            if (!list.contains(user) && user.getCurrentShelterUniqueKey() == shelterKey) {
+                list.add(user);
+                Log.d("LEG", user.getUsername());
             }
         }
         return list;

@@ -102,16 +102,13 @@ public class FirebaseInterfacer {
     }
 
     void getUserData() {
-        DatabaseReference myRef = database.getReference("test/userList");
+        final DatabaseReference myRef = database.getReference("test/userList");
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<User> list = new ArrayList<>();
-                for (DataSnapshot itemSnapshot: dataSnapshot.getChildren()) {
-                    User loadedUser = itemSnapshot.getValue(User.class);
-                    list.add(loadedUser);
-                }
+                Log.e("Count " ,"" + dataSnapshot.getChildrenCount());
                 userVerificationModel.updateUserList(list);
             }
             @Override
@@ -177,9 +174,9 @@ public class FirebaseInterfacer {
 
     void refactorVacancy(final Shelter shelter, final int newVacancy) {
         final DatabaseReference myRef = database.getReference("test/shelterList/" + shelter.getUniqueKey());
-                            Map<String, Object> updatedEntries = new HashMap<>();
-                            updatedEntries.put("vacancy", newVacancy);
-                            myRef.updateChildren(updatedEntries);
+                    Map<String, Object> updatedEntries = new HashMap<>();
+                    updatedEntries.put("vacancy", newVacancy);
+                    myRef.updateChildren(updatedEntries);
     }
 
     static FirebaseInterfacer getInstance() {

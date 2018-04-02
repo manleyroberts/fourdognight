@@ -64,35 +64,36 @@ public class SearchActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            input = search.getText().toString();
-            // temporary solution for input
-            if (input.equalsIgnoreCase("FEMALE")) {
-                input = "Women";
-            }
-            if (input.equalsIgnoreCase("MALE")) {
-                input = "Men";
-            }
-            if (input.contains("with")) {
-                input.replaceAll("with","w/");
-            }
-            for (Shelter shelter : shelters) {
-                if (shelter.containsText(input)) {
-                    result.add(shelter.getShelterName());
+                result.clear();
+                input = search.getText().toString();
+                // temporary solution for input
+                if (input.equalsIgnoreCase("FEMALE")) {
+                    input = "Women";
                 }
-            }
+                if (input.equalsIgnoreCase("MALE")) {
+                    input = "Men";
+                }
+                if (input.contains("with")) {
+                    input.replaceAll("with","w/");
+                }
+                for (Shelter shelter : shelters) {
+                    if (shelter.containsText(input)) {
+                        result.add(shelter.getShelterName());
+                    }
+                }
 
-            final ListView listview = findViewById(R.id.SearchV);
-            ArrayAdapter adapter = new ArrayAdapter<>(SearchActivity.this,R.layout.searchlist, result);
-            listview.setAdapter(adapter);
-            listview.setVisibility(View.VISIBLE);
-            listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(SearchActivity.this, ListActivity.class);
-                intent.putExtra("Shelter", shelters.get(i));
-                startActivity(intent);
-                }
-            });
+                final ListView listview = findViewById(R.id.SearchV);
+                ArrayAdapter adapter = new ArrayAdapter<>(SearchActivity.this,R.layout.searchlist, result);
+                listview.setAdapter(adapter);
+                listview.setVisibility(View.VISIBLE);
+                listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(SearchActivity.this, ListActivity.class);
+                    intent.putExtra("Shelter", shelters.get(i));
+                    startActivity(intent);
+                    }
+                });
             }
         });
     }
