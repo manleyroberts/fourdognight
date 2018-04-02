@@ -29,10 +29,9 @@ module.exports.attemptLogin = function(username, onPossibleSuccess, onFailure) {
   });
 }
 
-module.exports.updateUser = function(user, isAdmin) {
+module.exports.updateUser = function(user) {
   var userRef = database.ref('userList');
   userRef.child(sanitize(user.username)).set(user);
-  userRef.child(sanitize(user.username)).child('isAdmin').set(isAdmin);
 }
 
 function sanitize(dbPath) {

@@ -1,5 +1,9 @@
+var firebase = require('./FirebaseInterfacer.js');
+
 const fs = require('fs');
 const readline = require('readline');
+
+
 
 module.exports.shelters = [];
 
