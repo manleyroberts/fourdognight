@@ -129,7 +129,7 @@ public class FirebaseInterfacer {
 
     void attemptLogin(final String username, final String password, final Consumer<AbstractUser>
             success, final Runnable failure) {
-        DatabaseReference myRef = database.getReference("userList/" + username);
+        DatabaseReference myRef = database.getReference("test/userList/" + username);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
