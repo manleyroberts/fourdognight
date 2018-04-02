@@ -51,11 +51,14 @@ public class ModelFacade {
         this.listActivity = instance;
         shelterManager.getShelterData(uniqueKey);
     }
-    public void attemptLogin(LoginActivity instance, String username, String password) {
-        userVerificationModel.attemptLogin(instance, username, password);
+    public void attemptLogin(String username, String password, Runnable success, Runnable failure) {
+        userVerificationModel.attemptLogin(username, password, success, failure);
     }
-    public void attemptRegistration(RegistrationActivity instance, String name, String username, String password, boolean isAdmin) {
-        userVerificationModel.attemptRegistration(instance, name, username, password, isAdmin);
+    public void attemptRegistration(String name, String username,
+                                    String password, boolean isAdmin, Runnable success,
+                                    Runnable failure) {
+        userVerificationModel.attemptRegistration(name, username, password, isAdmin, success,
+                failure);
     }
     public Shelter getShelter(int uniqueKey) {
         return shelterManager.getShelter(uniqueKey);

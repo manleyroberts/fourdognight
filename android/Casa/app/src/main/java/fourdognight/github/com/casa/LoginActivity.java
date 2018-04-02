@@ -118,125 +118,24 @@ public class LoginActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
             Log.d("Login", "Task fired");
-            model.attemptLogin(this, email, password);
-//            mAuthTask = new UserLoginTask(email, password);
-//            mAuthTask.execute((Void) null);
+            model.attemptLogin(email, password, new Runnable() {
+                @Override
+                public void run() {
+                    Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
+                    startActivity(launchIntent);
+                    finish();
+                }
+            }, new Runnable() {
+                @Override
+                public void run() {
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();
+                    taskActive = false;
+                }
+            });
         }
     }
-
-    public void completeLogin(AbstractUser user) {
-        if (user != null) {
-            Log.d("I", "Logged in");
-            Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
-            model.setCurrentUser(user);
-            startActivity(launchIntent);
-            finish();
-        } else {
-            Log.d("Login", "Tried");
-            mPasswordView.setError(getString(R.string.error_incorrect_password));
-            mPasswordView.requestFocus();
-        }
-        taskActive = false;
-    }
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-//            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
-//
-//            mUsernameView.setVisibility(show ? View.GONE : View.VISIBLE);
-//            mPasswordView.setVisibility(show ? View.GONE : View.VISIBLE);
-//            mLoginFormView.animate().setDuration(shortAnimTime).alpha(
-//                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-//                @Override
-//                public void onAnimationEnd(Animator animation) {
-//                    mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-//                }
-//            });
-//
-//            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-//            mProgressView.animate().setDuration(shortAnimTime).alpha(
-//                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-//                @Override
-//                public void onAnimationEnd(Animator animation) {
-//                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-//                }
-//            });
-//        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mUsernameView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mPasswordView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mLoginView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mPassTextView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mUserTextView.setVisibility(show ? View.GONE : View.VISIBLE);
-//        }
-    }
-
-//    /**
-//     * Represents an asynchronous login task used to authenticate
-//     * the user.
-//     */
-//    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-//
-//        private final String mUsername;
-//        private final String mPassword;
-//        private AbstractUser loggedInUser = null;
-//        private final ModelFacade model = new ModelFacade();
-//
-//        UserLoginTask(String username, String password) {
-//            mUsername = username;
-//            mPassword = password;
-//        }
-//
-//        @Override
-//        protected Boolean doInBackground(Void... params) {
-//            // TODO: attempt authentication against a network service.
-//
-//            try {
-//                // Simulate network access.
-//                Thread.sleep(2000);
-//            } catch (InterruptedException e) {
-//                return false;
-//            }
-//
-//            model.attemptLogin(getInstance(), mUsername, mPassword);
-//            return loggedInUser != null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(final Boolean success) {
-//            mAuthTask = null;
-//            showProgress(false);
-//
-//            if (success) {
-//                Log.d("I", "Logged in");
-//                Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
-//                launchIntent.putExtra("currentUser", loggedInUser);
-//                startActivity(launchIntent);
-//                finish();
-//            } else {
-//                mPasswordView.setError(getString(R.string.error_incorrect_password));
-//                mPasswordView.requestFocus();
-//            }
-//        }
-//
-//        @Override
-//        protected void onCancelled() {
-//            mAuthTask = null;
-//            showProgress(false);
-//        }
-//    }
 
     private LoginActivity getInstance() {
         return this;

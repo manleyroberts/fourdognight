@@ -87,9 +87,10 @@ public class FirebaseInterfacer {
                 Shelter next = new Shelter(((Long) map.get("uniqueKey")).intValue(),
                         (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
                         ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
-                        new ShelterLocation((double) loc.get("longitude"), (double) loc.get("latitude"),
-                                (String) loc.get("address")), (String) map.get("special"),
-                            (String) map.get("phone"), new LinkedList<String>());
+                        new ShelterLocation((double) loc.get("longitude"),
+                                (double) loc.get("latitude"), (String) loc.get("address")),
+                            (String) map.get("special"), (String) map.get("phone"),
+                        new LinkedList<String>());
                 results.add(next);
                 shelterManager.reloadUnique(next);
             }
@@ -103,16 +104,17 @@ public class FirebaseInterfacer {
     void getUserData() {
         DatabaseReference myRef = database.getReference("userList");
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<AbstractUser> list = new ArrayList<>();
                 for (DataSnapshot itemSnapshot: dataSnapshot.getChildren()) {
                     HashMap<String, Object> map = (HashMap<String, Object>) itemSnapshot.getValue();
-                    Log.d("Vacancy", (map.get("isAdmin") == null) ? "NULL" : "NOTNULL");
-                    AbstractUser loadedUser = ((Boolean) map.get("isAdmin")) ? new Admin((String) map.get("name"), (String) map.get("username"), (String) map.get("password"))
-                            : new User((String) map.get("name"), (String) map.get("username"),
-                            (String) map.get("password"), ((Long) map.get("currentShelterUniqueKey")).intValue(),
+                    AbstractUser loadedUser = ((Boolean) map.get("isAdmin"))
+                            ? new Admin((String) map.get("name"), (String) map.get("username"),
+                            (String) map.get("password")) : new User((String) map.get("name"),
+                            (String) map.get("username"), (String) map.get("password"),
+                            ((Long) map.get("currentShelterUniqueKey")).intValue(),
                             ((Long) map.get("heldBeds")).intValue());
                     list.add(loadedUser);
                 }
@@ -125,23 +127,28 @@ public class FirebaseInterfacer {
         });
     }
 
-    void attemptLogin(final String username) {
+    void attemptLogin(final String username, final String password, final Consumer<AbstractUser>
+            success, final Runnable failure) {
         DatabaseReference myRef = database.getReference("userList/" + username);
-
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null) {
-                    userVerificationModel.loadUserLogin(null);
+                    failure.run();
                 } else {
                     HashMap<String, Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
-                    Log.d("Vacancy", (map.get("isAdmin") == null) ? "NULL" : "NOTNULL");
-                    AbstractUser loadedUser = ((Boolean) map.get("isAdmin")) ? new Admin((String) map.get("name"), (String) map.get("username"), (String) map.get("password"))
-                            : new User((String) map.get("name"), (String) map.get("username"),
-                            (String) map.get("password"), ((Long) map.get("currentShelterUniqueKey")).intValue(),
+                    AbstractUser loadedUser = ((Boolean) map.get("isAdmin")) ? new Admin((String)
+                            map.get("name"), (String) map.get("username"),
+                            (String) map.get("password")) : new User((String) map.get("name"),
+                            (String) map.get("username"), (String) map.get("password"),
+                            ((Long) map.get("currentShelterUniqueKey")).intValue(),
                             ((Long) map.get("heldBeds")).intValue());
-                    userVerificationModel.loadUserLogin(loadedUser);
+                    if (loadedUser.usernameMatches(username) &&
+                            loadedUser.authenticate(password)) {
+                        success.accept(loadedUser);
+                    } else {
+                        failure.run();
+                    }
                 }
             }
             @Override
@@ -151,15 +158,25 @@ public class FirebaseInterfacer {
         });
     }
 
-    void attemptRegistration(final String username) {
+    void attemptRegistration(final String name, final String username,
+                             final String password, final boolean isAdmin, final Runnable success,
+                             final Runnable failure) {
+        updateUser(new User(name, username, password, -1, 0));
         DatabaseReference myRef = database.getReference("userList");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.hasChild(username)) {
-                    userVerificationModel.createNewUser();
+                    if (isAdmin) {
+                        Admin admin = new Admin(name, username, password);
+                        updateUser(admin);
+                    } else {
+                        User user = new User(name, username, password, -1, 0);
+                        updateUser(user);
+                    }
+                    success.run();
                 } else {
-                    userVerificationModel.userExists();
+                    failure.run();
                 }
             }
             @Override
@@ -171,10 +188,10 @@ public class FirebaseInterfacer {
 
     void updateUser(AbstractUser user) {
         DatabaseReference listRef = database.getReference("userList");
+        Log.d("Users", "" + (listRef == null));
         Map<String, Object> updatedUsers = new HashMap<>();
         updatedUsers.put(user.getUsername(), user);
         listRef.updateChildren(updatedUsers);
-        Log.d("Added", user.getUsername());
         
         DatabaseReference userRef = database.getReference("userList/" + user.getUsername());
         Map<String, Object> updatedFields = new HashMap<>();

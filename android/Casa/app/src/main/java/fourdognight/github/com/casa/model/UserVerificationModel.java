@@ -17,12 +17,6 @@ import fourdognight.github.com.casa.RegistrationActivity;
 
 public class UserVerificationModel {
     private FirebaseInterfacer firebaseInterfacer;
-    private String heldUsername;
-    private String heldPassword;
-    private LoginActivity heldLogin;
-    private RegistrationActivity heldRegistration;
-    private String heldName;
-    private boolean heldIsAdmin;
     private Map<String, AbstractUser> users;
 
     private static UserVerificationModel instance = new UserVerificationModel();
@@ -37,52 +31,29 @@ public class UserVerificationModel {
         firebaseInterfacer.getUserData();
     }
 
-    void loadUserLogin(AbstractUser loadedUser) {
-        if (loadedUser == null) {
-            heldLogin.completeLogin(null);
-        } else if (loadedUser.usernameMatches(heldUsername) && loadedUser.authenticate(heldPassword)) {
-            heldLogin.completeLogin(loadedUser);
-        } else {
-            heldLogin.completeLogin(null);
-        }
-    }
-
     void setCurrentUser (AbstractUser user) {
         currentUser = user;
     }
 
     AbstractUser getCurrentUser() {
         return currentUser;
+    };
+
+    void attemptRegistration(String name, String username,
+                             String password, boolean isAdmin, Runnable success,
+                             Runnable failure) {
+        firebaseInterfacer.attemptRegistration(username, password, name, isAdmin, success, failure);
     }
 
-    void createNewUser() {
-        if (heldIsAdmin) {
-            Admin admin = new Admin(heldName, heldUsername, heldPassword);
-        } else {
-            User user = new User(heldName, heldUsername, heldPassword, -1, 0);
-        }
-        heldRegistration.completeRegistrationSuccess();
-    }
-
-    void userExists() {
-        heldRegistration.completeRegistrationFailed();
-    }
-
-    void attemptRegistration(RegistrationActivity instance, String name, String username, String password,
-                                       boolean isAdmin) {
-        heldRegistration = instance;
-        heldUsername = username;
-        heldPassword = password;
-        heldName = name;
-        heldIsAdmin = isAdmin;
-        firebaseInterfacer.attemptRegistration(username);
-    }
-
-    void attemptLogin(LoginActivity instance, String username, String password) {
-        heldLogin = instance;
-        heldUsername = username;
-        heldPassword = password;
-        firebaseInterfacer.attemptLogin(username);
+    void attemptLogin(String username, String password, final Runnable success,
+                      Runnable failure) {
+        firebaseInterfacer.attemptLogin(username, password, new Consumer<AbstractUser>() {
+            @Override
+            public void accept(AbstractUser abstractUser) {
+                setCurrentUser(abstractUser);
+                success.run();
+            }
+        }, failure);
     }
 
     void updateUserList(List<AbstractUser> list) {

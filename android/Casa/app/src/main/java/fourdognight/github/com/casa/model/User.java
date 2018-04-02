@@ -60,8 +60,6 @@ public class User extends AbstractUser {
     }
 
     void pushUserChanges() {
-
-        Log.d("Vacancy", manager == null ? "YES" : "NOT");
         manager.refactorVacancy(currentShelter);
         userVerificationModel.updateUserList(this);
         super.pushUserChanges();

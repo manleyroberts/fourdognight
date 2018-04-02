@@ -38,10 +38,6 @@ public class ShelterManager {
         firebaseInterfacer.init();
     }
 
-    public void addShelter(Shelter shelter) {
-        shelterList.put(shelter.getUniqueKey(), shelter);
-    }
-
     Shelter getShelter(int uniqueKey) {
         return shelterList.get(uniqueKey);
     }
@@ -70,35 +66,20 @@ public class ShelterManager {
 
     void refactorVacancy(Shelter shelter) {
         if (shelter != null) {
-//            List<String> oldPatrons = shelter.getCurrentPatrons();
-//
             int newVacancy = shelter.getCapacity();
-//            for (String patron : oldPatrons) {
-//                User user;
-//                if (userModel.findUserByUsername(patron) != null) {
-//                    Log.d("Refactor", "" + userModel.toString());
-//                    user = (User) userModel.findUserByUsername(patron);
-//                    if (user.getCurrentShelterUniqueKey() == shelter.getUniqueKey()) {
-//                        patrons.add(user);
-//                        Log.d("Refactor", "" + user.getHeldBeds());
-//                    }
-//                }
-//            }
-
             List<User> patrons = userModel.usersAtShelter(shelter);
             for (User patron : patrons) {
                 newVacancy -= patron.getHeldBeds();
             }
-            Log.d("Refactor", "" + newVacancy);
             firebaseInterfacer.refactorVacancy(shelter, newVacancy);
         }
     }
 
     boolean updateVacancy(Shelter shelter, User user, int bedsHeld) {
         if (bedsHeld >= 0 && shelter.getVacancy() - bedsHeld >= 0) {
-            Shelter oldShelter = user.getCurrentShelter();
-            user.releaseCurrentShelter();
-            refactorVacancy(oldShelter);
+//            Shelter oldShelter = user.getCurrentShelter();
+//            user.releaseCurrentShelter();
+//            refactorVacancy(oldShelter);
             user.setCurrentStatus(shelter.getUniqueKey(), bedsHeld);
             shelter.addPatron(user); Log.d("Refactor", shelter.getCurrentPatrons().toString());
             refactorVacancy(shelter);
