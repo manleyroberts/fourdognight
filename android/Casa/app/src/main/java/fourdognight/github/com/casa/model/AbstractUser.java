@@ -11,51 +11,51 @@ import java.io.Serializable;
  */
 
 public abstract class AbstractUser implements Serializable {
-    private String name;
-    private String username;
-    private String password;
-
-    @Exclude
-    protected UserVerificationModel userVerificationModel;
-
-
-    public AbstractUser(String name, String username, String password) {
-        userVerificationModel = UserVerificationModel.getInstance();
-        this.name = name;
-        this.username = username;
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    String getPassword() {
-        return password;
-    }
-
-    void setPassword(String password) {
-        this.password = password;
-    }
-
-    boolean authenticate(String password) {
-        return password.equals(this.password);
-    }
-
-    boolean usernameMatches(String username) {
-        return this.username.equals(username);
-    }
-
-    void pushUserChanges() {
-        userVerificationModel.updateUserList(this);
-        userVerificationModel.pushUserChanges();
-    }
+//    private String name;
+//    private String username;
+//    private String password;
+//
+//    @Exclude
+//    protected UserVerificationModel userVerificationModel;
+//
+//
+//    public AbstractUser(String name, String username, String password) {
+//        userVerificationModel = UserVerificationModel.getInstance();
+//        this.name = name;
+//        this.username = username;
+//        this.password = password;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getUsername() {
+//        return username;
+//    }
+//
+//    String getPassword() {
+//        return password;
+//    }
+//
+//    void setPassword(String password) {
+//        this.password = password;
+//    }
+//
+//    boolean authenticate(String password) {
+//        return password.equals(this.password);
+//    }
+//
+//    boolean usernameMatches(String username) {
+//        return this.username.equals(username);
+//    }
+//
+//    void pushUserChanges() {
+//        userVerificationModel.updateUserList(this);
+//        userVerificationModel.pushUserChanges();
+//    }
 }

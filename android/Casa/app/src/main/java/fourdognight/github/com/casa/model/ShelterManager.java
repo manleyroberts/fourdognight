@@ -2,18 +2,9 @@ package fourdognight.github.com.casa.model;
 
 import android.util.Log;
 
-import com.google.firebase.database.Exclude;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-
-import fourdognight.github.com.casa.MainScreenActivity;
 
 /**
  * Created by manle on 3/11/2018.
@@ -42,27 +33,49 @@ public class ShelterManager {
         return shelterList.get(uniqueKey);
     }
 
-    void getShelterData() {
-        firebaseInterfacer.getShelterData();
+//    void getShelterData() {
+//        firebaseInterfacer.getShelterData();
+//    }
+
+    void getShelterData(final Consumer<List<Shelter>> success) {
+        firebaseInterfacer.getShelterData(new Consumer<List<Shelter>>(){
+            @Override
+            public void accept(List<Shelter> list) {
+                for (Shelter shelter : list) {
+                    shelterList.put(shelter.getUniqueKey(), shelter);
+                }
+                success.accept(list);
+            }
+        });
     }
 
-    void getShelterData(int uniqueKey) {
-        firebaseInterfacer.getShelterDataUnique(uniqueKey);
+    void getShelterDataUnique(int uniqueKey, final Consumer<Shelter> success) {
+        firebaseInterfacer.getShelterDataUnique(uniqueKey, new Consumer<Shelter>(){
+            @Override
+            public void accept(Shelter shelter) {
+                shelterList.put(shelter.getUniqueKey(), shelter);
+                success.accept(shelter);
+            }
+        });
     }
 
-    void reload(List<Shelter> results) {
-        shelterList.clear();
-        final List<String> sheltersDisplay = new ArrayList<>();
-        for (int i = 0; i < results.size(); i++) {
-            shelterList.put(results.get(i).getUniqueKey(), results.get(i));
-            sheltersDisplay.add(results.get(i).getShelterName());
-        }
-        model.reload(sheltersDisplay, results);
-    }
+//    void getShelterData(int uniqueKey) {
+//        firebaseInterfacer.getShelterDataUnique(uniqueKey);
+//    }
+//
+//    void reload(List<Shelter> results) {
+//        shelterList.clear();
+//        final List<String> sheltersDisplay = new ArrayList<>();
+//        for (int i = 0; i < results.size(); i++) {
+//            shelterList.put(results.get(i).getUniqueKey(), results.get(i));
+//            sheltersDisplay.add(results.get(i).getShelterName());
+//        }
+//        model.reload(sheltersDisplay, results);
+//    }
 
-    void reloadUnique(Shelter shelter) {
-        model.reloadList(shelter);
-    }
+//    void reloadUnique(Shelter shelter) {
+//        model.reloadList(shelter);
+//    }
 
     void refactorVacancy(Shelter shelter) {
         if (shelter != null) {

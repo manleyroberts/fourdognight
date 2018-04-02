@@ -1,4 +1,4 @@
-package fourdognight.github.com.casa;
+package fourdognight.github.com.casa.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fourdognight.github.com.casa.R;
+import fourdognight.github.com.casa.model.Consumer;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 
@@ -33,8 +36,12 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         model = ModelFacade.getInstance();
         search = findViewById(R.id.editText4);
-
-        model.getShelterData(this);
+        model.getShelterData(new Consumer<List<Shelter>>() {
+            @Override
+            public void accept(List<Shelter> list) {
+                reload(list);
+            }
+        });
 
         Button clear = findViewById(R.id.button2);
         clear.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +88,7 @@ public class SearchActivity extends AppCompatActivity {
             listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(SearchActivity.this, fourdognight.github.com.casa.ListActivity.class);
+                Intent intent = new Intent(SearchActivity.this, ListActivity.class);
                 intent.putExtra("Shelter", shelters.get(i));
                 startActivity(intent);
                 }

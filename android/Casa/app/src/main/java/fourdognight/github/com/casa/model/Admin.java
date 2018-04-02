@@ -5,7 +5,7 @@ package fourdognight.github.com.casa.model;
  */
 
 public class Admin extends AbstractUser{
-    Admin(String name, String username, String password) {
-        super (name, username, password);
-    }
+//    Admin(String name, String username, String password) {
+//        super (name, username, password);
+//    }
 }

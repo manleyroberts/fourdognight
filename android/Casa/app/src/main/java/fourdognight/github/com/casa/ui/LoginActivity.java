@@ -1,15 +1,10 @@
-package fourdognight.github.com.casa;
+package fourdognight.github.com.casa.ui;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -18,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.util.Log;
 
-import fourdognight.github.com.casa.model.AbstractUser;
+import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.ModelFacade;
 
 /**

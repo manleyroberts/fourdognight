@@ -1,15 +1,9 @@
 package fourdognight.github.com.casa.model;
 
-import android.util.Log;
-
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import fourdognight.github.com.casa.LoginActivity;
-import fourdognight.github.com.casa.RegistrationActivity;
 
 /**
  * Created by manle on 2/12/2018.
@@ -17,10 +11,10 @@ import fourdognight.github.com.casa.RegistrationActivity;
 
 public class UserVerificationModel {
     private FirebaseInterfacer firebaseInterfacer;
-    private Map<String, AbstractUser> users;
+    private Map<String, User> users;
 
     private static UserVerificationModel instance = new UserVerificationModel();
-    private static AbstractUser currentUser;
+    private static User currentUser;
 
     private UserVerificationModel() {
         users = new HashMap<>();
@@ -31,43 +25,43 @@ public class UserVerificationModel {
         firebaseInterfacer.getUserData();
     }
 
-    void setCurrentUser (AbstractUser user) {
+    void setCurrentUser (User user) {
         currentUser = user;
     }
 
-    AbstractUser getCurrentUser() {
+    User getCurrentUser() {
         return currentUser;
     };
 
     void attemptRegistration(String name, String username,
                              String password, boolean isAdmin, Runnable success,
                              Runnable failure) {
-        firebaseInterfacer.attemptRegistration(username, password, name, isAdmin, success, failure);
+        firebaseInterfacer.attemptRegistration(name, username, password, isAdmin, success, failure);
     }
 
     void attemptLogin(String username, String password, final Runnable success,
                       Runnable failure) {
-        firebaseInterfacer.attemptLogin(username, password, new Consumer<AbstractUser>() {
+        firebaseInterfacer.attemptLogin(username, password, new Consumer<User>() {
             @Override
-            public void accept(AbstractUser abstractUser) {
-                setCurrentUser(abstractUser);
+            public void accept(User user) {
+                setCurrentUser(user);
                 success.run();
             }
         }, failure);
     }
 
-    void updateUserList(List<AbstractUser> list) {
-        for (AbstractUser user : list) {
+    void updateUserList(List<User> list) {
+        for (User user : list) {
             updateUserList(user);
         }
     }
 
-    void updateUserList(AbstractUser user) {
+    void updateUserList(User user) {
         users.put(user.getUsername(), user);
     }
 
     void pushUserChanges() {
-        for (AbstractUser user : users.values()) {
+        for (User user : users.values()) {
             firebaseInterfacer.updateUser(user);
         }
     }
@@ -75,8 +69,8 @@ public class UserVerificationModel {
     List<User> usersAtShelter(Shelter shelter) {
         List<User> list = new LinkedList<>();
         int shelterKey = shelter.getUniqueKey();
-        for (AbstractUser user : users.values()) {
-            if (user instanceof User && ((User) user).getCurrentShelterUniqueKey() == shelterKey) {
+        for (User user : users.values()) {
+            if (user.getCurrentShelterUniqueKey() == shelterKey) {
                 list.add((User) user);
             }
         }
