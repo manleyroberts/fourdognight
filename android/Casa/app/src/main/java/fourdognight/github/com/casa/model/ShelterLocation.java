@@ -28,4 +28,8 @@ public class ShelterLocation implements Serializable{
         this.longitude = longitude;
         this.address = address;
     }
+
+    public ShelterLocation() {
+
+    }
 }

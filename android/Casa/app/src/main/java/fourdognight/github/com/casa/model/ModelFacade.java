@@ -1,17 +1,11 @@
 package fourdognight.github.com.casa.model;
 
-import android.graphics.ColorSpace;
-import android.support.v7.app.AppCompatActivity;
-
-import java.io.Serializable;
 import java.util.List;
 
-import fourdognight.github.com.casa.ListActivity;
-import fourdognight.github.com.casa.LoginActivity;
-import fourdognight.github.com.casa.MainScreenActivity;
-import fourdognight.github.com.casa.MapsActivity;
-import fourdognight.github.com.casa.RegistrationActivity;
-import fourdognight.github.com.casa.SearchActivity;
+import fourdognight.github.com.casa.ui.ListActivity;
+import fourdognight.github.com.casa.ui.MainScreenActivity;
+import fourdognight.github.com.casa.ui.MapsActivity;
+import fourdognight.github.com.casa.ui.SearchActivity;
 
 /**
  * Created by manle on 3/9/2018.
@@ -21,8 +15,6 @@ public class ModelFacade {
     private UserVerificationModel userVerificationModel;
     private ShelterManager shelterManager;
     private static ModelFacade model = new ModelFacade();
-    private MainScreenActivity mainScreenActivity;
-    private ListActivity listActivity;
 
     private ModelFacade() {    }
 
@@ -33,20 +25,21 @@ public class ModelFacade {
         shelterManager.init();
     }
 
-    public void getShelterData(MainScreenActivity instance) {
-        this.mainScreenActivity = instance;
-        shelterManager.getShelterData();
+    public void getShelterData(Consumer<List<Shelter>> success) {
+        shelterManager.getShelterData(success);
     }
-    public void getShelterDataList(ListActivity instance, int uniqueKey) {
-        this.listActivity = instance;
-        shelterManager.getShelterData(uniqueKey);
+
+    public void attemptLogin(String username, String password, Runnable success, Runnable failure) {
+        userVerificationModel.attemptLogin(username, password, success, failure);
     }
-    public void attemptLogin(LoginActivity instance, String username, String password) {
-        userVerificationModel.attemptLogin(instance, username, password);
+
+    public void attemptRegistration(String name, String username,
+                                    String password, boolean isAdmin, Runnable success,
+                                    Runnable failure) {
+        userVerificationModel.attemptRegistration(name, username, password, isAdmin, success,
+                failure);
     }
-    public void attemptRegistration(RegistrationActivity instance, String name, String username, String password, boolean isAdmin) {
-        userVerificationModel.attemptRegistration(instance, name, username, password, isAdmin);
-    }
+
     public Shelter getShelter(int uniqueKey) {
         return shelterManager.getShelter(uniqueKey);
     }
@@ -59,23 +52,11 @@ public class ModelFacade {
         return shelterManager.updateVacancy(shelter, user, bedsHeld);
     }
 
-    void reload(List<Shelter> shelters) {
-        if (mainScreenActivity != null) {
-            mainScreenActivity.reload(shelters);
-        }
+    public void getShelterDataUnique(int uniqueKey, Consumer<Shelter> success) {
+        shelterManager.getShelterDataUnique(uniqueKey, success);
     }
 
-    void reloadList(Shelter shelter) {
-        if (listActivity != null) {
-            listActivity.reload(shelter, userVerificationModel.getCurrentUser());
-        }
-    }
-
-    public void setCurrentUser (AbstractUser user) {
-        userVerificationModel.setCurrentUser(user);
-    }
-
-    public AbstractUser getCurrentUser() {
+    public User getCurrentUser() {
         return userVerificationModel.getCurrentUser();
     }
 }

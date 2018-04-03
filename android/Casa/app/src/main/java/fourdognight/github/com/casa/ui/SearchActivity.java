@@ -1,4 +1,4 @@
-package fourdognight.github.com.casa;
+package fourdognight.github.com.casa.ui;
 
 import android.content.Intent;
 import android.database.DataSetObserver;
@@ -18,6 +18,9 @@ import android.widget.SpinnerAdapter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import fourdognight.github.com.casa.R;
+import fourdognight.github.com.casa.model.Consumer;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 
@@ -29,8 +32,13 @@ public class SearchActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
         model = ModelFacade.getInstance();
+//        model.getShelterData(new Consumer<List<Shelter>>() {
+//            @Override
+//            public void accept(List<Shelter> list) {
+//                reload(list);
+//            }
+//        });
 
         final Button nameButton = findViewById(R.id.nameButton);
         nameButton.setOnClickListener(new View.OnClickListener() {

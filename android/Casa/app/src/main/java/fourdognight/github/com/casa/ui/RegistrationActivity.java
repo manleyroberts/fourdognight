@@ -1,8 +1,7 @@
-package fourdognight.github.com.casa;
+package fourdognight.github.com.casa.ui;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,9 +15,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import fourdognight.github.com.casa.model.AbstractUser;
+import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.ModelFacade;
-import fourdognight.github.com.casa.model.UserVerificationModel;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -141,26 +139,44 @@ public class RegistrationActivity extends AppCompatActivity {
             // perform the user login attempt.
             taskActive = true;
             Log.d("Attempt", "RegistrationAttempt");
-            model.attemptRegistration(getInstance(), name, email, password, isAdmin);
+            model.attemptRegistration(name, email, password, isAdmin, new Runnable(){
+                @Override
+                public void run() {
+                    Log.d("I", "Registered");
+                    Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
+                    launchIntent.putExtra("justRegistered", true);
+                    startActivity(launchIntent);
+                    finish();
+                    taskActive = false;
+                }
+            },
+            new Runnable(){
+                @Override
+                public void run() {
+                    mUsernameView.setError(getString(R.string.error_account_exists));
+                    mUsernameView.requestFocus();
+                    taskActive = false;
+                }
+            });
 //            mAuthTask = new UserRegistrationTask(name, email, password, isAdmin);
 //            mAuthTask.execute((Void) null);
         }
     }
 
-    public void completeRegistrationSuccess() {
-        Log.d("I", "Registered");
-        Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
-        launchIntent.putExtra("justRegistered", true);
-        startActivity(launchIntent);
-        finish();
-        taskActive = false;
-    }
-
-    public void completeRegistrationFailed() {
-        mUsernameView.setError(getString(R.string.error_account_exists));
-        mUsernameView.requestFocus();
-        taskActive = false;
-    }
+//    public void completeRegistrationSuccess() {
+//        Log.d("I", "Registered");
+//        Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
+//        launchIntent.putExtra("justRegistered", true);
+//        startActivity(launchIntent);
+//        finish();
+//        taskActive = false;
+//    }
+//
+//    public void completeRegistrationFailed() {
+//        mUsernameView.setError(getString(R.string.error_account_exists));
+//        mUsernameView.requestFocus();
+//        taskActive = false;
+//    }
 
 
 //    /**
