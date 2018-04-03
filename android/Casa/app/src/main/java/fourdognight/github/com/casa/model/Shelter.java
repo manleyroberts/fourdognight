@@ -75,20 +75,28 @@ public class Shelter implements Serializable{
 
     }
 
+    public Shelter() {
+
+    }
+
     void addPatron(User user) {
         currentPatrons.add(user.getUsername());
     }
 
     void removePatron(User user) {
-        if (currentPatrons.contains(user.getUsername())) {
+        if (user != null && currentPatrons.contains(user.getUsername())) {
             currentPatrons.remove(user.getUsername());
         }
     }
 
     @Override
     public String toString() {
-        return shelterName + " " + restriction + " " + location.getAddress() + " " + special + " " + phone
-                + " ";
+        return shelterName + " " + restriction + " " + location.getAddress() + " " + special
+                + " " + phone + " ";
+    }
+
+    void setVacancy(int newVac) {
+        vacancy = newVac;
     }
 
     public boolean containsText(String text) {

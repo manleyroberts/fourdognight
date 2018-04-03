@@ -1,4 +1,4 @@
-package fourdognight.github.com.casa;
+package fourdognight.github.com.casa.ui;
 
 import android.content.Intent;
 import android.graphics.ColorSpace;
@@ -16,6 +16,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.HashMap;
 import java.util.List;
 
+import fourdognight.github.com.casa.R;
+import fourdognight.github.com.casa.model.Consumer;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 import fourdognight.github.com.casa.model.ShelterLocation;
@@ -37,7 +39,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         model = ModelFacade.getInstance();
-
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             this.shelters = (List<Shelter>) bundle.get("Shelters");

@@ -5,7 +5,7 @@
     android:id="@+id/regisConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fourdognight.github.com.casa.RegistrationActivity">
+    tools:context="fourdognight.github.com.casa.ui.RegistrationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="fourdognight.github.com.casa.LoginActivity">
+        tools:context="fourdognight.github.com.casa.ui.LoginActivity">
 
         <!-- Login progress -->
 
