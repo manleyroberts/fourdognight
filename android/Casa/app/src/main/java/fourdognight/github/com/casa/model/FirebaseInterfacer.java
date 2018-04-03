@@ -120,7 +120,7 @@ public class FirebaseInterfacer {
 
     void attemptLogin(final String username, final String password, final Consumer<User> success,
                       final Runnable failure) {
-        DatabaseReference myRef = database.getReference("test/userList/" + username);
+        DatabaseReference myRef = database.getReference("test/userList/" + sanitize(username));
 
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -150,7 +150,7 @@ public class FirebaseInterfacer {
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.hasChild(username)) {
+                if (!dataSnapshot.hasChild(sanitize(username))) {
                     updateUser(new User(name, username, password, -1, 0, isAdmin) );
                     success.run();
                 } else {
@@ -167,7 +167,7 @@ public class FirebaseInterfacer {
     void updateUser(User user) {
         DatabaseReference listRef = database.getReference("test/userList");
         Map<String, Object> updatedUsers = new HashMap<>();
-        updatedUsers.put(user.getUsername(), user);
+        updatedUsers.put(sanitize(user.getUsername()), user);
         listRef.updateChildren(updatedUsers);
         Log.d("Added", user.getUsername());
     }
@@ -181,5 +181,14 @@ public class FirebaseInterfacer {
 
     static FirebaseInterfacer getInstance() {
         return instance;
+    }
+
+    private static String sanitize(String dbPath) {
+        String sanitized = dbPath.replaceAll("[\\.#\\$\\[\\]]", "");
+        if (!sanitized.equals("")) {
+            return sanitized;
+        } else {
+            return " ";
+        }
     }
 }
