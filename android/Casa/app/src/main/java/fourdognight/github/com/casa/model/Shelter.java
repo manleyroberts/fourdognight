@@ -1,13 +1,8 @@
 package fourdognight.github.com.casa.model;
 
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -88,10 +83,6 @@ public class Shelter implements Serializable{
         return phone;
     }
 
-    List<String> getCurrentPatrons() {
-        return currentPatrons;
-    }
-
     /**
      * Constructor for a Shelter
      * @param uniqueKey the unique key for the shelter
@@ -115,9 +106,7 @@ public class Shelter implements Serializable{
         this.special = special;
         this.phone = phone;
         this.currentPatrons = new LinkedList<>();
-        for (String user : newPatrons) {
-            this.currentPatrons.add(user);
-        }
+        this.currentPatrons.addAll(newPatrons);
 
     }
 

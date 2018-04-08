@@ -3,12 +3,9 @@ package fourdognight.github.com.casa.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -24,10 +21,8 @@ import fourdognight.github.com.casa.model.Consumer;
 
 public class MainScreenActivity extends AppCompatActivity {
 
-    private TextView mUsernameView;
     private ArrayAdapter adapter;
     private ModelFacade model;
-    private User user;
     private List<Shelter> shelterList;
     private String restrictionFilter;
 
@@ -45,27 +40,23 @@ public class MainScreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main_screen);
         final Button button = findViewById(R.id.logOutButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MainScreenActivity.this, SplashActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
+        button.setOnClickListener(v -> {
+            Intent intent = new Intent(MainScreenActivity.this, SplashActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         });
         final Button mapViewButton = findViewById(R.id.mapViewButton);
-        mapViewButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (adapter == null) {
-                    return;
-                }
-                Intent intent = new Intent(MainScreenActivity.this, MapsActivity.class);
-                intent.putExtra("Shelters", (Serializable)shelterList);
-                startActivity(intent);
+        mapViewButton.setOnClickListener(v -> {
+            if (adapter == null) {
+                return;
             }
+            Intent intent = new Intent(MainScreenActivity.this, MapsActivity.class);
+            intent.putExtra("Shelters", (Serializable)shelterList);
+            startActivity(intent);
         });
 
-        mUsernameView = findViewById(R.id.mainScreenUsernameField);
-        user = model.getCurrentUser();
+        TextView mUsernameView = findViewById(R.id.mainScreenUsernameField);
+        User user = model.getCurrentUser();
         String topText = user.getName();
         topText += " | " + user.getUsername();
         if (user.isAdmin()) {
@@ -76,15 +67,10 @@ public class MainScreenActivity extends AppCompatActivity {
         mUsernameView.setText(topText);
         // Reads the CSV data
 //        readHomelessShelterData();
-        model.getShelterData(new Consumer<List<Shelter>>() {
-            @Override
-            public void accept(List<Shelter> list) {
-                reload(list);
-            }
-        });
+        model.getShelterData(list -> reload(list));
     }
 
-    public void reload(final List<Shelter> shelters) {
+    private void reload(final List<Shelter> shelters) {
         List<String> sheltersDisplay = new ArrayList<>(shelters.size());
         this.shelterList = new ArrayList<>();
         for (Shelter shelter : shelters) {
@@ -101,38 +87,24 @@ public class MainScreenActivity extends AppCompatActivity {
         final ListView listView = findViewById(R.id.shelterList);
         listView.setAdapter(adapter);
         // retrieves information for the info page
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainScreenActivity.this, fourdognight.github.com.casa.ui.ListActivity.class);
-                Shelter shelter = shelterList.get(i);
-                intent.putExtra("Shelter", shelter);
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Intent intent = new Intent(MainScreenActivity.this, ListActivity.class);
+            Shelter shelter = shelterList.get(i);
+            intent.putExtra("Shelter", shelter);
+            startActivity(intent);
         });
 
         Button searchbar = findViewById(R.id.search);
-        searchbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainScreenActivity.this,
-                        SearchActivity.class);
-                startActivity(intent);
-            }
+        searchbar.setOnClickListener(view -> {
+            Intent intent = new Intent(MainScreenActivity.this,
+                    SearchActivity.class);
+            startActivity(intent);
         });
 
         Button clearButton = findViewById(R.id.clearButton);
-        clearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                restrictionFilter = null;
-                model.getShelterData(new Consumer<List<Shelter>>() {
-                    @Override
-                    public void accept(List<Shelter> list) {
-                        reload(list);
-                    }
-                });
-            }
+        clearButton.setOnClickListener(view -> {
+            restrictionFilter = null;
+            model.getShelterData(list -> reload(list));
         });
     }
 
@@ -178,7 +150,4 @@ public class MainScreenActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private MainScreenActivity getInstance() {
-        return this;
-    }
 }
