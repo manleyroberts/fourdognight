@@ -28,11 +28,6 @@ public class LoginActivity extends AppCompatActivity {
     // UI references.
     private EditText mUsernameView;
     private EditText mPasswordView;
-    private View mUserTextView;
-    private View mPassTextView;
-    private View mLoginView;
-    private View mProgressView;
-    private View mSuccessText;
 
     private ModelFacade model;
 
@@ -45,32 +40,21 @@ public class LoginActivity extends AppCompatActivity {
 
         mPasswordView = findViewById(R.id.passwordField);
         mUsernameView = findViewById(R.id.usernameField);
-        mSuccessText = findViewById(R.id.successText);
-        mLoginView = findViewById(R.id.loginLayout);
-        mPassTextView = findViewById(R.id.passText);
-        mUserTextView = findViewById(R.id.userText);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
+        View mSuccessText = findViewById(R.id.successText);
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                attemptLogin();
+                return true;
             }
+            return false;
         });
 
         mSuccessText.setVisibility((Boolean) (getIntent().getExtras().get("justRegistered"))
                 ? View.VISIBLE : View.GONE);
 
         final Button button = findViewById(R.id.loginSubmitButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                attemptLogin();
-            }
-        });
+        button.setOnClickListener(v -> attemptLogin());
 
-        mProgressView = findViewById(R.id.login_progress);
     }
 
     /**
@@ -114,20 +98,14 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             Log.d("Login", "Task fired");
-            model.attemptLogin(email, password, new Runnable() {
-                @Override
-                public void run() {
-                    Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
-                    startActivity(launchIntent);
-                    finish();
-                }
-            }, new Runnable() {
-                @Override
-                public void run() {
-                    mPasswordView.setError(getString(R.string.error_incorrect_password));
-                    mPasswordView.requestFocus();
-                    taskActive = false;
-                }
+            model.attemptLogin(email, password, () -> {
+                Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
+                startActivity(launchIntent);
+                finish();
+            }, () -> {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+                taskActive = false;
             });
         }
     }

@@ -2,11 +2,6 @@ package fourdognight.github.com.casa.model;
 
 import java.util.List;
 
-import fourdognight.github.com.casa.ui.ListActivity;
-import fourdognight.github.com.casa.ui.MainScreenActivity;
-import fourdognight.github.com.casa.ui.MapsActivity;
-import fourdognight.github.com.casa.ui.SearchActivity;
-
 /**
  * Created by manle on 3/9/2018.
  */
@@ -14,7 +9,7 @@ import fourdognight.github.com.casa.ui.SearchActivity;
 public class ModelFacade {
     private UserVerificationModel userVerificationModel;
     private ShelterManager shelterManager;
-    private static ModelFacade model = new ModelFacade();
+    private static final ModelFacade model = new ModelFacade();
 
     private ModelFacade() {    }
 
@@ -40,10 +35,6 @@ public class ModelFacade {
                 failure);
     }
 
-    public Shelter getShelter(int uniqueKey) {
-        return shelterManager.getShelter(uniqueKey);
-    }
-
     public static ModelFacade getInstance() {
         return model;
     }
@@ -58,5 +49,9 @@ public class ModelFacade {
 
     public User getCurrentUser() {
         return userVerificationModel.getCurrentUser();
+    }
+
+    List<User> usersAtShelter(Shelter shelter) {
+        return userVerificationModel.usersAtShelter(shelter);
     }
 }

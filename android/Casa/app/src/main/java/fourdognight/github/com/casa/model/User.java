@@ -1,8 +1,5 @@
 package fourdognight.github.com.casa.model;
 
-import android.util.Log;
-import android.view.Display;
-
 import com.google.firebase.database.Exclude;
 
 /**
@@ -14,19 +11,19 @@ public class User{
     private int currentShelterUniqueKey;
     private int heldBeds;
     private String name;
-    private String username;
+    private final String username;
     private String password;
-    private boolean isAdmin;
+    private final boolean isAdmin;
 
     @Exclude
-    private UserVerificationModel userVerificationModel;
+    private final UserVerificationModel userVerificationModel;
     @Exclude
-    private ShelterManager manager;
+    private final ShelterManager manager;
 
 //    private boolean locked;
 
-    User(String name, String username, String password, int currentShelterUniqueKey, int heldBeds,
-         boolean isAdmin) {
+    User(String name, String username, String password, int currentShelterUniqueKey,
+            boolean isAdmin) {
         manager = ShelterManager.getInstance();
 
         userVerificationModel = UserVerificationModel.getInstance();
@@ -39,7 +36,7 @@ public class User{
     }
 
     User() {
-        this("", "", "", -1, 0, false);
+        this("", "", "", -1, false);
     }
 
 
@@ -76,7 +73,7 @@ public class User{
         return currentShelterUniqueKey;
     }
 
-    void pushUserChanges() {
+    private void pushUserChanges() {
         manager.refactorVacancy(currentShelter);
         userVerificationModel.updateUserList(this);
         userVerificationModel.pushUserChanges();
@@ -86,20 +83,12 @@ public class User{
         return name;
     }
 
-    void setName(String name) {
-        this.name = name;
-    }
-
     public String getUsername() {
         return username;
     }
 
     String getPassword() {
         return password;
-    }
-
-    void setPassword(String password) {
-        this.password = password;
     }
 
     public boolean isAdmin() {
