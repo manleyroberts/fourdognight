@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.ModelFacade;
@@ -41,7 +42,7 @@ public class SearchActivity extends AppCompatActivity{
         String[] ages = new String[] {
                 "Families", "Children", "Young Adults", "Anyone"
         };
-        ArrayAdapter<String> ageAdapter = new ArrayAdapter<>(this,
+        SpinnerAdapter ageAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, ages);
         ageSpinner.setAdapter(ageAdapter);
 
@@ -52,7 +53,7 @@ public class SearchActivity extends AppCompatActivity{
         String[] genders = new String[] {
                 "Men", "Women"
         };
-        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this,
+        SpinnerAdapter genderAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, genders);
         genderSpinner.setAdapter(genderAdapter);
 

@@ -28,7 +28,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText mPasswordView;
     private View mUserTextView;
     private View mPassTextView;
-    private View mRegisView;
+    private View mRegistrationView;
     private View mProgressView;
     private EditText mPasswordView2;
     private View mPassTextView2;
@@ -47,14 +47,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mPasswordView = findViewById(R.id.regPasswordField);
         mUsernameView = findViewById(R.id.regUsernameField);
-        mRegisView = findViewById(R.id.regisLayout);
+        mRegistrationView = findViewById(R.id.regisLayout);
         mPassTextView = findViewById(R.id.regPassText);
         mUserTextView = findViewById(R.id.regUserText);
         mPasswordView2 = findViewById(R.id.regPasswordField2);
         mPassTextView2 = findViewById(R.id.regPassText2);
         mNameView = findViewById(R.id.regNameField);
         mNameTextView = findViewById(R.id.regNameText);
-        mAdminSwitchView = (Switch) findViewById(R.id.adminSwitch);
+        mAdminSwitchView = findViewById(R.id.adminSwitch);
 
         mPasswordView2.setOnEditorActionListener((textView, id, keyEvent) -> {
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {

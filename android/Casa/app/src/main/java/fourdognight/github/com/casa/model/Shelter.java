@@ -1,6 +1,7 @@
 package fourdognight.github.com.casa.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,16 +42,16 @@ public class Shelter implements Serializable{
 
     public ShelterLocation getLocation() { return location; }
 
-    public String getSpecial() {
+    public CharSequence getSpecial() {
         return special;
     }
 
-    public String getPhone() {
+    public CharSequence getPhone() {
         return phone;
     }
 
     public Shelter (int uniqueKey, String shelterName, int capacity, int vacancy, String restriction,
-                    ShelterLocation location, String special, String phone, List<String> newPatrons) {
+                    ShelterLocation location, String special, String phone, Collection<String> newPatrons) {
         this.shelterName = shelterName;
         this.capacity = capacity;
         this.vacancy = vacancy;

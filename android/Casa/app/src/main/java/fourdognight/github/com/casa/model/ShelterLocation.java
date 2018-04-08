@@ -19,7 +19,7 @@ public class ShelterLocation implements Serializable{
         return latitude;
     }
 
-    public String getAddress() {
+    public CharSequence getAddress() {
         return address;
     }
 

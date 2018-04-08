@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.Shelter;
@@ -23,7 +24,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private List<Shelter> shelters;
-    private HashMap<Marker, Shelter> markerShelterMap;
+    private Map<Marker, Shelter> markerShelterMap;
 
     @Override
     @SuppressWarnings("unchecked")
