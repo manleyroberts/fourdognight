@@ -3,12 +3,18 @@ package fourdognight.github.com.casa.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+=======
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -22,6 +28,7 @@ import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 import fourdognight.github.com.casa.model.Consumer;
 
+<<<<<<< HEAD
 /**
  * @author Evan Mi, Manley Roberts, Jared Duncan
  * @version 1.0
@@ -34,6 +41,12 @@ public class MainScreenActivity extends AppCompatActivity {
     private ArrayAdapter adapter;
     private ModelFacade model;
     private User user;
+=======
+public class MainScreenActivity extends AppCompatActivity {
+
+    private ArrayAdapter adapter;
+    private ModelFacade model;
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     private List<Shelter> shelterList;
     private String restrictionFilter;
 
@@ -51,6 +64,7 @@ public class MainScreenActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main_screen);
         final Button button = findViewById(R.id.logOutButton);
+<<<<<<< HEAD
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainScreenActivity.this, SplashActivity.class);
@@ -72,6 +86,25 @@ public class MainScreenActivity extends AppCompatActivity {
 
         mUsernameView = findViewById(R.id.mainScreenUsernameField);
         user = model.getCurrentUser();
+=======
+        button.setOnClickListener(v -> {
+            Intent intent = new Intent(MainScreenActivity.this, SplashActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        });
+        final Button mapViewButton = findViewById(R.id.mapViewButton);
+        mapViewButton.setOnClickListener(v -> {
+            if (adapter == null) {
+                return;
+            }
+            Intent intent = new Intent(MainScreenActivity.this, MapsActivity.class);
+            intent.putExtra("Shelters", (Serializable)shelterList);
+            startActivity(intent);
+        });
+
+        TextView mUsernameView = findViewById(R.id.mainScreenUsernameField);
+        User user = model.getCurrentUser();
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
         String topText = user.getName();
         topText += " | " + user.getUsername();
         if (user.isAdmin()) {
@@ -82,6 +115,7 @@ public class MainScreenActivity extends AppCompatActivity {
         mUsernameView.setText(topText);
         // Reads the CSV data
 //        readHomelessShelterData();
+<<<<<<< HEAD
         model.getShelterData(new Consumer<List<Shelter>>() {
             @Override
             public void accept(List<Shelter> list) {
@@ -96,6 +130,12 @@ public class MainScreenActivity extends AppCompatActivity {
      * @param shelters the list of shelters used to create a visible list
      */
     public void reload(final List<Shelter> shelters) {
+=======
+        model.getShelterData(list -> reload(list));
+    }
+
+    private void reload(final List<Shelter> shelters) {
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
         List<String> sheltersDisplay = new ArrayList<>(shelters.size());
         this.shelterList = new ArrayList<>();
         for (Shelter shelter : shelters) {
@@ -112,6 +152,7 @@ public class MainScreenActivity extends AppCompatActivity {
         final ListView listView = findViewById(R.id.shelterList);
         listView.setAdapter(adapter);
         // retrieves information for the info page
+<<<<<<< HEAD
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -144,6 +185,26 @@ public class MainScreenActivity extends AppCompatActivity {
                     }
                 });
             }
+=======
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Intent intent = new Intent(MainScreenActivity.this, ListActivity.class);
+            Shelter shelter = shelterList.get(i);
+            intent.putExtra("Shelter", shelter);
+            startActivity(intent);
+        });
+
+        Button searchbar = findViewById(R.id.search);
+        searchbar.setOnClickListener(view -> {
+            Intent intent = new Intent(MainScreenActivity.this,
+                    SearchActivity.class);
+            startActivity(intent);
+        });
+
+        Button clearButton = findViewById(R.id.clearButton);
+        clearButton.setOnClickListener(view -> {
+            restrictionFilter = null;
+            model.getShelterData(list -> reload(list));
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
         });
     }
 
@@ -189,7 +250,10 @@ public class MainScreenActivity extends AppCompatActivity {
 //        }
 //    }
 
+<<<<<<< HEAD
     private MainScreenActivity getInstance() {
         return this;
     }
+=======
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
 }

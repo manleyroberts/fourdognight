@@ -1,8 +1,11 @@
 package fourdognight.github.com.casa.model;
 
+<<<<<<< HEAD
 import android.util.Log;
 import android.view.Display;
 
+=======
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
 import com.google.firebase.database.Exclude;
 
 /**
@@ -14,6 +17,7 @@ public class User{
     private int currentShelterUniqueKey;
     private int heldBeds;
     private String name;
+<<<<<<< HEAD
     private String username;
     private String password;
     private boolean isAdmin;
@@ -27,6 +31,21 @@ public class User{
 
     User(String name, String username, String password, int currentShelterUniqueKey, int heldBeds,
          boolean isAdmin) {
+=======
+    private final String username;
+    private String password;
+    private final boolean isAdmin;
+
+    @Exclude
+    private final UserVerificationModel userVerificationModel;
+    @Exclude
+    private final ShelterManager manager;
+
+//    private boolean locked;
+
+    User(String name, String username, String password, int currentShelterUniqueKey,
+            boolean isAdmin) {
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
         manager = ShelterManager.getInstance();
 
         userVerificationModel = UserVerificationModel.getInstance();
@@ -39,6 +58,7 @@ public class User{
     }
 
     User() {
+<<<<<<< HEAD
         this("", "", "", -1, 0, false);
     }
 
@@ -46,6 +66,12 @@ public class User{
      * gets the number beds held
      * @return the number of beds held
      */
+=======
+        this("", "", "", -1, false);
+    }
+
+
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     public int getHeldBeds() {
         return heldBeds;
     }
@@ -70,38 +96,52 @@ public class User{
 //        pushUserChanges();
 //    }
 
+<<<<<<< HEAD
     /**
      * checks to see if the user can stay at particular shelter
      * @param shelter the shelter being checked
      * @return true if can stay at shelter, false otherwise
      */
+=======
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     public boolean canStayAt(Shelter shelter) {
         return !isAdmin && (currentShelterUniqueKey == -1 || (currentShelterUniqueKey
                 == shelter.getUniqueKey()) || heldBeds == 0);
     }
 
+<<<<<<< HEAD
     /**
      * gets the shelter key
      * @return the shelter key
      */
+=======
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     public int getCurrentShelterUniqueKey() {
         return currentShelterUniqueKey;
     }
 
+<<<<<<< HEAD
     void pushUserChanges() {
+=======
+    private void pushUserChanges() {
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
         manager.refactorVacancy(currentShelter);
         userVerificationModel.updateUserList(this);
         userVerificationModel.pushUserChanges();
     }
 
+<<<<<<< HEAD
     /**
      * gets the shelter name
      * @return the shelter name
      */
+=======
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     public String getName() {
         return name;
     }
 
+<<<<<<< HEAD
     void setName(String name) {
         this.name = name;
     }
@@ -110,6 +150,8 @@ public class User{
      * gets the user name
      * @return the user name
      */
+=======
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     public String getUsername() {
         return username;
     }
@@ -118,6 +160,7 @@ public class User{
         return password;
     }
 
+<<<<<<< HEAD
     void setPassword(String password) {
         this.password = password;
     }
@@ -126,11 +169,16 @@ public class User{
      * checks if the user is an admin
      * @return true if user is admin, false otherwise
      */
+=======
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     public boolean isAdmin() {
         return isAdmin;
     }
 
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     public boolean equals(Object other) {
         if (other == null || !(other instanceof User)) {
             return false;

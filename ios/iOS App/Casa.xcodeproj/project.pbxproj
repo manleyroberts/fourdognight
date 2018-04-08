@@ -1,0 +1,423 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6F6C784C203F876E009EC7C4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6C784B203F876E009EC7C4 /* MainViewController.swift */; };
+		6F6C784E203F8867009EC7C4 /* MainScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F6C784D203F8867009EC7C4 /* MainScreen.storyboard */; };
+		6F72CA4E202E6111007FE392 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F72CA4D202E6111007FE392 /* AppDelegate.swift */; };
+		6F72CA50202E6111007FE392 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F72CA4F202E6111007FE392 /* SplashViewController.swift */; };
+		6F72CA53202E6111007FE392 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F72CA51202E6111007FE392 /* SplashScreen.storyboard */; };
+		6F72CA55202E6111007FE392 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F72CA54202E6111007FE392 /* Assets.xcassets */; };
+		6F72CA58202E6111007FE392 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F72CA56202E6111007FE392 /* LaunchScreen.storyboard */; };
+		6F72CA60202E6C9B007FE392 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F72CA5F202E6C9B007FE392 /* Default-568h@2x.png */; };
+		6F7DDD15203B081800B7963F /* UserVerificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7DDD14203B081800B7963F /* UserVerificationModel.swift */; };
+		6F7DDD1A203B80B600B7963F /* RegistrationScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F7DDD18203B80B600B7963F /* RegistrationScreen.storyboard */; };
+		6FA3628A203E0249000F018D /* AbstractUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA36289203E0249000F018D /* AbstractUser.swift */; };
+		6FA3628C203E5F46000F018D /* Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3628B203E5F46000F018D /* Admin.swift */; };
+		6FA3628E203E605F000F018D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3628D203E605F000F018D /* User.swift */; };
+		6FDD486E203CCC5500A0AB33 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDD486D203CCC5500A0AB33 /* RegistrationViewController.swift */; };
+		6FDD4870203DC95E00A0AB33 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDD486F203DC95E00A0AB33 /* LoginViewController.swift */; };
+		6FDD4873203DC98700A0AB33 /* LoginScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FDD4871203DC98700A0AB33 /* LoginScreen.storyboard */; };
+		7F15F3A0205335E800D169F3 /* DatabaseInterfacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F15F39F205335E800D169F3 /* DatabaseInterfacer.swift */; };
+		7F15F3A2205336B300D169F3 /* Shelter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F15F3A1205336B300D169F3 /* Shelter.swift */; };
+		7F46EF1620572B0F0007D9AB /* Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F46EF1520572B0F0007D9AB /* Age.swift */; };
+		7FCFC53B20565B55005EEA14 /* ShelterAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC53A20565B55005EEA14 /* ShelterAdapter.swift */; };
+		7FCFC53D20566142005EEA14 /* ShelterRestrictionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC53C20566141005EEA14 /* ShelterRestrictionList.swift */; };
+		7FCFC53F20566240005EEA14 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC53E20566240005EEA14 /* Location.swift */; };
+		7FCFC54120566720005EEA14 /* homelessshelterdatabase.csv in Resources */ = {isa = PBXBuildFile; fileRef = 7FCFC54020566720005EEA14 /* homelessshelterdatabase.csv */; };
+		7FCFC5432056A5B2005EEA14 /* ShelterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC5422056A5B2005EEA14 /* ShelterDetailViewController.swift */; };
+		7FCFC545205720EF005EEA14 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FCFC544205720EF005EEA14 /* SearchViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6F6C784B203F876E009EC7C4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		6F6C784D203F8867009EC7C4 /* MainScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = MainScreen.storyboard; path = Base.lproj/MainScreen.storyboard; sourceTree = "<group>"; };
+		6F72CA4A202E6111007FE392 /* Casa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Casa.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F72CA4D202E6111007FE392 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6F72CA4F202E6111007FE392 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		6F72CA52202E6111007FE392 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SplashScreen.storyboard; sourceTree = "<group>"; };
+		6F72CA54202E6111007FE392 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6F72CA57202E6111007FE392 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6F72CA59202E6111007FE392 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F72CA5F202E6C9B007FE392 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		6F7DDD14203B081800B7963F /* UserVerificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVerificationModel.swift; sourceTree = "<group>"; };
+		6F7DDD19203B80B600B7963F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RegistrationScreen.storyboard; sourceTree = "<group>"; };
+		6FA36289203E0249000F018D /* AbstractUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractUser.swift; sourceTree = "<group>"; };
+		6FA3628B203E5F46000F018D /* Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Admin.swift; sourceTree = "<group>"; };
+		6FA3628D203E605F000F018D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6FDD486D203CCC5500A0AB33 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		6FDD486F203DC95E00A0AB33 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		6FDD4872203DC98700A0AB33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LoginScreen.storyboard; sourceTree = "<group>"; };
+		7F15F39F205335E800D169F3 /* DatabaseInterfacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseInterfacer.swift; sourceTree = "<group>"; };
+		7F15F3A1205336B300D169F3 /* Shelter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shelter.swift; sourceTree = "<group>"; };
+		7F46EF1520572B0F0007D9AB /* Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Age.swift; sourceTree = "<group>"; };
+		7FCFC53920565AFE005EEA14 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = loading.gif; path = "/Users/jared/Documents/School/CS2340/fourdognight/ios/iOS App/Casa/loading.gif"; sourceTree = "<absolute>"; };
+		7FCFC53A20565B55005EEA14 /* ShelterAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShelterAdapter.swift; path = "/Users/jared/Documents/School/CS2340/fourdognight/ios/iOS App/Casa/ShelterAdapter.swift"; sourceTree = "<absolute>"; };
+		7FCFC53C20566141005EEA14 /* ShelterRestrictionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ShelterRestrictionList.swift; path = "/Users/jared/Documents/School/CS2340/fourdognight/ios/iOS App/Casa/ShelterRestrictionList.swift"; sourceTree = "<absolute>"; };
+		7FCFC53E20566240005EEA14 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Location.swift; path = "/Users/jared/Documents/School/CS2340/fourdognight/ios/iOS App/Casa/Location.swift"; sourceTree = "<absolute>"; };
+		7FCFC54020566720005EEA14 /* homelessshelterdatabase.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = homelessshelterdatabase.csv; sourceTree = "<group>"; };
+		7FCFC5422056A5B2005EEA14 /* ShelterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelterDetailViewController.swift; sourceTree = "<group>"; };
+		7FCFC544205720EF005EEA14 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6F72CA47202E6111007FE392 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6F72CA41202E6111007FE392 = {
+			isa = PBXGroup;
+			children = (
+				6F72CA5F202E6C9B007FE392 /* Default-568h@2x.png */,
+				6F72CA4C202E6111007FE392 /* Casa */,
+				6F72CA4B202E6111007FE392 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6F72CA4B202E6111007FE392 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6F72CA4A202E6111007FE392 /* Casa.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6F72CA4C202E6111007FE392 /* Casa */ = {
+			isa = PBXGroup;
+			children = (
+				7FCFC54020566720005EEA14 /* homelessshelterdatabase.csv */,
+				7FCFC53E20566240005EEA14 /* Location.swift */,
+				7FCFC53C20566141005EEA14 /* ShelterRestrictionList.swift */,
+				7FCFC53A20565B55005EEA14 /* ShelterAdapter.swift */,
+				7FCFC53920565AFE005EEA14 /* loading.gif */,
+				7F15F3A1205336B300D169F3 /* Shelter.swift */,
+				7F15F39F205335E800D169F3 /* DatabaseInterfacer.swift */,
+				6F7DDD14203B081800B7963F /* UserVerificationModel.swift */,
+				6F72CA4D202E6111007FE392 /* AppDelegate.swift */,
+				6FA36289203E0249000F018D /* AbstractUser.swift */,
+				6F72CA4F202E6111007FE392 /* SplashViewController.swift */,
+				6FDD486F203DC95E00A0AB33 /* LoginViewController.swift */,
+				6FDD4871203DC98700A0AB33 /* LoginScreen.storyboard */,
+				6F6C784B203F876E009EC7C4 /* MainViewController.swift */,
+				6F6C784D203F8867009EC7C4 /* MainScreen.storyboard */,
+				6FDD486D203CCC5500A0AB33 /* RegistrationViewController.swift */,
+				6FA3628B203E5F46000F018D /* Admin.swift */,
+				6FA3628D203E605F000F018D /* User.swift */,
+				6F72CA51202E6111007FE392 /* SplashScreen.storyboard */,
+				6F7DDD18203B80B600B7963F /* RegistrationScreen.storyboard */,
+				6F72CA54202E6111007FE392 /* Assets.xcassets */,
+				6F72CA56202E6111007FE392 /* LaunchScreen.storyboard */,
+				6F72CA59202E6111007FE392 /* Info.plist */,
+				7FCFC5422056A5B2005EEA14 /* ShelterDetailViewController.swift */,
+				7FCFC544205720EF005EEA14 /* SearchViewController.swift */,
+				7F46EF1520572B0F0007D9AB /* Age.swift */,
+			);
+			path = Casa;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6F72CA49202E6111007FE392 /* Casa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F72CA5C202E6111007FE392 /* Build configuration list for PBXNativeTarget "Casa" */;
+			buildPhases = (
+				6F72CA46202E6111007FE392 /* Sources */,
+				6F72CA47202E6111007FE392 /* Frameworks */,
+				6F72CA48202E6111007FE392 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Casa;
+			productName = "Homeless Shelter App iOS";
+			productReference = 6F72CA4A202E6111007FE392 /* Casa.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6F72CA42202E6111007FE392 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Four Dog Night";
+				TargetAttributes = {
+					6F72CA49202E6111007FE392 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 6F72CA45202E6111007FE392 /* Build configuration list for PBXProject "Casa" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6F72CA41202E6111007FE392;
+			productRefGroup = 6F72CA4B202E6111007FE392 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6F72CA49202E6111007FE392 /* Casa */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6F72CA48202E6111007FE392 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F72CA58202E6111007FE392 /* LaunchScreen.storyboard in Resources */,
+				7FCFC54120566720005EEA14 /* homelessshelterdatabase.csv in Resources */,
+				6F6C784E203F8867009EC7C4 /* MainScreen.storyboard in Resources */,
+				6FDD4873203DC98700A0AB33 /* LoginScreen.storyboard in Resources */,
+				6F72CA60202E6C9B007FE392 /* Default-568h@2x.png in Resources */,
+				6F7DDD1A203B80B600B7963F /* RegistrationScreen.storyboard in Resources */,
+				6F72CA55202E6111007FE392 /* Assets.xcassets in Resources */,
+				6F72CA53202E6111007FE392 /* SplashScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6F72CA46202E6111007FE392 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FA3628A203E0249000F018D /* AbstractUser.swift in Sources */,
+				6F72CA50202E6111007FE392 /* SplashViewController.swift in Sources */,
+				6F72CA4E202E6111007FE392 /* AppDelegate.swift in Sources */,
+				7F15F3A2205336B300D169F3 /* Shelter.swift in Sources */,
+				6FA3628C203E5F46000F018D /* Admin.swift in Sources */,
+				6FA3628E203E605F000F018D /* User.swift in Sources */,
+				7F46EF1620572B0F0007D9AB /* Age.swift in Sources */,
+				7FCFC53F20566240005EEA14 /* Location.swift in Sources */,
+				6FDD486E203CCC5500A0AB33 /* RegistrationViewController.swift in Sources */,
+				6F6C784C203F876E009EC7C4 /* MainViewController.swift in Sources */,
+				7FCFC5432056A5B2005EEA14 /* ShelterDetailViewController.swift in Sources */,
+				7FCFC545205720EF005EEA14 /* SearchViewController.swift in Sources */,
+				7F15F3A0205335E800D169F3 /* DatabaseInterfacer.swift in Sources */,
+				7FCFC53B20565B55005EEA14 /* ShelterAdapter.swift in Sources */,
+				6FDD4870203DC95E00A0AB33 /* LoginViewController.swift in Sources */,
+				6F7DDD15203B081800B7963F /* UserVerificationModel.swift in Sources */,
+				7FCFC53D20566142005EEA14 /* ShelterRestrictionList.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6F72CA51202E6111007FE392 /* SplashScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F72CA52202E6111007FE392 /* Base */,
+			);
+			name = SplashScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		6F72CA56202E6111007FE392 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F72CA57202E6111007FE392 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		6F7DDD18203B80B600B7963F /* RegistrationScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F7DDD19203B80B600B7963F /* Base */,
+			);
+			name = RegistrationScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		6FDD4871203DC98700A0AB33 /* LoginScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6FDD4872203DC98700A0AB33 /* Base */,
+			);
+			name = LoginScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6F72CA5A202E6111007FE392 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6F72CA5B202E6111007FE392 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6F72CA5D202E6111007FE392 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "$(SRCROOT)/Casa/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "fourdognight.github.com.homelessshelterapp.Homeless-Shelter-App-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6F72CA5E202E6111007FE392 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "$(SRCROOT)/Casa/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "fourdognight.github.com.homelessshelterapp.Homeless-Shelter-App-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6F72CA45202E6111007FE392 /* Build configuration list for PBXProject "Casa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F72CA5A202E6111007FE392 /* Debug */,
+				6F72CA5B202E6111007FE392 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F72CA5C202E6111007FE392 /* Build configuration list for PBXNativeTarget "Casa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F72CA5D202E6111007FE392 /* Debug */,
+				6F72CA5E202E6111007FE392 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6F72CA42202E6111007FE392 /* Project object */;
+}

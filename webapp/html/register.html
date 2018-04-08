@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Casa</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+
+      .switch input {display:none;}
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+      }
+
+      input:checked + .slider {
+        background-color: #2196F3;
+      }
+
+      input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+      }
+
+      input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+    </style>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+  <body>
+    <form id="registerForm" onsubmit="return register()">
+      <div class="container">
+        <label for="name">Name</label>
+        <input type="text" placeholder="Enter Name" name="name" required>
+      </div>
+      <div class="container">
+        <label for="email">Email</label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+      </div>
+      <div class="container">
+        <label for="password">Password</label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+      </div>
+      <div class="container">
+        <label for="password2">Confirm Password</label>
+        <input type="password" placeholder="Enter Password" name="password2" required>
+      </div>
+      <div class="container">
+        <label for="admin">Admin?</label>
+        <label class="switch">
+          <input type="checkbox" name="admin">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <p id="error" style="display:none; color:red">Fix the following errors:</p>
+      <p id="bademail" style="display:none; color:red">Invalid email address</p>
+      <p id="badpassword" style="display:none; color:red">Password is less than 8 characters long</p>
+      <p id="badconfirm" style="display:none; color:red">Passwords do not match</p>
+      <p id="userexists" style="display:none; color:red">User already exists</p>
+      <div class="container">
+        <input type="submit">
+        <button onclick="window.location = '/'">Cancel</button>
+      </div>
+    </form>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+  <script>
+    function register() {
+      var form = document.getElementById("registerForm");
+      var formRequest = new XMLHttpRequest();
+      formRequest.onreadystatechange = function () {
+        document.getElementById("error").style.display = "none";
+        document.getElementById("bademail").style.display = "none";
+        document.getElementById("badpassword").style.display = "none";
+        document.getElementById("badconfirm").style.display = "none";
+        document.getElementById("userexists").style.display = "none";
+        if (formRequest.readyState == 4) {
+          if (formRequest.status == 200) {
+            sessionStorage.fr = 'y';
+            window.location = "/login.html";
+          } else if (formRequest.status == 401) {
+            document.getElementById("error").style.display = "block";
+            if (formRequest.responseText.includes("EMAIL")) {
+              document.getElementById("bademail").style.display = "block";
+            }
+            if (formRequest.responseText.includes("PASSWORD")) {
+              document.getElementById("badpassword").style.display = "block";
+            }
+            if (formRequest.responseText.includes("MISMATCH")) {
+              document.getElementById("badconfirm").style.display = "block";
+            }
+            if (formRequest.responseText.includes("EXISTS")) {
+              document.getElementById("userexists").style.display = "block";
+            }
+          }
+        }
+      }
+      formRequest.open("POST", "/register", true);
+      formRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      formRequest.send("name=" + form.name.value + "&email=" + form.email.value + "&password=" + form.password.value + "&password2=" + form.password2.value + "&admin=" + form.admin.value);
+      return false;
+    }
+  </script>
+</html>

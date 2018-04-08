@@ -10,6 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+<<<<<<< HEAD
+=======
+import java.util.Locale;
+
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.Consumer;
 import fourdognight.github.com.casa.model.ModelFacade;
@@ -17,6 +22,7 @@ import fourdognight.github.com.casa.model.Shelter;
 import fourdognight.github.com.casa.model.ShelterLocation;
 import fourdognight.github.com.casa.model.User;
 
+<<<<<<< HEAD
 /**
  * @author Evan Mi, Manley Roberts
  * @version 1.0
@@ -39,6 +45,24 @@ public class ListActivity extends AppCompatActivity {
     EditText selfReport;
 
     ModelFacade model;
+=======
+public class ListActivity extends AppCompatActivity {
+
+
+    private TextView shelterName;
+    private TextView capacity;
+    private TextView key;
+    private TextView restriction;
+    private TextView longitude;
+    private TextView latitude;
+    private TextView address;
+    private TextView special;
+    private TextView phone;
+    private TextView vacancy;
+    private EditText selfReport;
+
+    private ModelFacade model;
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     //Creates all the "text boxes" for the shelter information on page when shelter is clicked
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +89,7 @@ public class ListActivity extends AppCompatActivity {
             reload(shelter);
 
             final Button button = findViewById(R.id.updateVacancyButton);
+<<<<<<< HEAD
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                 model.init();
@@ -97,10 +122,38 @@ public class ListActivity extends AppCompatActivity {
                     }
                 }
                 }
+=======
+            button.setOnClickListener(v -> {
+            model.init();
+            if (!user.isAdmin()) {
+                selfReport.setError(null);
+                Editable text = selfReport.getText();
+                int intendedBeds;
+                if (text.toString().isEmpty()) {
+                    intendedBeds = 0;
+                } else {
+                    intendedBeds = Integer.parseInt(text.toString());
+                }
+
+                if (!user.canStayAt(shelter)) {
+                    selfReport.setError(getString(R.string.error_held_beds_elsewhere));
+                    selfReport.requestFocus();
+                } else if (TextUtils.isEmpty(text) || intendedBeds < 0 ||
+                        !model.updateVacancy(shelter, user,
+                                Integer.parseInt(text.toString()))) {
+                    selfReport.setError(getString(R.string.error_wrong_bed_number));
+                    selfReport.requestFocus();
+                } else {
+                    int uniqueKey = shelter.getUniqueKey();
+                    model.getShelterDataUnique(uniqueKey, shelter1 -> reload(shelter1));
+                }
+            }
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
             });
         }
     }
 
+<<<<<<< HEAD
     /**
      * sets the info page and corresponds each textbox with the correct
      * data point
@@ -130,6 +183,29 @@ public class ListActivity extends AppCompatActivity {
     private ListActivity getInstance() {
         return this;
     }
+=======
+    private void reload(Shelter shelter) {
+        User user = model.getCurrentUser();
+
+        shelterName.setText(shelter.getShelterName());
+        capacity.setText(String.format(Locale.getDefault(), "%d", shelter.getCapacity()));
+        key.setText(String.format(Locale.getDefault(), "%d", shelter.getUniqueKey()));
+        vacancy.setText(String.format(Locale.getDefault(), "%d", shelter.getVacancy()));
+        restriction.setText(shelter.getRestriction());
+        ShelterLocation loc = shelter.getLocation();
+        longitude.setText(String.format(Locale.getDefault(), "%f", loc.getLongitude()));
+        latitude.setText(String.format(Locale.getDefault(), "%f", loc.getLatitude()));
+        address.setText(loc.getAddress());
+        special.setText(shelter.getSpecial());
+        phone.setText(shelter.getPhone());
+        int beds = user.getHeldBeds();
+
+        if (user.getCurrentShelterUniqueKey() == shelter.getUniqueKey()) {
+            selfReport.setText(beds);
+        }
+    }
+
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
 }
 
 

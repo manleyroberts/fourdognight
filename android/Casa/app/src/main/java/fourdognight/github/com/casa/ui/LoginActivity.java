@@ -17,6 +17,7 @@ import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.ModelFacade;
 
 /**
+<<<<<<< HEAD
  * @author Manley Roberts
  * @version 1.0
  *
@@ -26,16 +27,27 @@ import fourdognight.github.com.casa.model.ModelFacade;
 public class LoginActivity extends AppCompatActivity {
 
     //Keep track of the login task to ensure we can cancel it if requested.
+=======
+ * A login screen that offers login via username/password.
+ */
+public class LoginActivity extends AppCompatActivity {
+    /**
+     * Keep track of the login task to ensure we can cancel it if requested.
+     */
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     private boolean taskActive = false;
 
     // UI references.
     private EditText mUsernameView;
     private EditText mPasswordView;
+<<<<<<< HEAD
     private View mUserTextView;
     private View mPassTextView;
     private View mLoginView;
     private View mProgressView;
     private View mSuccessText;
+=======
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
 
     private ModelFacade model;
 
@@ -48,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mPasswordView = findViewById(R.id.passwordField);
         mUsernameView = findViewById(R.id.usernameField);
+<<<<<<< HEAD
         mSuccessText = findViewById(R.id.successText);
         mLoginView = findViewById(R.id.loginLayout);
         mPassTextView = findViewById(R.id.passText);
@@ -61,12 +74,22 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 return false;
             }
+=======
+        View mSuccessText = findViewById(R.id.successText);
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                attemptLogin();
+                return true;
+            }
+            return false;
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
         });
 
         mSuccessText.setVisibility((Boolean) (getIntent().getExtras().get("justRegistered"))
                 ? View.VISIBLE : View.GONE);
 
         final Button button = findViewById(R.id.loginSubmitButton);
+<<<<<<< HEAD
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 attemptLogin();
@@ -81,6 +104,17 @@ public class LoginActivity extends AppCompatActivity {
      // If there are form errors (invalid email, missing fields, etc.), the
      // errors are presented and no actual login attempt is made.
 
+=======
+        button.setOnClickListener(v -> attemptLogin());
+
+    }
+
+    /**
+     * Attempts to sign in or register the account specified by the login form.
+     * If there are form errors (invalid email, missing fields, etc.), the
+     * errors are presented and no actual login attempt is made.
+     */
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     private void attemptLogin() {
         if (taskActive) {
             return;
@@ -117,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             Log.d("Login", "Task fired");
+<<<<<<< HEAD
             model.attemptLogin(email, password, new Runnable() {
                 @Override
                 public void run() {
@@ -131,6 +166,16 @@ public class LoginActivity extends AppCompatActivity {
                     mPasswordView.requestFocus();
                     taskActive = false;
                 }
+=======
+            model.attemptLogin(email, password, () -> {
+                Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
+                startActivity(launchIntent);
+                finish();
+            }, () -> {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+                taskActive = false;
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
             });
         }
     }

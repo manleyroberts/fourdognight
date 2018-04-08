@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fourdognight.github.com.casa.ui.RegistrationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="fourdognight.github.com.casa.ui.LoginActivity">
+
+        <!-- Login progress -->
+
+        <ProgressBar
+            android:id="@+id/regis_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/regNameText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name:" />
+
+        <EditText
+            android:id="@+id/regNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/regUserText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMinTextSize="12dp"
+            android:autoSizePresetSizes="12"
+            android:text="Email:" />
+
+        <EditText
+            android:id="@+id/regUsernameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMinTextSize="12dp"
+            android:autoSizePresetSizes="12"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/regPassText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMinTextSize="12dp"
+            android:autoSizePresetSizes="12"
+            android:text="Password:" />
+
+        <EditText
+            android:id="@+id/regPasswordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMinTextSize="12dp"
+            android:autoSizePresetSizes="12"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/regPassText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMinTextSize="12dp"
+            android:autoSizePresetSizes="12"
+            android:text="Re-enter Password:" />
+
+        <EditText
+            android:id="@+id/regPasswordField2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMinTextSize="12dp"
+            android:autoSizePresetSizes="12"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <LinearLayout
+            android:id="@+id/regisLayout"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+
+        <Switch
+            android:id="@+id/adminSwitch"
+            android:layout_width="147dp"
+            android:layout_height="wrap_content"
+            android:switchTextAppearance="@android:style/TextAppearance.Material.Small"
+            android:text="Admin Account" />
+
+        <Button
+            android:id="@+id/regisSubmitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoSizeMinTextSize="12dp"
+            android:autoSizePresetSizes="12"
+            android:text="Register" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

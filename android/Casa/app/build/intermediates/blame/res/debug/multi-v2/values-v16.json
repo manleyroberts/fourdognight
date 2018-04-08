@@ -4,7 +4,7 @@
             "outputFile": "/Users/evan/Documents/fourdognight/android/Casa/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "/Users/evan/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/aeece8722dda8620389c7a8c04cc974c/res/values-v16/values-v16.xml",
+                    "source": "/Users/evan/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/49b1046868c15bbfb221028986aabd7d/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Users/evan/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/205612b0c90ed7dabc25f32715954ccd/res/values-v16/values-v16.xml",
+                    "source": "/Users/evan/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/1e5535bc24bd575eb7f09d9b5c37f314/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

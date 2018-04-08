@@ -18,6 +18,7 @@ import android.widget.TextView;
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.ModelFacade;
 
+<<<<<<< HEAD
 /**
  * @author Manley Roberts
  * @version 1.0
@@ -28,6 +29,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
 //    private UserRegistrationTask mAuthTask = null;
 
+=======
+public class RegistrationActivity extends AppCompatActivity {
+
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     private static final int MIN_PASSWORD_LENGTH = 8;
 
     private boolean taskActive = false;
@@ -64,6 +69,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mNameTextView = findViewById(R.id.regNameText);
         mAdminSwitchView = (Switch) findViewById(R.id.adminSwitch);
 
+<<<<<<< HEAD
         mPasswordView2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -81,6 +87,18 @@ public class RegistrationActivity extends AppCompatActivity {
                 attemptRegistration();
             }
         });
+=======
+        mPasswordView2.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+                attemptRegistration();
+                return true;
+            }
+            return false;
+        });
+
+        final Button button = findViewById(R.id.regisSubmitButton);
+        button.setOnClickListener(v -> attemptRegistration());
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
 
         mProgressView = findViewById(R.id.regis_progress);
     }
@@ -145,6 +163,7 @@ public class RegistrationActivity extends AppCompatActivity {
             // perform the user login attempt.
             taskActive = true;
             Log.d("Attempt", "RegistrationAttempt");
+<<<<<<< HEAD
             model.attemptRegistration(name, email, password, isAdmin, new Runnable(){
                 @Override
                 public void run() {
@@ -287,6 +306,24 @@ public class RegistrationActivity extends AppCompatActivity {
         mAdminSwitchView.setVisibility(show ? View.GONE : View.VISIBLE);
     }
 
+=======
+            model.attemptRegistration(name, email, password, isAdmin, () -> {
+                Log.d("I", "Registered");
+                Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
+                launchIntent.putExtra("justRegistered", true);
+                startActivity(launchIntent);
+                finish();
+                taskActive = false;
+            },
+                    () -> {
+                        mUsernameView.setError(getString(R.string.error_account_exists));
+                        mUsernameView.requestFocus();
+                        taskActive = false;
+                    });
+        }
+    }
+
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     private RegistrationActivity getInstance() {
         return this;
     }

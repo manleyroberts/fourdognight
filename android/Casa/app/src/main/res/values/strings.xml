@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Casa</string>
+
+    <!-- Strings related to login -->
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password_short">This password is too short</string>
+    <string name="error_incorrect_password">Incorrect username-password pair</string>
+    <string name="error_account_exists">That username already exists</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_password_mismatch">Passwords do not match</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="error_held_beds_elsewhere">You hold beds elsewhere, and cannot stay here without releasing those beds.</string>
+    <string name="error_wrong_bed_number">You can\'t reserve that number of beds.</string>
+    <string name="title_activity_maps">Map</string>
+</resources>

@@ -1,6 +1,7 @@
 package fourdognight.github.com.casa.ui;
 
 import android.content.Intent;
+<<<<<<< HEAD
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,22 @@ import fourdognight.github.com.casa.model.Shelter;
  */
 public class SearchActivity extends AppCompatActivity{
     ModelFacade model;
+=======
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import fourdognight.github.com.casa.R;
+import fourdognight.github.com.casa.model.ModelFacade;
+
+
+public class SearchActivity extends AppCompatActivity{
+    private ModelFacade model;
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +63,7 @@ public class SearchActivity extends AppCompatActivity{
 //        });
 
         final Button nameButton = findViewById(R.id.nameButton);
+<<<<<<< HEAD
         nameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +72,13 @@ public class SearchActivity extends AppCompatActivity{
                 if (!name.isEmpty()) {
                     restrictionCallback(name);
                 }
+=======
+        nameButton.setOnClickListener(view -> {
+            EditText nameField = findViewById(R.id.nameField);
+            String name = nameField.getText().toString();
+            if (!name.isEmpty()) {
+                restrictionCallback(name);
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
             }
         });
 
@@ -66,12 +91,16 @@ public class SearchActivity extends AppCompatActivity{
         ageSpinner.setAdapter(ageAdapter);
 
         final Button ageButton = findViewById(R.id.ageButton);
+<<<<<<< HEAD
         ageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 restrictionCallback(ageSpinner.getSelectedItem().toString());
             }
         });
+=======
+        ageButton.setOnClickListener(view -> restrictionCallback(ageSpinner.getSelectedItem().toString()));
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
 
         final Spinner genderSpinner = findViewById(R.id.genderSpinner);
         String[] genders = new String[] {
@@ -82,12 +111,16 @@ public class SearchActivity extends AppCompatActivity{
         genderSpinner.setAdapter(genderAdapter);
 
         final Button genderButton = findViewById(R.id.genderButton);
+<<<<<<< HEAD
         genderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 restrictionCallback(genderSpinner.getSelectedItem().toString());
             }
         });
+=======
+        genderButton.setOnClickListener(view -> restrictionCallback(genderSpinner.getSelectedItem().toString()));
+>>>>>>> 91f8d5eae08a78437e9af5442e6c48ccb554526b
     }
 
     private void restrictionCallback(String filter) {
