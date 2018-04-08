@@ -1,0 +1,4 @@
+#Mon Apr 02 15:19:08 EDT 2018
+base.0=/Users/evan/Documents/fourdognight/android/Casa/app/build/intermediates/transforms/dexMerger/debug/3
+path.0=classes.dex
+renamed.0=classes.dex
