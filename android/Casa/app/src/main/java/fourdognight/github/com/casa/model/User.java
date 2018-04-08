@@ -10,9 +10,9 @@ public class User{
     private Shelter currentShelter;
     private int currentShelterUniqueKey;
     private int heldBeds;
-    private String name;
+    private final String name;
     private final String username;
-    private String password;
+    private final String password;
     private final boolean isAdmin;
 
     @Exclude

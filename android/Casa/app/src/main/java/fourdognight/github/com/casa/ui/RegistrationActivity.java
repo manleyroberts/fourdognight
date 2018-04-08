@@ -1,19 +1,16 @@
 package fourdognight.github.com.casa.ui;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.TextView;
 
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.ModelFacade;
@@ -26,14 +23,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private EditText mUsernameView;
     private EditText mPasswordView;
-    private View mUserTextView;
-    private View mPassTextView;
-    private View mRegistrationView;
-    private View mProgressView;
     private EditText mPasswordView2;
-    private View mPassTextView2;
     private EditText mNameView;
-    private View mNameTextView;
     private Switch mAdminSwitchView;
 
     private ModelFacade model;
@@ -47,13 +38,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mPasswordView = findViewById(R.id.regPasswordField);
         mUsernameView = findViewById(R.id.regUsernameField);
-        mRegistrationView = findViewById(R.id.regisLayout);
-        mPassTextView = findViewById(R.id.regPassText);
-        mUserTextView = findViewById(R.id.regUserText);
         mPasswordView2 = findViewById(R.id.regPasswordField2);
-        mPassTextView2 = findViewById(R.id.regPassText2);
         mNameView = findViewById(R.id.regNameField);
-        mNameTextView = findViewById(R.id.regNameText);
         mAdminSwitchView = findViewById(R.id.adminSwitch);
 
         mPasswordView2.setOnEditorActionListener((textView, id, keyEvent) -> {
@@ -67,7 +53,6 @@ public class RegistrationActivity extends AppCompatActivity {
         final Button button = findViewById(R.id.regisSubmitButton);
         button.setOnClickListener(v -> attemptRegistration());
 
-        mProgressView = findViewById(R.id.regis_progress);
     }
 
     private void attemptRegistration() {
@@ -81,14 +66,18 @@ public class RegistrationActivity extends AppCompatActivity {
         mPasswordView2.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mUsernameView.getText().toString();
-        String password = mPasswordView.getText().toString();
-        String password2 = mPasswordView2.getText().toString();
-        String name = mNameView.getText().toString();
+        Editable editableEmail = mUsernameView.getText();
+        String email = editableEmail.toString();
+        Editable editablePassword = mPasswordView.getText();
+        String password = editablePassword.toString();
+        Editable editablePassword2 = mPasswordView2.getText();
+        String password2 = editablePassword2.toString();
+        Editable editableName = mNameView.getText();
+        String name = editableName.toString();
         boolean isAdmin = mAdminSwitchView.isChecked();
         Log.e("isAdmin ", isAdmin + " (RegistrationActivity.java: 91)");
-        mPasswordView.getText().clear();
-        mPasswordView2.getText().clear();
+        editablePassword.clear();
+        editablePassword2.clear();
 
         boolean cancel = false;
         View focusView = null;

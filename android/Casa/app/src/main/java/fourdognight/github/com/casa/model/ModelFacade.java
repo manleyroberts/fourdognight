@@ -7,7 +7,7 @@ import java.util.List;
  * @author Manley Roberts, Jared Duncan
  * @version 1.0
  */
-public class ModelFacade {
+public final class ModelFacade {
     private UserVerificationModel userVerificationModel;
     private ShelterManager shelterManager;
     private static final ModelFacade model = new ModelFacade();
@@ -76,7 +76,11 @@ public class ModelFacade {
      * @return true on success of vacancy update, false on failure
      */
     public boolean updateVacancy(Shelter shelter, User user, int bedsHeld) {
-        return shelterManager.updateVacancy(shelter, user, bedsHeld);
+        boolean succ = shelter.updateVacancy(user, bedsHeld);
+        if (succ) {
+            shelterManager.refactorVacancy(shelter);
+        }
+        return succ;
     }
 
     /**

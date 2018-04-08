@@ -10,7 +10,7 @@ import java.util.List;
  * @author Manley Roberts, Jared Duncan
  * @version 1.0
  */
-class ShelterManager {
+final class ShelterManager {
     private FirebaseInterfacer firebaseInterfacer;
     private final SparseArray<Shelter> shelterList;
     private ModelFacade model;
@@ -57,17 +57,6 @@ class ShelterManager {
 
             shelter.setVacancy(newVacancy);
             firebaseInterfacer.refactorVacancy(shelter, newVacancy);
-        }
-    }
-
-    boolean updateVacancy(Shelter shelter, User user, int bedsHeld) {
-        if (bedsHeld >= 0 && shelter.getVacancy() - bedsHeld >= 0) {
-            user.setCurrentStatus(shelter.getUniqueKey(), bedsHeld);
-            shelter.addPatron(user);
-            refactorVacancy(shelter);
-            return true;
-        } else {
-            return false;
         }
     }
 

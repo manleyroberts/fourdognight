@@ -1,10 +1,9 @@
 package fourdognight.github.com.casa.ui;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
@@ -18,13 +17,13 @@ import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.User;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
-import fourdognight.github.com.casa.model.Consumer;
 
 public class MainScreenActivity extends AppCompatActivity {
 
     private ArrayAdapter adapter;
     private ModelFacade model;
     private List<Shelter> shelterList;
+    @Nullable
     private String restrictionFilter;
 
 
@@ -35,7 +34,8 @@ public class MainScreenActivity extends AppCompatActivity {
         model = ModelFacade.getInstance();
         model.init();
 
-        if (getIntent().hasExtra("restrictionFilter")) {
+        Intent restrictionIntent = getIntent();
+        if (restrictionIntent.hasExtra("restrictionFilter")) {
             restrictionFilter = (String) getIntent().getExtras().get("restrictionFilter");
         }
 
@@ -68,16 +68,20 @@ public class MainScreenActivity extends AppCompatActivity {
         mUsernameView.setText(topText);
         // Reads the CSV data
 //        readHomelessShelterData();
-        model.getShelterData(list -> reload(list));
+        model.getShelterData(this::reload);
     }
 
     private void reload(final Collection<Shelter> shelters) {
         List<String> sheltersDisplay = new ArrayList<>(shelters.size());
         this.shelterList = new ArrayList<>();
         for (Shelter shelter : shelters) {
+            String restriction = shelter.getRestriction();
+            String shelterName = shelter.getShelterName();
+            restriction = restriction.toLowerCase();
+            shelterName = shelterName.toLowerCase();
             if (restrictionFilter == null
-                    || shelter.getRestriction().toLowerCase().contains(restrictionFilter)
-                    || shelter.getShelterName().toLowerCase().contains(restrictionFilter)) {
+                    || restriction.contains(restrictionFilter)
+                    || shelterName.contains(restrictionFilter)) {
                 sheltersDisplay.add(shelter.getShelterName());
                 this.shelterList.add(shelter);
             }
@@ -105,7 +109,7 @@ public class MainScreenActivity extends AppCompatActivity {
         Button clearButton = findViewById(R.id.clearButton);
         clearButton.setOnClickListener(view -> {
             restrictionFilter = null;
-            model.getShelterData(list -> reload(list));
+            model.getShelterData(this::reload);
         });
     }
 

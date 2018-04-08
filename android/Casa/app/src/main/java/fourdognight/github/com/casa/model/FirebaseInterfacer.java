@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by manle on 3/9/2018.
  */
 
-class FirebaseInterfacer {
+final class FirebaseInterfacer {
     private final List<Shelter> results;
     private final FirebaseDatabase database;
     private static final FirebaseInterfacer instance = new FirebaseInterfacer();

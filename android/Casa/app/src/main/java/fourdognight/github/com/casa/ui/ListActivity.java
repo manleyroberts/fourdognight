@@ -1,10 +1,10 @@
 package fourdognight.github.com.casa.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import fourdognight.github.com.casa.R;
-import fourdognight.github.com.casa.model.Consumer;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 import fourdognight.github.com.casa.model.ShelterLocation;
@@ -54,7 +53,8 @@ public class ListActivity extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         restriction = findViewById(R.id.restrict);
         selfReport = findViewById(R.id.selfReport);
-        Bundle bundle = getIntent().getExtras();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
         if (bundle != null) {
             final Shelter shelter = (Shelter) bundle.get("Shelter");
             final User user = model.getCurrentUser();
@@ -67,7 +67,8 @@ public class ListActivity extends AppCompatActivity {
                 selfReport.setError(null);
                 Editable text = selfReport.getText();
                 int intendedBeds;
-                if (text.toString().isEmpty()) {
+                String textNotEditable = text.toString();
+                if (textNotEditable.isEmpty()) {
                     intendedBeds = 0;
                 } else {
                     intendedBeds = Integer.parseInt(text.toString());
@@ -83,7 +84,7 @@ public class ListActivity extends AppCompatActivity {
                     selfReport.requestFocus();
                 } else {
                     int uniqueKey = shelter.getUniqueKey();
-                    model.getShelterDataUnique(uniqueKey, shelter1 -> reload(shelter1));
+                    model.getShelterDataUnique(uniqueKey, this::reload);
                 }
             }
             });

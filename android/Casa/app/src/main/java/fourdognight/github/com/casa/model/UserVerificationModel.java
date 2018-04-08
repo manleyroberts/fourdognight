@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by manle on 2/12/2018.
  */
 
-class UserVerificationModel {
+final class UserVerificationModel {
     private FirebaseInterfacer firebaseInterfacer;
     private final Map<String, User> users;
 

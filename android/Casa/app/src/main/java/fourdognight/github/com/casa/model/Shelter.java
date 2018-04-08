@@ -137,4 +137,15 @@ public class Shelter implements Serializable{
     void setVacancy(int newVac) {
         vacancy = newVac;
     }
+
+    boolean updateVacancy(User user, int bedsHeld) {
+        if (bedsHeld >= 0 && getVacancy() - bedsHeld >= 0) {
+            user.setCurrentStatus(getUniqueKey(), bedsHeld);
+            addPatron(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
