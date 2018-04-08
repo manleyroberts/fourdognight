@@ -12,7 +12,11 @@ import android.widget.Spinner;
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.ModelFacade;
 
-
+/**
+ * searches through the list of shelters for particular shelter
+ * @author Manley Roberts, Evan Mi, Jared Duncan
+ * @version 1.0
+ */
 public class SearchActivity extends AppCompatActivity{
     private ModelFacade model;
 

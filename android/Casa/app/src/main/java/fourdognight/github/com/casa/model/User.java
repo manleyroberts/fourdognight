@@ -3,9 +3,10 @@ package fourdognight.github.com.casa.model;
 import com.google.firebase.database.Exclude;
 
 /**
- * Created by manle on 2/19/2018.
+ * user is class containing info about the user
+ * @author Manley Roberts
+ * @version 1.0
  */
-
 public class User{
     private Shelter currentShelter;
     private int currentShelterUniqueKey;
@@ -39,7 +40,10 @@ public class User{
         this("", "", "", -1, false);
     }
 
-
+    /**
+     * gets the number of held beds
+     * @return the number of held beds
+     */
     public int getHeldBeds() {
         return heldBeds;
     }
@@ -64,11 +68,20 @@ public class User{
 //        pushUserChanges();
 //    }
 
+    /**
+     * checks if the user can stay at a particular shelter
+     * @param shelter the shelter being checked for eligibility
+     * @return true if can stay at shelter, false otherwise
+     */
     public boolean canStayAt(Shelter shelter) {
         return !isAdmin && (currentShelterUniqueKey == -1 || (currentShelterUniqueKey
                 == shelter.getUniqueKey()) || heldBeds == 0);
     }
 
+    /**
+     * gets the shelter key
+     * @return the shelter key
+     */
     public int getCurrentShelterUniqueKey() {
         return currentShelterUniqueKey;
     }
@@ -79,10 +92,18 @@ public class User{
         userVerificationModel.pushUserChanges();
     }
 
+    /**
+     * gets the name of the user
+     * @return the name of the user
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * gets the username of the user
+     * @return the username of the user
+     */
     public String getUsername() {
         return username;
     }
@@ -91,10 +112,15 @@ public class User{
         return password;
     }
 
+    /**
+     * checks if the user is an admin
+     * @return true if admin, false otherwise
+     */
     public boolean isAdmin() {
         return isAdmin;
     }
 
+    @Override
     public boolean equals(Object other) {
         if (other == null || !(other instanceof User)) {
             return false;

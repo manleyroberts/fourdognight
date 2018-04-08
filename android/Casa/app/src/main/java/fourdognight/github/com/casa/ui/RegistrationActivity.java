@@ -18,6 +18,11 @@ import android.widget.TextView;
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.ModelFacade;
 
+/**
+ * registration page to create an account
+ * @author Manley Roberts
+ * @version 1.0
+ */
 public class RegistrationActivity extends AppCompatActivity {
 
     private static final int MIN_PASSWORD_LENGTH = 8;

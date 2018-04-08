@@ -19,6 +19,11 @@ import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.Shelter;
 import fourdognight.github.com.casa.model.ShelterLocation;
 
+/**
+ * creates map of location of shelters
+ * @author Jared Duncan
+ * @version 1.0
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
