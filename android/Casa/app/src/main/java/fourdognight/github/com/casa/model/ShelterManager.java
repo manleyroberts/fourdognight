@@ -7,9 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by manle on 3/11/2018.
+ * Singleton class which maintains the full collection of Shelters
+ * @author Manley Roberts, Jared Duncan
+ * @version 1.0
  */
-
 public class ShelterManager {
     private FirebaseInterfacer firebaseInterfacer;
     private HashMap<Integer, Shelter> shelterList;
