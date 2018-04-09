@@ -34,6 +34,14 @@ module.exports.updateUser = function(user) {
   userRef.child(sanitize(user.username)).set(user);
 }
 
+module.exports.getShelterData = function(onSuccess) {
+  database.ref('shelterList').on('value', function(snapshot) {
+    snapshot.forEach(function(childSnap) {
+
+    });
+  });
+}
+
 function sanitize(dbPath) {
   var sanitized = dbPath.replace(/[\.#$\[\]]/g, '');
   if (sanitized) {

@@ -120,7 +120,7 @@ public class FirebaseInterfacer {
 
     void attemptLogin(final String username, final String password, final Consumer<User> success,
                       final Runnable failure) {
-        DatabaseReference myRef = database.getReference("test/userList/" + sanitize(username));
+        DatabaseReference myRef = database.getReference("userList/" + sanitize(username));
 
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -130,6 +130,8 @@ public class FirebaseInterfacer {
                     failure.run();
                 } else {
                     User loadedUser = dataSnapshot.getValue(User.class);
+                    Log.i("Username = ", loadedUser.getUsername());
+                    Log.i("Password = ", loadedUser.getPassword());
                     if (loadedUser.authenticate(password)) {
                         success.accept(loadedUser);
                     } else {

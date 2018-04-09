@@ -3,9 +3,33 @@ var firebase = require('./FirebaseInterfacer.js');
 const fs = require('fs');
 const readline = require('readline');
 
+shelters = [];
 
+Shelter = function(uniqueKey, shelterName, capacity, vacancy, restriction, location, special, phone, newPatrons) {
+  this.shelterName = shelterName;
+  this.capacity = capacity;
+  this.vacancy = vacancy;
+  this.uniqueKey = uniqueKey;
+  this.restriction = restriction;
+  this.location = location;
+  this.special = special;
+  this.phone = phone;
+  this.currentPatrons = [];
+  for (var user of newPatrons) {
+    currentPatrons.push(user);
+  }
+  this.toString = function() {
+    return shelterName + " " + restriction + " " + location.address " " + special + " " + phone + " ";
+  }
+  return this;
+}
 
-module.exports.shelters = [];
+ShelterLocation = function(longitude, latitude, address) {
+  this.latitude = latitude;
+  this.longitude = longitude;
+  this.address = address;
+  return this;
+}
 
 module.exports.readShelters = function(onCompleted) {
   var rl = readline.createInterface({
