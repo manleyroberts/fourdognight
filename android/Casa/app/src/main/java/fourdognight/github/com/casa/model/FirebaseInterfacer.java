@@ -17,7 +17,9 @@ import java.util.function.Consumer;
 
 
 /**
- * Created by manle on 3/9/2018.
+ * establishes connection to the database and controls data flow
+ * @author Manley Roberts
+ * @version 1.0
  */
 
 final class FirebaseInterfacer {
