@@ -16,11 +16,13 @@ import fourdognight.github.com.casa.model.ModelFacade;
 
 /**
  * A login screen that offers login via username/password.
+ * @author Manley Roberts
+ * @version 1.0
  */
 public class LoginActivity extends AppCompatActivity {
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+
+     //Keep track of the login task to ensure we can cancel it if requested.
+
     private boolean taskActive = false;
 
     // UI references.
@@ -55,11 +57,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
+     //Attempts to sign in or register the account specified by the login form.
+     //If there are form errors (invalid email, missing fields, etc.), the
+     //errors are presented and no actual login attempt is made.
+
     private void attemptLogin() {
         if (taskActive) {
             return;

@@ -8,6 +8,11 @@ import android.content.Intent;
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.ModelFacade;
 
+/**
+ * creates the first page of the app, opening page
+ * @author Manley Roberts
+ * @version 1.0
+ */
 public class SplashActivity extends AppCompatActivity {
 
     @Override

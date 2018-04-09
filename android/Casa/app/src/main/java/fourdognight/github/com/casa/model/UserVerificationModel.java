@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by manle on 2/12/2018.
+ * singleton class which maintains the users\
+ * @author Manley Roberts
+ * @version 1.0
  */
 
 final class UserVerificationModel {

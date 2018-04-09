@@ -18,6 +18,11 @@ import fourdognight.github.com.casa.model.User;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 
+/**
+ * creates the mainscreen activity with all the shelters as a list
+ * @author Evan Mi, Manley Roberts, Jared Duncan
+ * @version 1.0
+ */
 public class MainScreenActivity extends AppCompatActivity {
 
     private ArrayAdapter adapter;

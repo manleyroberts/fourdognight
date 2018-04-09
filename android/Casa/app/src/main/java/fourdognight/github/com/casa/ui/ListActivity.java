@@ -18,6 +18,11 @@ import fourdognight.github.com.casa.model.Shelter;
 import fourdognight.github.com.casa.model.ShelterLocation;
 import fourdognight.github.com.casa.model.User;
 
+/**
+ * creates the list of shelters on a page
+ * @author Manley Roberts, Evan Mi
+ * @version 1.0
+ */
 public class ListActivity extends AppCompatActivity {
 
 
