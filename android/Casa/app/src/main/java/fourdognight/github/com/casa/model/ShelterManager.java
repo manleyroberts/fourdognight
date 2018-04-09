@@ -1,32 +1,30 @@
 package fourdognight.github.com.casa.model;
 
 import android.util.Log;
+import android.util.SparseArray;
+import java.util.function.Consumer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by manle on 3/11/2018.
+ * Singleton class which maintains the full collection of Shelters
+ * @author Manley Roberts, Jared Duncan
+ * @version 1.0
  */
-
-public class ShelterManager {
+final class ShelterManager {
     private FirebaseInterfacer firebaseInterfacer;
-    private HashMap<Integer, Shelter> shelterList;
+    private final SparseArray<Shelter> shelterList;
     private ModelFacade model;
-    private UserVerificationModel userModel;
 
-    static private ShelterManager instance = new ShelterManager();
+    private static final ShelterManager instance = new ShelterManager();
 
-    ShelterManager() {
-        shelterList = new HashMap<>();
+    private ShelterManager() {
+        shelterList = new SparseArray<>();
     }
 
     void init() {
         firebaseInterfacer = FirebaseInterfacer.getInstance();
         model = ModelFacade.getInstance();
-        userModel = UserVerificationModel.getInstance();
-        firebaseInterfacer.init();
     }
 
     Shelter getShelter(int uniqueKey) {
@@ -34,31 +32,25 @@ public class ShelterManager {
     }
 
     void getShelterData(final Consumer<List<Shelter>> success) {
-        firebaseInterfacer.getShelterData(new Consumer<List<Shelter>>(){
-            @Override
-            public void accept(List<Shelter> list) {
-                for (Shelter shelter : list) {
-                    shelterList.put(shelter.getUniqueKey(), shelter);
-                }
-                success.accept(list);
+        firebaseInterfacer.getShelterData(list -> {
+            for (Shelter shelter : list) {
+                shelterList.put(shelter.getUniqueKey(), shelter);
             }
+            success.accept(list);
         });
     }
 
     void getShelterDataUnique(int uniqueKey, final Consumer<Shelter> success) {
-        firebaseInterfacer.getShelterDataUnique(uniqueKey, new Consumer<Shelter>(){
-            @Override
-            public void accept(Shelter shelter) {
-                shelterList.put(shelter.getUniqueKey(), shelter);
-                success.accept(shelter);
-            }
+        firebaseInterfacer.getShelterDataUnique(uniqueKey, shelter -> {
+            shelterList.put(shelter.getUniqueKey(), shelter);
+            success.accept(shelter);
         });
     }
 
     void refactorVacancy(Shelter shelter) {
         if (shelter != null) {
             int newVacancy = shelter.getCapacity();
-            List<User> patrons = userModel.usersAtShelter(shelter);
+            List<User> patrons = model.usersAtShelter(shelter);
             for (User patron : patrons) {
                 Log.d("LEGo'", "" + newVacancy);
                 newVacancy -= patron.getHeldBeds();
@@ -66,17 +58,6 @@ public class ShelterManager {
 
             shelter.setVacancy(newVacancy);
             firebaseInterfacer.refactorVacancy(shelter, newVacancy);
-        }
-    }
-
-    boolean updateVacancy(Shelter shelter, User user, int bedsHeld) {
-        if (bedsHeld >= 0 && shelter.getVacancy() - bedsHeld >= 0) {
-            user.setCurrentStatus(shelter.getUniqueKey(), bedsHeld);
-            shelter.addPatron(user);
-            refactorVacancy(shelter);
-            return true;
-        } else {
-            return false;
         }
     }
 

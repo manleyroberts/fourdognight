@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.util.Log;
 
 import fourdognight.github.com.casa.R;
@@ -18,21 +17,18 @@ import fourdognight.github.com.casa.model.ModelFacade;
 
 /**
  * A login screen that offers login via username/password.
+ * @author Manley Roberts
+ * @version 1.0
  */
 public class LoginActivity extends AppCompatActivity {
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+
+     //Keep track of the login task to ensure we can cancel it if requested.
+
     private boolean taskActive = false;
 
     // UI references.
     private EditText mUsernameView;
     private EditText mPasswordView;
-    private View mUserTextView;
-    private View mPassTextView;
-    private View mLoginView;
-    private View mProgressView;
-    private View mSuccessText;
 
     private ModelFacade model;
 
@@ -45,39 +41,29 @@ public class LoginActivity extends AppCompatActivity {
 
         mPasswordView = findViewById(R.id.passwordField);
         mUsernameView = findViewById(R.id.usernameField);
-        mSuccessText = findViewById(R.id.successText);
-        mLoginView = findViewById(R.id.loginLayout);
-        mPassTextView = findViewById(R.id.passText);
-        mUserTextView = findViewById(R.id.userText);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
+        View mSuccessText = findViewById(R.id.successText);
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if ((id == EditorInfo.IME_ACTION_DONE) || (id == EditorInfo.IME_NULL)) {
+                attemptLogin();
+                return true;
             }
+            return false;
         });
 
-        mSuccessText.setVisibility((Boolean) (getIntent().getExtras().get("justRegistered"))
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        mSuccessText.setVisibility((Boolean) (extras.get("justRegistered"))
                 ? View.VISIBLE : View.GONE);
 
         final Button button = findViewById(R.id.loginSubmitButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                attemptLogin();
-            }
-        });
+        button.setOnClickListener(v -> attemptLogin());
 
-        mProgressView = findViewById(R.id.login_progress);
     }
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
+     //Attempts to sign in or register the account specified by the login form.
+     //If there are form errors (invalid email, missing fields, etc.), the
+     //errors are presented and no actual login attempt is made.
+
     private void attemptLogin() {
         if (taskActive) {
             return;
@@ -88,8 +74,10 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mUsernameView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        Editable unameText = mUsernameView.getText();
+        String email = unameText.toString();
+        Editable pwText = mPasswordView.getText();
+        String password = pwText.toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -114,20 +102,14 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             Log.d("Login", "Task fired");
-            model.attemptLogin(email, password, new Runnable() {
-                @Override
-                public void run() {
-                    Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
-                    startActivity(launchIntent);
-                    finish();
-                }
-            }, new Runnable() {
-                @Override
-                public void run() {
-                    mPasswordView.setError(getString(R.string.error_incorrect_password));
-                    mPasswordView.requestFocus();
-                    taskActive = false;
-                }
+            model.attemptLogin(email, password, () -> {
+                Intent launchIntent = new Intent(getInstance(), MainScreenActivity.class);
+                startActivity(launchIntent);
+                finish();
+            }, () -> {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+                taskActive = false;
             });
         }
     }

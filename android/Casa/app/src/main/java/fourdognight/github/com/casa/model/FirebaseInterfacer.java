@@ -1,48 +1,39 @@
 package fourdognight.github.com.casa.model;
 
-import android.location.Location;
-import android.support.annotation.NonNull;
-import android.text.TextWatcher;
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import junit.framework.TestResult;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 
 /**
- * Created by manle on 3/9/2018.
+ * establishes connection to the database and controls data flow
+ * @author Manley Roberts
+ * @version 1.0
  */
 
-public class FirebaseInterfacer {
-    private List<Shelter> results;
-    private FirebaseDatabase database;
-    private ShelterManager shelterManager;
-    private UserVerificationModel userVerificationModel;
-    private static FirebaseInterfacer instance = new FirebaseInterfacer();
+final class FirebaseInterfacer {
+    private final List<Shelter> results;
+    private final FirebaseDatabase database;
+    private static final FirebaseInterfacer instance = new FirebaseInterfacer();
 
     private FirebaseInterfacer() {
         results = new LinkedList<>();
         database = FirebaseDatabase.getInstance();
     }
 
-    void init() {
-        shelterManager = ShelterManager.getInstance();
-        userVerificationModel = UserVerificationModel.getInstance();
-    }
 
+    @SuppressWarnings("unchecked")
     void getShelterData(final Consumer<List<Shelter>> success) {
         DatabaseReference myRef = database.getReference("test/shelterList");
 
@@ -60,11 +51,11 @@ public class FirebaseInterfacer {
                     }
                     HashMap loc = (HashMap) map.get("location");
                     Shelter next = new Shelter(((Long) map.get("uniqueKey")).intValue(),
-                            (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
-                            ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
-                            new ShelterLocation((double) loc.get("longitude"),
-                                    (double) loc.get("latitude"), (String) loc.get("address")),
-                            (String) map.get("special"), (String) map.get("phone"), currentPatrons);
+                        (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
+                        ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
+                        new ShelterLocation((double) loc.get("longitude"),
+                            (double) loc.get("latitude"), (String) loc.get("address")),
+                        (String) map.get("special"), (String) map.get("phone"), currentPatrons);
                     results.add(next);
                     success.accept(results);
                 }
@@ -77,6 +68,8 @@ public class FirebaseInterfacer {
         });
     }
 
+
+    @SuppressWarnings("unchecked")
     void getShelterDataUnique(int uniqueKey, final Consumer<Shelter> success) {
         DatabaseReference myRef = database.getReference("test/shelterList/" + uniqueKey);
 
@@ -86,11 +79,11 @@ public class FirebaseInterfacer {
                 HashMap<String, Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
                 HashMap<String, Object> loc = (HashMap<String, Object>) map.get("location");
                 Shelter shelter = new Shelter(((Long) map.get("uniqueKey")).intValue(),
-                        (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
-                        ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
-                        new ShelterLocation((double) loc.get("longitude"), (double) loc.get("latitude"),
-                                (String) loc.get("address")), (String) map.get("special"),
-                            (String) map.get("phone"), new LinkedList<String>());
+                    (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
+                    ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
+                    new ShelterLocation((double) loc.get("longitude"), (double) loc.get("latitude"),
+                        (String) loc.get("address")), (String) map.get("special"),
+                    (String) map.get("phone"), new LinkedList<>());
                 results.add(shelter);
                 success.accept(shelter);
             }
@@ -101,7 +94,7 @@ public class FirebaseInterfacer {
         });
     }
 
-    void getUserData() {
+    void getUserData(final Consumer<List<User>> callback) {
         final DatabaseReference myRef = database.getReference("test/userList");
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -109,7 +102,7 @@ public class FirebaseInterfacer {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<User> list = new ArrayList<>();
                 Log.e("Count " ,"" + dataSnapshot.getChildrenCount());
-                userVerificationModel.updateUserList(list);
+                callback.accept(list);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -147,13 +140,13 @@ public class FirebaseInterfacer {
     }
 
     void attemptRegistration(final String name, final String username, final String password,
-                             final boolean isAdmin, final Runnable success, final Runnable failure) {
+            final boolean isAdmin, final Runnable success, final Runnable failure) {
         DatabaseReference myRef = database.getReference("test/userList");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.hasChild(sanitize(username))) {
-                    updateUser(new User(name, username, password, -1, 0, isAdmin) );
+                    updateUser(new User(name, username, password, -1, isAdmin));
                     success.run();
                 } else {
                     failure.run();
@@ -175,10 +168,11 @@ public class FirebaseInterfacer {
     }
 
     void refactorVacancy(final Shelter shelter, final int newVacancy) {
-        final DatabaseReference myRef = database.getReference("test/shelterList/" + shelter.getUniqueKey());
-                    Map<String, Object> updatedEntries = new HashMap<>();
-                    updatedEntries.put("vacancy", newVacancy);
-                    myRef.updateChildren(updatedEntries);
+        final DatabaseReference myRef = database.getReference("test/shelterList/"
+            + shelter.getUniqueKey());
+        Map<String, Object> updatedEntries = new HashMap<>();
+        updatedEntries.put("vacancy", newVacancy);
+        myRef.updateChildren(updatedEntries);
     }
 
     static FirebaseInterfacer getInstance() {
@@ -187,7 +181,7 @@ public class FirebaseInterfacer {
 
     private static String sanitize(String dbPath) {
         String sanitized = dbPath.replaceAll("[\\.#\\$\\[\\]]", "");
-        if (!sanitized.equals("")) {
+        if (!"".equals(sanitized)) {
             return sanitized;
         } else {
             return " ";
