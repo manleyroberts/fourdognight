@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.User;
@@ -37,11 +38,12 @@ public class MainScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         model = ModelFacade.getInstance();
-        model.init();
 
         Intent restrictionIntent = getIntent();
         if (restrictionIntent.hasExtra("restrictionFilter")) {
-            restrictionFilter = (String) getIntent().getExtras().get("restrictionFilter");
+            Intent intent = getIntent();
+            Bundle extras = intent.getExtras();
+            restrictionFilter = (String) Objects.requireNonNull(extras).get("restrictionFilter");
         }
 
         setContentView(R.layout.activity_main_screen);
@@ -64,12 +66,7 @@ public class MainScreenActivity extends AppCompatActivity {
         TextView mUsernameView = findViewById(R.id.mainScreenUsernameField);
         User user = model.getCurrentUser();
         String topText = user.getName();
-        topText += " | " + user.getUsername();
-        if (user.isAdmin()) {
-            topText += " | Admin";
-        } else {
-            topText += " | User";
-        }
+        topText += " | " + user.getUsername() + ((user.isAdmin()) ? " | Admin" : " | User");
         mUsernameView.setText(topText);
         // Reads the CSV data
 //        readHomelessShelterData();
@@ -84,7 +81,7 @@ public class MainScreenActivity extends AppCompatActivity {
             String shelterName = shelter.getShelterName();
             restriction = restriction.toLowerCase();
             shelterName = shelterName.toLowerCase();
-            if (restrictionFilter == null
+            if ((restrictionFilter == null)
                     || restriction.contains(restrictionFilter)
                     || shelterName.contains(restrictionFilter)) {
                 sheltersDisplay.add(shelter.getShelterName());

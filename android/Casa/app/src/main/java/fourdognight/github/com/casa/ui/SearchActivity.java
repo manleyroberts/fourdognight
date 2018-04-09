@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
 import fourdognight.github.com.casa.R;
-import fourdognight.github.com.casa.model.ModelFacade;
 
 /**
  * searches through the list of shelters for particular shelter

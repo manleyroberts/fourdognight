@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -42,14 +43,16 @@ public class LoginActivity extends AppCompatActivity {
         mUsernameView = findViewById(R.id.usernameField);
         View mSuccessText = findViewById(R.id.successText);
         mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
-            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+            if ((id == EditorInfo.IME_ACTION_DONE) || (id == EditorInfo.IME_NULL)) {
                 attemptLogin();
                 return true;
             }
             return false;
         });
 
-        mSuccessText.setVisibility((Boolean) (getIntent().getExtras().get("justRegistered"))
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        mSuccessText.setVisibility((Boolean) (extras.get("justRegistered"))
                 ? View.VISIBLE : View.GONE);
 
         final Button button = findViewById(R.id.loginSubmitButton);
@@ -71,8 +74,10 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mUsernameView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        Editable unameText = mUsernameView.getText();
+        String email = unameText.toString();
+        Editable pwText = mPasswordView.getText();
+        String password = pwText.toString();
 
         boolean cancel = false;
         View focusView = null;

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 
 /**
@@ -48,11 +49,11 @@ final class FirebaseInterfacer {
                     }
                     HashMap loc = (HashMap) map.get("location");
                     Shelter next = new Shelter(((Long) map.get("uniqueKey")).intValue(),
-                            (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
-                            ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
-                            new ShelterLocation((double) loc.get("longitude"),
-                                    (double) loc.get("latitude"), (String) loc.get("address")),
-                            (String) map.get("special"), (String) map.get("phone"), currentPatrons);
+                        (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
+                        ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
+                        new ShelterLocation((double) loc.get("longitude"),
+                            (double) loc.get("latitude"), (String) loc.get("address")),
+                        (String) map.get("special"), (String) map.get("phone"), currentPatrons);
                     results.add(next);
                     success.accept(results);
                 }
@@ -76,11 +77,11 @@ final class FirebaseInterfacer {
                 HashMap<String, Object> map = (HashMap<String, Object>) dataSnapshot.getValue();
                 HashMap<String, Object> loc = (HashMap<String, Object>) map.get("location");
                 Shelter shelter = new Shelter(((Long) map.get("uniqueKey")).intValue(),
-                        (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
-                        ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
-                        new ShelterLocation((double) loc.get("longitude"), (double) loc.get("latitude"),
-                                (String) loc.get("address")), (String) map.get("special"),
-                            (String) map.get("phone"), new LinkedList<>());
+                    (String) map.get("shelterName"), ((Long) map.get("capacity")).intValue(),
+                    ((Long) map.get("vacancy")).intValue(), (String) map.get("restriction"),
+                    new ShelterLocation((double) loc.get("longitude"), (double) loc.get("latitude"),
+                        (String) loc.get("address")), (String) map.get("special"),
+                    (String) map.get("phone"), new LinkedList<>());
                 results.add(shelter);
                 success.accept(shelter);
             }
@@ -135,13 +136,13 @@ final class FirebaseInterfacer {
     }
 
     void attemptRegistration(final String name, final String username, final String password,
-                             final boolean isAdmin, final Runnable success, final Runnable failure) {
+            final boolean isAdmin, final Runnable success, final Runnable failure) {
         DatabaseReference myRef = database.getReference("test/userList");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.hasChild(sanitize(username))) {
-                    updateUser(new User(name, username, password, -1, isAdmin) );
+                    updateUser(new User(name, username, password, -1, isAdmin));
                     success.run();
                 } else {
                     failure.run();
@@ -163,10 +164,11 @@ final class FirebaseInterfacer {
     }
 
     void refactorVacancy(final Shelter shelter, final int newVacancy) {
-        final DatabaseReference myRef = database.getReference("test/shelterList/" + shelter.getUniqueKey());
-                    Map<String, Object> updatedEntries = new HashMap<>();
-                    updatedEntries.put("vacancy", newVacancy);
-                    myRef.updateChildren(updatedEntries);
+        final DatabaseReference myRef = database.getReference("test/shelterList/"
+            + shelter.getUniqueKey());
+        Map<String, Object> updatedEntries = new HashMap<>();
+        updatedEntries.put("vacancy", newVacancy);
+        myRef.updateChildren(updatedEntries);
     }
 
     static FirebaseInterfacer getInstance() {
@@ -175,7 +177,7 @@ final class FirebaseInterfacer {
 
     private static String sanitize(String dbPath) {
         String sanitized = dbPath.replaceAll("[\\.#\\$\\[\\]]", "");
-        if (!sanitized.equals("")) {
+        if (!"".equals(sanitized)) {
             return sanitized;
         } else {
             return " ";

@@ -59,14 +59,6 @@ public class User{
         pushUserChanges();
     }
 
-//    void releaseCurrentShelter() {
-//        if (currentShelter != null) {
-//            currentShelter.removePatron(this);
-//        }
-//        heldBeds = 0;
-//        currentShelterUniqueKey = -1;
-//        pushUserChanges();
-//    }
 
     /**
      * checks if the user can stay at a particular shelter
@@ -74,8 +66,8 @@ public class User{
      * @return true if can stay at shelter, false otherwise
      */
     public boolean canStayAt(Shelter shelter) {
-        return !isAdmin && (currentShelterUniqueKey == -1 || (currentShelterUniqueKey
-                == shelter.getUniqueKey()) || heldBeds == 0);
+        return !isAdmin && ((currentShelterUniqueKey == -1) || (currentShelterUniqueKey
+                == shelter.getUniqueKey()) || (heldBeds == 0));
     }
 
     /**
@@ -122,7 +114,7 @@ public class User{
 
     @Override
     public boolean equals(Object other) {
-        if (other == null || !(other instanceof User)) {
+        if ((other == null) || !(other instanceof User)) {
             return false;
         }
         String otherName = ((User) other).getUsername();

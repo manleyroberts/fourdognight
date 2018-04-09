@@ -44,9 +44,7 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
         model = ModelFacade.getInstance();
-
         shelterName = findViewById(R.id.sheltertext);
         key = findViewById(R.id.uniqueKey);
         capacity = findViewById(R.id.capacity);
@@ -62,37 +60,30 @@ public class ListActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             final Shelter shelter = (Shelter) bundle.get("Shelter");
-            final User user = model.getCurrentUser();
             reload(shelter);
-
             final Button button = findViewById(R.id.updateVacancyButton);
-            button.setOnClickListener(v -> {
-            model.init();
-            if (!user.isAdmin()) {
-                selfReport.setError(null);
-                Editable text = selfReport.getText();
-                int intendedBeds;
-                String textNotEditable = text.toString();
-                if (textNotEditable.isEmpty()) {
-                    intendedBeds = 0;
-                } else {
-                    intendedBeds = Integer.parseInt(text.toString());
-                }
+            button.setOnClickListener(v -> requestUpdateVacancy(shelter));
+        }
+    }
 
-                if (!user.canStayAt(shelter)) {
-                    selfReport.setError(getString(R.string.error_held_beds_elsewhere));
-                    selfReport.requestFocus();
-                } else if (TextUtils.isEmpty(text) || intendedBeds < 0 ||
-                        !model.updateVacancy(shelter, user,
-                                Integer.parseInt(text.toString()))) {
-                    selfReport.setError(getString(R.string.error_wrong_bed_number));
-                    selfReport.requestFocus();
-                } else {
-                    int uniqueKey = shelter.getUniqueKey();
-                    model.getShelterDataUnique(uniqueKey, this::reload);
-                }
+    private void requestUpdateVacancy(Shelter shelter) {
+        final User user = model.getCurrentUser();
+        if (!user.isAdmin()) {
+            selfReport.setError(null);
+            Editable text = selfReport.getText();
+            String strText = text.toString();
+            int intendedBeds = (strText.isEmpty()) ? 0 : Integer.parseInt(strText);
+            if (!user.canStayAt(shelter)) {
+                selfReport.setError(getString(R.string.error_held_beds_elsewhere));
+                selfReport.requestFocus();
+            } else if (TextUtils.isEmpty(text) || (intendedBeds < 0) ||
+                    !model.updateVacancy(shelter, user,
+                            Integer.parseInt(text.toString()))) {
+                selfReport.setError(getString(R.string.error_wrong_bed_number));
+                selfReport.requestFocus();
+            } else {
+                model.getShelterDataUnique(shelter.getUniqueKey(), this::reload);
             }
-            });
         }
     }
 

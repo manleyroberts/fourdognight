@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -48,7 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
         mAdminSwitchView = findViewById(R.id.adminSwitch);
 
         mPasswordView2.setOnEditorActionListener((textView, id, keyEvent) -> {
-            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+            if ((id == EditorInfo.IME_ACTION_DONE) || (id == EditorInfo.IME_NULL)) {
                 attemptRegistration();
                 return true;
             }
@@ -80,7 +79,6 @@ public class RegistrationActivity extends AppCompatActivity {
         Editable editableName = mNameView.getText();
         String name = editableName.toString();
         boolean isAdmin = mAdminSwitchView.isChecked();
-        Log.e("isAdmin ", isAdmin + " (RegistrationActivity.java: 91)");
         editablePassword.clear();
         editablePassword2.clear();
 
@@ -92,24 +90,15 @@ public class RegistrationActivity extends AppCompatActivity {
             mPasswordView.setError(getString(R.string.error_password_mismatch));
             focusView = mPasswordView;
             cancel = true;
-        }
-
-        // Check for a valid password, if the user entered one.
-        if (!cancel && password.length() < MIN_PASSWORD_LENGTH) {
+        } else if (password.length() < MIN_PASSWORD_LENGTH) {
             mPasswordView.setError(getString(R.string.error_invalid_password_short));
             focusView = mPasswordView;
             cancel = true;
-        }
-
-        // Check for a valid username
-        if (!cancel && TextUtils.isEmpty(email)) {
+        } else if (TextUtils.isEmpty(email)) {
             mUsernameView.setError(getString(R.string.error_field_required));
             focusView = mUsernameView;
             cancel = true;
-        }
-
-        //Check for an at sign
-        if (!cancel && email.indexOf('@') < 1 || email.indexOf('@') > email.length() - 2) {
+        } else if ((email.indexOf('@') < 1) || (email.indexOf('@') > (email.length() - 2))) {
             mUsernameView.setError(getString(R.string.error_invalid_email));
             focusView = mUsernameView;
             cancel = true;
@@ -123,20 +112,17 @@ public class RegistrationActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             taskActive = true;
-            Log.d("Attempt", "RegistrationAttempt");
             model.attemptRegistration(name, email, password, isAdmin, () -> {
-                Log.d("I", "Registered");
                 Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
                 launchIntent.putExtra("justRegistered", true);
                 startActivity(launchIntent);
                 finish();
                 taskActive = false;
-            },
-                    () -> {
-                        mUsernameView.setError(getString(R.string.error_account_exists));
-                        mUsernameView.requestFocus();
-                        taskActive = false;
-                    });
+            }, () -> {
+                mUsernameView.setError(getString(R.string.error_account_exists));
+                mUsernameView.requestFocus();
+                taskActive = false;
+            });
         }
     }
 

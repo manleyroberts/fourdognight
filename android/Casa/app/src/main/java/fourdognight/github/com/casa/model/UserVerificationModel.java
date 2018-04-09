@@ -72,7 +72,7 @@ final class UserVerificationModel {
         List<User> list = new LinkedList<>();
         int shelterKey = shelter.getUniqueKey();
         for (User user : users.values()) {
-            if (!list.contains(user) && user.getCurrentShelterUniqueKey() == shelterKey) {
+            if (!list.contains(user) && (user.getCurrentShelterUniqueKey() == shelterKey)) {
                 list.add(user);
                 Log.d("LEG", user.getUsername());
             }

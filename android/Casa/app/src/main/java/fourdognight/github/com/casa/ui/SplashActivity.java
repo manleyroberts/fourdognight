@@ -21,7 +21,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         ModelFacade model = ModelFacade.getInstance();
-        model.init();
 
         final Button logButton = findViewById(R.id.loginChoiceButton);
         logButton.setOnClickListener(v -> {

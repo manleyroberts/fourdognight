@@ -1,6 +1,7 @@
 package fourdognight.github.com.casa.model;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Facade for the model (singleton class)
@@ -17,7 +18,7 @@ public final class ModelFacade {
     /**
      * Initialize the singleton instance
      */
-    public void init() {
+    private void init() {
         userVerificationModel = UserVerificationModel.getInstance();
         shelterManager = ShelterManager.getInstance();
         userVerificationModel.init();
@@ -65,6 +66,9 @@ public final class ModelFacade {
      * @return the singleton instance of this class
      */
     public static ModelFacade getInstance() {
+        if (model.userVerificationModel == null) {
+            model.init();
+        }
         return model;
     }
 

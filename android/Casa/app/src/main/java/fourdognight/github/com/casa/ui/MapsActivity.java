@@ -41,6 +41,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Map<Marker, Shelter> markerShelterMap;
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private static final int DEFAULT_ZOOM = 11;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -81,9 +82,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
-        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
-                && grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if ((requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+                && (grantResults.length > 0)
+                && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
             centerOnUserLocation();
         }
     }
@@ -96,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Location location = locationManager.getLastKnownLocation(locationManager
                 .getBestProvider(criteria, false));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),
-                location.getLongitude()), 11));
+                location.getLongitude()), DEFAULT_ZOOM));
     }
 
     @Override
@@ -119,7 +120,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void updateMarkers() {
-        if (mMap == null || this.shelters == null) {
+        if ((mMap == null) || (this.shelters == null)) {
             return;
         }
         mMap.clear();

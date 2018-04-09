@@ -2,6 +2,7 @@ package fourdognight.github.com.casa.model;
 
 import android.util.Log;
 import android.util.SparseArray;
+import java.util.function.Consumer;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ final class ShelterManager {
     private final SparseArray<Shelter> shelterList;
     private ModelFacade model;
 
-    static private final ShelterManager instance = new ShelterManager();
+    private static final ShelterManager instance = new ShelterManager();
 
     private ShelterManager() {
         shelterList = new SparseArray<>();
