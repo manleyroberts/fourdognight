@@ -1,6 +1,7 @@
 package fourdognight.github.com.casa.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -71,7 +72,7 @@ public class Shelter implements Serializable{
      * Gets the special information (notes) about the shelter
      * @return the special information about the shelter
      */
-    public String getSpecial() {
+    public CharSequence getSpecial() {
         return special;
     }
 
@@ -79,7 +80,7 @@ public class Shelter implements Serializable{
      * Gets the phone number for the shelter
      * @return the shelter's phone number
      */
-    public String getPhone() {
+    public CharSequence getPhone() {
         return phone;
     }
 
@@ -95,8 +96,9 @@ public class Shelter implements Serializable{
      * @param phone the phone number for the shelter
      * @param newPatrons a list of new patrons
      */
-    public Shelter (int uniqueKey, String shelterName, int capacity, int vacancy, String restriction,
-                    ShelterLocation location, String special, String phone, List<String> newPatrons) {
+    public Shelter (int uniqueKey, String shelterName, int capacity, int vacancy,
+            String restriction, ShelterLocation location, String special, String phone,
+            Collection<String> newPatrons) {
         this.shelterName = shelterName;
         this.capacity = capacity;
         this.vacancy = vacancy;
@@ -117,12 +119,12 @@ public class Shelter implements Serializable{
 
     }
 
-    void addPatron(User user) {
+    private void addPatron(User user) {
         currentPatrons.add(user.getUsername());
     }
 
     void removePatron(User user) {
-        if (user != null && currentPatrons.contains(user.getUsername())) {
+        if ((user != null) && currentPatrons.contains(user.getUsername())) {
             currentPatrons.remove(user.getUsername());
         }
     }
@@ -136,4 +138,15 @@ public class Shelter implements Serializable{
     void setVacancy(int newVac) {
         vacancy = newVac;
     }
+
+    boolean updateVacancy(User user, int bedsHeld) {
+        if ((bedsHeld >= 0) && ((getVacancy() - bedsHeld) >= 0)) {
+            user.setCurrentStatus(getUniqueKey(), bedsHeld);
+            addPatron(user);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -13,7 +13,7 @@ import java.util.Map;
  * @version 1.0
  */
 
-class UserVerificationModel {
+final class UserVerificationModel {
     private FirebaseInterfacer firebaseInterfacer;
     private final Map<String, User> users;
 
@@ -72,7 +72,7 @@ class UserVerificationModel {
         List<User> list = new LinkedList<>();
         int shelterKey = shelter.getUniqueKey();
         for (User user : users.values()) {
-            if (!list.contains(user) && user.getCurrentShelterUniqueKey() == shelterKey) {
+            if (!list.contains(user) && (user.getCurrentShelterUniqueKey() == shelterKey)) {
                 list.add(user);
                 Log.d("LEG", user.getUsername());
             }

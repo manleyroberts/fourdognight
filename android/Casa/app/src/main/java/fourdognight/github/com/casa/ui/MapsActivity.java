@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.app.ActivityCompat;
 
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fourdognight.github.com.casa.R;
 import fourdognight.github.com.casa.model.Shelter;
@@ -36,8 +38,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private List<Shelter> shelters;
-    private HashMap<Marker, Shelter> markerShelterMap;
+    private Map<Marker, Shelter> markerShelterMap;
+
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private static final int DEFAULT_ZOOM = 11;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -45,11 +49,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        FragmentManager manager = getSupportFragmentManager();
+        SupportMapFragment mapFragment = (SupportMapFragment) manager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Bundle bundle = getIntent().getExtras();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
         if (bundle != null) {
             this.shelters = (List<Shelter>) bundle.get("Shelters");
             updateMarkers();
@@ -77,9 +82,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
-        if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
-                && grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if ((requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+                && (grantResults.length > 0)
+                && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
             centerOnUserLocation();
         }
     }
@@ -92,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Location location = locationManager.getLastKnownLocation(locationManager
                 .getBestProvider(criteria, false));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(),
-                location.getLongitude()), 11));
+                location.getLongitude()), DEFAULT_ZOOM));
     }
 
     @Override
@@ -115,7 +120,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void updateMarkers() {
-        if (mMap == null || this.shelters == null) {
+        if ((mMap == null) || (this.shelters == null)) {
             return;
         }
         mMap.clear();

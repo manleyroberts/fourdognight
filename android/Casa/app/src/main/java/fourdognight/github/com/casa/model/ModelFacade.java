@@ -1,13 +1,14 @@
 package fourdognight.github.com.casa.model;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Facade for the model (singleton class)
  * @author Manley Roberts, Jared Duncan
  * @version 1.0
  */
-public class ModelFacade {
+public final class ModelFacade {
     private UserVerificationModel userVerificationModel;
     private ShelterManager shelterManager;
     private static final ModelFacade model = new ModelFacade();
@@ -17,7 +18,7 @@ public class ModelFacade {
     /**
      * Initialize the singleton instance
      */
-    public void init() {
+    private void init() {
         userVerificationModel = UserVerificationModel.getInstance();
         shelterManager = ShelterManager.getInstance();
         userVerificationModel.init();
@@ -65,6 +66,9 @@ public class ModelFacade {
      * @return the singleton instance of this class
      */
     public static ModelFacade getInstance() {
+        if (model.userVerificationModel == null) {
+            model.init();
+        }
         return model;
     }
 
@@ -76,7 +80,11 @@ public class ModelFacade {
      * @return true on success of vacancy update, false on failure
      */
     public boolean updateVacancy(Shelter shelter, User user, int bedsHeld) {
-        return shelterManager.updateVacancy(shelter, user, bedsHeld);
+        boolean succ = shelter.updateVacancy(user, bedsHeld);
+        if (succ) {
+            shelterManager.refactorVacancy(shelter);
+        }
+        return succ;
     }
 
     /**

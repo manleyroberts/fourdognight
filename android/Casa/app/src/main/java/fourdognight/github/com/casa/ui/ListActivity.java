@@ -1,10 +1,10 @@
 package fourdognight.github.com.casa.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import fourdognight.github.com.casa.R;
-import fourdognight.github.com.casa.model.Consumer;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 import fourdognight.github.com.casa.model.ShelterLocation;
@@ -45,9 +44,7 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
         model = ModelFacade.getInstance();
-
         shelterName = findViewById(R.id.sheltertext);
         key = findViewById(R.id.uniqueKey);
         capacity = findViewById(R.id.capacity);
@@ -59,39 +56,34 @@ public class ListActivity extends AppCompatActivity {
         phone = findViewById(R.id.phone);
         restriction = findViewById(R.id.restrict);
         selfReport = findViewById(R.id.selfReport);
-        Bundle bundle = getIntent().getExtras();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
         if (bundle != null) {
             final Shelter shelter = (Shelter) bundle.get("Shelter");
-            final User user = model.getCurrentUser();
             reload(shelter);
-
             final Button button = findViewById(R.id.updateVacancyButton);
-            button.setOnClickListener(v -> {
-            model.init();
-            if (!user.isAdmin()) {
-                selfReport.setError(null);
-                Editable text = selfReport.getText();
-                int intendedBeds;
-                if (text.toString().isEmpty()) {
-                    intendedBeds = 0;
-                } else {
-                    intendedBeds = Integer.parseInt(text.toString());
-                }
+            button.setOnClickListener(v -> requestUpdateVacancy(shelter));
+        }
+    }
 
-                if (!user.canStayAt(shelter)) {
-                    selfReport.setError(getString(R.string.error_held_beds_elsewhere));
-                    selfReport.requestFocus();
-                } else if (TextUtils.isEmpty(text) || intendedBeds < 0 ||
-                        !model.updateVacancy(shelter, user,
-                                Integer.parseInt(text.toString()))) {
-                    selfReport.setError(getString(R.string.error_wrong_bed_number));
-                    selfReport.requestFocus();
-                } else {
-                    int uniqueKey = shelter.getUniqueKey();
-                    model.getShelterDataUnique(uniqueKey, shelter1 -> reload(shelter1));
-                }
+    private void requestUpdateVacancy(Shelter shelter) {
+        final User user = model.getCurrentUser();
+        if (!user.isAdmin()) {
+            selfReport.setError(null);
+            Editable text = selfReport.getText();
+            String strText = text.toString();
+            int intendedBeds = (strText.isEmpty()) ? 0 : Integer.parseInt(strText);
+            if (!user.canStayAt(shelter)) {
+                selfReport.setError(getString(R.string.error_held_beds_elsewhere));
+                selfReport.requestFocus();
+            } else if (TextUtils.isEmpty(text) || (intendedBeds < 0) ||
+                    !model.updateVacancy(shelter, user,
+                            Integer.parseInt(text.toString()))) {
+                selfReport.setError(getString(R.string.error_wrong_bed_number));
+                selfReport.requestFocus();
+            } else {
+                model.getShelterDataUnique(shelter.getUniqueKey(), this::reload);
             }
-            });
         }
     }
 
