@@ -32,11 +32,6 @@ public class SplashActivity extends AppCompatActivity {
             Intent launchIntent = new Intent(getInstance(), RegistrationActivity.class);
             startActivity(launchIntent);
         });
-        final Button loadButton = findViewById(R.id.loadButton);
-        if (!ModelFacade.DEBUG) {
-            loadButton.setVisibility(View.GONE);
-        }
-        loadButton.setOnClickListener(v -> ModelFacade.runLoadScript(this));
     }
 
     private SplashActivity getInstance() {

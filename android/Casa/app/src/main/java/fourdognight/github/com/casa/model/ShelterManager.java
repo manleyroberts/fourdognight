@@ -19,10 +19,6 @@ final class ShelterManager {
 
     private static final ShelterManager instance = new ShelterManager();
 
-    static void runLoadScript(Context context) {
-        FirebaseInterfacer.runLoadScript(context);
-    }
-
     private ShelterManager() {
         shelterList = new SparseArray<>();
     }

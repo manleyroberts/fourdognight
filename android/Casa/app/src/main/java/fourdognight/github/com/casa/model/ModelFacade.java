@@ -15,16 +15,6 @@ public final class ModelFacade {
     private ShelterManager shelterManager;
     private static final ModelFacade model = new ModelFacade();
 
-    public static final boolean DEBUG = true;
-
-    /**
-     * Runs the load script
-     * @param context for accessing resources
-     */
-    public static void runLoadScript(Context context) {
-        ShelterManager.runLoadScript(context);
-    }
-
     private ModelFacade() {    }
 
     /**
