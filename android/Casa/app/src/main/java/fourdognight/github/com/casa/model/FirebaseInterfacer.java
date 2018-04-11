@@ -1,5 +1,6 @@
 package fourdognight.github.com.casa.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -8,12 +9,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+
+import fourdognight.github.com.casa.R;
 
 
 /**
@@ -187,4 +195,48 @@ final class FirebaseInterfacer {
             return " ";
         }
     }
-}
+
+    /**
+     * The "load script"
+     */
+    public static void runLoadScript(Context context) {
+        InputStream is = context.getResources().openRawResource(R.raw.homelessshelterdatabase);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+
+        List<String> rawList = new LinkedList<>();
+        List<Shelter> list = new LinkedList<>();
+        try {
+            reader.readLine();
+            String read;
+            while ((read = reader.readLine()) != null) {
+                String[] row = read.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                if (!rawList.contains(row[0])) {
+                    for (int i = 0; i < row.length; i++) {
+                        if (row[i].indexOf('\"') > -1) {
+                            row[i] = row[i].split("\"")[1];
+                        }
+                        row[i] = row[i].trim();
+                        rawList.add(row[i]);
+                    }
+                }
+            }
+            for (int i = 0; i < rawList.size()/10; i++) {
+                List<String> newList = new LinkedList<>();
+                newList.add("dummy@dummy");
+                Shelter shelter = new Shelter(Integer.parseInt(rawList.get(10 * i)),
+                    rawList.get(10 * i + 1), Integer.parseInt(rawList.get(10 * i + 2)),
+                    Integer.parseInt(rawList.get(10 * i + 3)), rawList.get(10 * i + 4),
+                    new ShelterLocation(Double.parseDouble(rawList.get(10 * i + 5)),
+                        Double.parseDouble(rawList.get(10 * i + 6)), rawList.get(10 * i + 7)),
+                    rawList.get(10 * i + 8), rawList.get(10 * i + 9), newList);
+                list.add(shelter);
+            }
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = database.getReference("");
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("shelterList", list);
+            databaseReference.updateChildren(map);
+        } catch (IOException ignored) {}
+    }
+
+    }

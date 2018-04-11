@@ -42,6 +42,16 @@ module.exports.getShelterData = function(onSuccess) {
   });
 }
 
+module.exports.runLoadScript = function(shelters) {
+    database.ref('shelterList').once('value', function(snapshot) {
+        for (var shelter of shelters) {
+            snapshot.ref.child(shelter[0]).set(shelter);
+        }
+    }).then(() => {
+        console.log('Shelters loaded successfully');
+    });
+}
+
 function sanitize(dbPath) {
   var sanitized = dbPath.replace(/[\.#$\[\]]/g, '');
   if (sanitized) {

@@ -1,5 +1,6 @@
 package fourdognight.github.com.casa.model;
 
+import android.content.Context;
 import android.util.Log;
 import android.util.SparseArray;
 import java.util.function.Consumer;
@@ -17,6 +18,10 @@ final class ShelterManager {
     private ModelFacade model;
 
     private static final ShelterManager instance = new ShelterManager();
+
+    static void runLoadScript(Context context) {
+        FirebaseInterfacer.runLoadScript(context);
+    }
 
     private ShelterManager() {
         shelterList = new SparseArray<>();
