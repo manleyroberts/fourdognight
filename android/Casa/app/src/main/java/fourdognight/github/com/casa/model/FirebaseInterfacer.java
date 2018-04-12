@@ -1,5 +1,6 @@
 package fourdognight.github.com.casa.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -8,12 +9,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+
+import fourdognight.github.com.casa.R;
 
 
 /**
@@ -113,7 +121,7 @@ final class FirebaseInterfacer {
 
     void attemptLogin(final String username, final String password, final Consumer<User> success,
                       final Runnable failure) {
-        DatabaseReference myRef = database.getReference("test/userList/" + sanitize(username));
+        DatabaseReference myRef = database.getReference("userList/" + sanitize(username));
 
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -123,6 +131,8 @@ final class FirebaseInterfacer {
                     failure.run();
                 } else {
                     User loadedUser = dataSnapshot.getValue(User.class);
+                    Log.i("Username = ", loadedUser.getUsername());
+                    Log.i("Password = ", loadedUser.getPassword());
                     if (loadedUser.authenticate(password)) {
                         success.accept(loadedUser);
                     } else {
@@ -185,4 +195,5 @@ final class FirebaseInterfacer {
             return " ";
         }
     }
-}
+
+    }

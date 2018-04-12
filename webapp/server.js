@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyparser = require('body-parser');
 var userModel = require('./model/UserModel.js');
-var Admin = userModel.Admin;
 var shelterModel = require('./model/ShelterModel.js');
 var readShelters = shelterModel.readShelters;
 var shelters = shelterModel.shelters;
@@ -36,7 +35,8 @@ app.post("/register", function(req, res) {
   if (errors !== "") {
     res.status(401).send(errors);
   } else {
-    userModel.attemptRegistration(req.body.name, req.body.email, req.body.password, req.body.admin, function() {
+    console.log('req.body.admin=' + req.body.admin);
+    userModel.attemptRegistration(req.body.name, req.body.email, req.body.password, req.body.admin == 'true', function() {
       res.redirect("/login.html");
     }, function() {
       res.status(401).send("EXISTS");
@@ -45,6 +45,8 @@ app.post("/register", function(req, res) {
 });
 
 app.post("/mainpage", function(req, res) {
+  //shelterModel.getShelterData(/* callback function goes in here */);
+  // COMMENT THIS FUNCTION CALL OUT
   readShelters(function() {
     var resbody = '';
     for (i = 1; i < shelters.length; i++) {

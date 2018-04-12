@@ -140,7 +140,7 @@
       }
       formRequest.open("POST", "/register", true);
       formRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      formRequest.send("name=" + form.name.value + "&email=" + form.email.value + "&password=" + form.password.value + "&password2=" + form.password2.value + "&admin=" + form.admin.value);
+      formRequest.send("name=" + form.name.value + "&email=" + form.email.value + "&password=" + form.password.value + "&password2=" + form.password2.value + "&admin=" + form.admin.checked);
       return false;
     }
   </script>

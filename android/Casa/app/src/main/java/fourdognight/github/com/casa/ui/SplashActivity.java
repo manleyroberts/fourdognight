@@ -2,6 +2,7 @@ package fourdognight.github.com.casa.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 
@@ -19,8 +20,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-        ModelFacade model = ModelFacade.getInstance();
 
         final Button logButton = findViewById(R.id.loginChoiceButton);
         logButton.setOnClickListener(v -> {
