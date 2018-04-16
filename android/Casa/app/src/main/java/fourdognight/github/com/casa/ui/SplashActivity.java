@@ -2,12 +2,10 @@ package fourdognight.github.com.casa.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 
 import fourdognight.github.com.casa.R;
-import fourdognight.github.com.casa.model.ModelFacade;
 
 /**
  * creates the first page of the app, opening page
