@@ -52,7 +52,6 @@ final class ShelterManager {
             int newVacancy = shelter.getCapacity();
             List<User> patrons = model.usersAtShelter(shelter);
             for (User patron : patrons) {
-                Log.d("LEGo'", "" + newVacancy);
                 newVacancy -= patron.getHeldBeds();
             }
 

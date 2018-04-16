@@ -56,10 +56,8 @@ final class UserVerificationModel {
     }
 
     void updateUserList(User user) {
-        Log.d("LEG", "bef" + users.keySet());
         String username = user.getUsername();
-        users.put(username, user);
-        Log.d("LEG", "aft" + users.keySet());
+        users.put(Sanitizer.sanitize(username), user);
     }
 
     void pushUserChanges() {
@@ -70,11 +68,12 @@ final class UserVerificationModel {
 
     List<User> usersAtShelter(Shelter shelter) {
         List<User> list = new LinkedList<>();
-        int shelterKey = shelter.getUniqueKey();
-        for (User user : users.values()) {
-            if (!list.contains(user) && (user.getCurrentShelterUniqueKey() == shelterKey)) {
-                list.add(user);
-                Log.d("LEG", user.getUsername());
+        if (shelter != null) {
+            int shelterKey = shelter.getUniqueKey();
+            for (User user : users.values()) {
+                if (user.getCurrentShelterUniqueKey() == shelterKey) {
+                    list.add(user);
+                }
             }
         }
         return list;

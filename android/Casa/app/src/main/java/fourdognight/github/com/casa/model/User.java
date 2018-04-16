@@ -56,7 +56,7 @@ public class User{
         this.currentShelter = manager.getShelter(newShelterUniqueKey);
         this.currentShelterUniqueKey = newShelterUniqueKey;
         this.heldBeds = heldBeds;
-        pushUserChanges();
+//        pushUserChanges();
     }
 
 
