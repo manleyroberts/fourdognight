@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
  * Shelter is a class containing information about shelters
  * @author Manley Roberts

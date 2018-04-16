@@ -1,7 +1,5 @@
 package fourdognight.github.com.casa.model;
 
-import android.content.Context;
-
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -105,6 +103,14 @@ public final class ModelFacade {
      */
     public User getCurrentUser() {
         return userVerificationModel.getCurrentUser();
+    }
+
+    /**
+     * Gets a String representation of the logged in user
+     * @return the toString of the logged in user
+     */
+    public CharSequence getCurrentUserToString() {
+        return userVerificationModel.getCurrentUserToString();
     }
 
     List<User> usersAtShelter(Shelter shelter) {

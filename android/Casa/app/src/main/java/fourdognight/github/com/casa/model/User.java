@@ -113,6 +113,11 @@ public class User{
     }
 
     @Override
+    public String toString() {
+        return name + " | " + username + ((isAdmin) ? " | Admin" : " | User");
+    }
+
+    @Override
     public boolean equals(Object other) {
         if ((other == null) || !(other instanceof User)) {
             return false;

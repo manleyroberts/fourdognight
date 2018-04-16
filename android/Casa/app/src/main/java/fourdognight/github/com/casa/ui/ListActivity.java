@@ -60,7 +60,9 @@ public class ListActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             final Shelter shelter = (Shelter) bundle.get("Shelter");
-            reload(shelter);
+            if (shelter != null) {
+                reload(shelter);
+            }
             final Button button = findViewById(R.id.updateVacancyButton);
             button.setOnClickListener(v -> requestUpdateVacancy(shelter));
         }
@@ -104,7 +106,7 @@ public class ListActivity extends AppCompatActivity {
         int beds = user.getHeldBeds();
 
         if (user.getCurrentShelterUniqueKey() == shelter.getUniqueKey()) {
-            selfReport.setText(beds);
+            selfReport.setText(String.format(Locale.getDefault(), "%d", beds));
         }
     }
 
