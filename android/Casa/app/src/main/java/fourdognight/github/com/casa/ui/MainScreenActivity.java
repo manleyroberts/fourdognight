@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Objects;
 
 import fourdognight.github.com.casa.R;
-import fourdognight.github.com.casa.model.User;
 import fourdognight.github.com.casa.model.ModelFacade;
 import fourdognight.github.com.casa.model.Shelter;
 
@@ -43,7 +42,8 @@ public class MainScreenActivity extends AppCompatActivity {
         if (restrictionIntent.hasExtra("restrictionFilter")) {
             Intent intent = getIntent();
             Bundle extras = intent.getExtras();
-            restrictionFilter = (String) Objects.requireNonNull(extras).get("restrictionFilter");
+            Bundle extrasNotNull = Objects.requireNonNull(extras);
+            restrictionFilter = (String) extrasNotNull.get("restrictionFilter");
         }
 
         setContentView(R.layout.activity_main_screen);
@@ -64,12 +64,7 @@ public class MainScreenActivity extends AppCompatActivity {
         });
 
         TextView mUsernameView = findViewById(R.id.mainScreenUsernameField);
-        User user = model.getCurrentUser();
-        String topText = user.getName();
-        topText += " | " + user.getUsername() + ((user.isAdmin()) ? " | Admin" : " | User");
-        mUsernameView.setText(topText);
-        // Reads the CSV data
-//        readHomelessShelterData();
+        mUsernameView.setText(model.getCurrentUserToString());
         model.getShelterData(this::reload);
     }
 

@@ -18,7 +18,7 @@ final class UserVerificationModel {
     private final Map<String, User> users;
 
     private static final UserVerificationModel instance = new UserVerificationModel();
-    private static User currentUser;
+    private User currentUser;
 
     private UserVerificationModel() {
         users = new HashMap<>();
@@ -78,6 +78,10 @@ final class UserVerificationModel {
             }
         }
         return list;
+    }
+
+    String getCurrentUserToString() {
+        return currentUser.toString();
     }
 
     static UserVerificationModel getInstance() {

@@ -22,6 +22,7 @@ import fourdognight.github.com.casa.model.ModelFacade;
 public class RegistrationActivity extends AppCompatActivity {
 
     private static final int MIN_PASSWORD_LENGTH = 8;
+    private static final int MINIMUM_AT_CHAR_INDEX = 1;
 
     private boolean taskActive = false;
 
@@ -60,69 +61,57 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void attemptRegistration() {
-        if (taskActive) {
-            return;
-        }
+        if (!taskActive) {
 
-        // Reset errors.
-        mUsernameView.setError(null);
-        mPasswordView.setError(null);
-        mPasswordView2.setError(null);
+            // Reset errors.
+            mUsernameView.setError(null);
+            mPasswordView.setError(null);
+            mPasswordView2.setError(null);
 
-        // Store values at the time of the login attempt.
-        Editable editableEmail = mUsernameView.getText();
-        String email = editableEmail.toString();
-        Editable editablePassword = mPasswordView.getText();
-        String password = editablePassword.toString();
-        Editable editablePassword2 = mPasswordView2.getText();
-        String password2 = editablePassword2.toString();
-        Editable editableName = mNameView.getText();
-        String name = editableName.toString();
-        boolean isAdmin = mAdminSwitchView.isChecked();
-        editablePassword.clear();
-        editablePassword2.clear();
+            // Store values at the time of the login attempt.
+            Editable editableEmail = mUsernameView.getText();
+            String email = editableEmail.toString();
+            Editable editablePassword = mPasswordView.getText();
+            String password = editablePassword.toString();
+            Editable editablePassword2 = mPasswordView2.getText();
+            String password2 = editablePassword2.toString();
+            Editable editableName = mNameView.getText();
+            String name = editableName.toString();
+            boolean isAdmin = mAdminSwitchView.isChecked();
+            editablePassword.clear();
+            editablePassword2.clear();
+            View focusView;
 
-        boolean cancel = false;
-        View focusView = null;
+            //Check for password match
+            if (!(password.equals(password2))) {
+                mPasswordView.setError(getString(R.string.error_password_mismatch));
+                focusView = mPasswordView;
+            } else if (password.length() < MIN_PASSWORD_LENGTH) {
+                mPasswordView.setError(getString(R.string.error_invalid_password_short));
+                focusView = mPasswordView;
+            } else if (TextUtils.isEmpty(email)) {
+                mUsernameView.setError(getString(R.string.error_field_required));
+                focusView = mUsernameView;
+            } else if (email.indexOf('@') < MINIMUM_AT_CHAR_INDEX) {
+                mUsernameView.setError(getString(R.string.error_invalid_email));
+                focusView = mUsernameView;
+            } else {
+                taskActive = true;
+                focusView = mUsernameView;
 
-        //Check for password match
-        if (!(password.equals(password2))) {
-            mPasswordView.setError(getString(R.string.error_password_mismatch));
-            focusView = mPasswordView;
-            cancel = true;
-        } else if (password.length() < MIN_PASSWORD_LENGTH) {
-            mPasswordView.setError(getString(R.string.error_invalid_password_short));
-            focusView = mPasswordView;
-            cancel = true;
-        } else if (TextUtils.isEmpty(email)) {
-            mUsernameView.setError(getString(R.string.error_field_required));
-            focusView = mUsernameView;
-            cancel = true;
-        } else if ((email.indexOf('@') < 1) || (email.indexOf('@') > (email.length() - 2))) {
-            mUsernameView.setError(getString(R.string.error_invalid_email));
-            focusView = mUsernameView;
-            cancel = true;
-        }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+                //Send a registration attempt to the model.
+                model.attemptRegistration(name, email, password, isAdmin, () -> {
+                    Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
+                    launchIntent.putExtra("justRegistered", true);
+                    startActivity(launchIntent);
+                    finish();
+                    taskActive = false;
+                }, () -> {
+                    mUsernameView.setError(getString(R.string.error_account_exists));
+                    taskActive = false;
+                });
+            }
             focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            taskActive = true;
-            model.attemptRegistration(name, email, password, isAdmin, () -> {
-                Intent launchIntent = new Intent(getInstance(), LoginActivity.class);
-                launchIntent.putExtra("justRegistered", true);
-                startActivity(launchIntent);
-                finish();
-                taskActive = false;
-            }, () -> {
-                mUsernameView.setError(getString(R.string.error_account_exists));
-                mUsernameView.requestFocus();
-                taskActive = false;
-            });
         }
     }
 
