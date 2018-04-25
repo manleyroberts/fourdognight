@@ -40,8 +40,8 @@ public class IsaacUnitTest {
         assertEquals(9, us.getCurrentShelterUniqueKey());
         assertTrue(um.usersAtShelter(new Shelter(9, "Hope Atlanta", 22, 22, "Anyone", new ShelterLocation(-84.390429, 33.753594, "34 Peachtree Street NW, Suite 700, Atlanta, GA 30303"), "Emergency shelter", "(404)-817-7070", Arrays.asList("dummy@dummy", ""))).contains(us));
         us.setCurrentStatus(0, 4);
-        assertEquals(0, u.getCurrentShelterUniqueKey());
-        assertEquals(4, u.getHeldBeds());
+        assertEquals(0, us.getCurrentShelterUniqueKey());
+        assertEquals(4, us.getHeldBeds());
         assertFalse(um.usersAtShelter(new Shelter(9, "Hope Atlanta", 22, 22, "Anyone", new ShelterLocation(-84.390429, 33.753594, "34 Peachtree Street NW, Suite 700, Atlanta, GA 30303"), "Emergency shelter", "(404)-817-7070", Arrays.asList("dummy@dummy"))).contains(us));
         assertTrue(um.usersAtShelter(new Shelter(0, "My Sister's House", 264, 263, "Women/Children", new ShelterLocation(-84.410142, 33.780174, "921 Howell Mill Road, Atlanta, Georgia 30318"), "Temporary, Emergency, Residential Recovery", "(404) 367-2465", Arrays.asList("dummy@dummy", ""))).contains(us));
     }
