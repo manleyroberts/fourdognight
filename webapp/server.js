@@ -45,16 +45,12 @@ app.post("/register", function(req, res) {
 });
 
 app.post("/mainpage", function(req, res) {
-  //shelterModel.getShelterData(/* callback function goes in here */);
-  // COMMENT THIS FUNCTION CALL OUT
-  readShelters(function() {
+  shelterModel.getShelterData(function(list) {
     var resbody = '';
-    for (i = 1; i < shelters.length; i++) {
-      if (req.body.query === null || shelters[i][1].search(new RegExp(req.body.query, 'i')) != -1) {
-        var san1 = shelters[i][1].replace(/&/g, 'and');
-        var san2 = san1.replace(/'/g, '\\\'');
-        resbody += '<li onclick="displayShelter(\'' + san2 + '\')">' + san1 + '</li>';
-      }
+    for (var shelter of list) {
+      var san1 = shelter.shelterName.replace(/&/g, 'and');
+      var san2 = san1.replace(/'/g, '\\\'');
+      resbody += '<li onclick="displayShelter(\'' + san2 + '\')">' + san1 + '</li>';
     }
     res.status(200).send(resbody);
   });

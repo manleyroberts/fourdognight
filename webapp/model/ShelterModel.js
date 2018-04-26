@@ -3,7 +3,7 @@ var firebase = require('./FirebaseInterfacer.js');
 const fs = require('fs');
 const readline = require('readline');
 
-shelters = [];
+var shelters = [];
 
 Shelter = function(uniqueKey, shelterName, capacity, vacancy, restriction, location, special, phone, newPatrons) {
   this.shelterName = shelterName;
@@ -16,10 +16,16 @@ Shelter = function(uniqueKey, shelterName, capacity, vacancy, restriction, locat
   this.phone = phone;
   this.currentPatrons = [];
   for (var user of newPatrons) {
-    currentPatrons.push(user);
+    currentPatrons.push(user.name);
   }
   this.toString = function() {
-    return shelterName + " " + restriction + " " + location.address " " + special + " " + phone + " ";
+    return shelterName + " " + restriction + " " + location.address + " " + special + " " + phone + " ";
+  }
+  this.updateVacancy = function(user, bedsHeld) {
+    if (bedsHeld >= 0 && vacancy - bedsHeld >= 0) {
+      uesr.setCurrentStatus(uniqueKey, bedsHeld);
+      currentPatrons.push(user.name);
+    }
   }
   return this;
 }
@@ -29,6 +35,15 @@ ShelterLocation = function(longitude, latitude, address) {
   this.longitude = longitude;
   this.address = address;
   return this;
+}
+
+module.exports.getShelterData = function(onSuccess) {
+  firebase.getShelterData(function(list) {
+    for (var shelter of list) {
+      shelters[shelter.uniqueKey] = shelter;
+    }
+    onSuccess(list);
+  });
 }
 
 module.exports.readShelters = function(onCompleted) {
