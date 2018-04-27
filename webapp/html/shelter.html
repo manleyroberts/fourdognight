@@ -12,6 +12,14 @@
 </head>
 <body onload="loadShelter()">
   <div class="container" id="shelter"></div>
+  <h3>Self-Reported Bed Usage</h3>
+  <div class="container">
+    <input type="number" id="reportedBeds">
+    <button onclick="requestUpdateVacancy()">Update</button>
+  </div>
+  <div class="container">
+    <p id="heldElsewhere" style="display:none; color:red">You hold beds elsewhere, and cannot stay here without releasing those beds.</p>
+    <p id="wrongNumber" style="display:none; color:red">You cannot reserve that number of beds</p>
   <div class="container">
     <button onclick="window.location = '/mainpage.html'">Back</button>
   </div>
@@ -29,6 +37,32 @@
     formRequest.open("POST", "/shelter", true);
     formRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     formRequest.send("shelter=" + sessionStorage.shelter);
+    return false;
+  }
+</script>
+<script>
+  function requestUpdateVacancy() {
+    document.getElementById("heldElsewhere").style.display = "none";
+    document.getElementById("wrongNumber").style.display = "none";
+    var user = sessionStorage.userdata.substring(sessionStorage.userdata.indexOf("|") + 1, sessionStorage.userdata.lastIndexOf("|")).trim();
+    var requested = (document.getElementById("reportedBeds").value == "") ? 0 : document.getElementById("reportedBeds").value;
+    var formRequest = new XMLHttpRequest();
+    formRequest.onreadystatechange = function() {
+      if (formRequest.readyState == 4) {
+        if (formRequest.status == 401) {
+          if (formRequest.responseText.includes("ELSEWHERE")) {
+            document.getElementById("heldElsewhere").style.display = "block";
+          } else if (formRequest.responseText.includes("NUMBER")) {
+            document.getElementById("wrongNumber").style.display = "block";
+          }
+        } else if (formRequest.status == 200) {
+          loadShelter();
+        }
+      }
+    }
+    formRequest.open("POST", "/shelter", true);
+    formRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    formRequest.send("shelter=" + sessionStorage.shelter + "&user=" + user + "&request=" + requested);
     return false;
   }
 </script>

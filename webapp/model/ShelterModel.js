@@ -1,7 +1,5 @@
 var firebase = require('./FirebaseInterfacer.js');
-
-const fs = require('fs');
-const readline = require('readline');
+var userModel = require('./UserModel.js'); // yay cyclic dependencies...
 
 var shelters = [];
 
@@ -21,13 +19,22 @@ Shelter = function(uniqueKey, shelterName, capacity, vacancy, restriction, locat
   this.toString = function() {
     return shelterName + " " + restriction + " " + location.address + " " + special + " " + phone + " ";
   }
-  this.updateVacancy = function(user, bedsHeld) {
-    if (bedsHeld >= 0 && vacancy - bedsHeld >= 0) {
-      uesr.setCurrentStatus(uniqueKey, bedsHeld);
-      currentPatrons.push(user.name);
-    }
-  }
   return this;
+}
+
+module.exports.updateVacancy = function(shelterName, user, bedsHeld) {
+  console.log(shelterName);
+  console.log(user);
+  console.log(bedsHeld);
+  var shelter = shelters.find(function(element) {
+    return shelterName === element.shelterName;
+  });
+  if (bedsHeld >= 0 && shelter.vacancy - bedsHeld >= 0) {
+    shelter.currentPatrons.push(user.name);
+    userModel.setCurrentStatus(user, shelter.uniqueKey, bedsHeld);
+    return true;
+  }
+  return false;
 }
 
 ShelterLocation = function(longitude, latitude, address) {
@@ -35,6 +42,13 @@ ShelterLocation = function(longitude, latitude, address) {
   this.longitude = longitude;
   this.address = address;
   return this;
+}
+
+module.exports.getShelter = function(uniqueKey) {
+  if (uniqueKey === -1) {
+    return null;
+  }
+  return shelters[uniqueKey];
 }
 
 module.exports.getShelterData = function(onSuccess) {
@@ -46,25 +60,8 @@ module.exports.getShelterData = function(onSuccess) {
   });
 }
 
-module.exports.readShelters = function(onCompleted) {
-  var rl = readline.createInterface({
-    input: fs.createReadStream(__dirname + '/HomelessShelterDatabase.csv'),
-    crlfDelay: Infinity,
-  });
-  rl.on('line', (line) => {
-    var match = line.toString().match(/("(.+?)")|([^,]+)/g);
-    var contains = false;
-    for (var shelter of module.exports.shelters) {
-      if (match[0] == shelter[0]) {
-        contains = true;
-        break;
-      }
-    }
-    if (!contains) {
-      module.exports.shelters.push(match);
-    }
-  });
-  rl.on('close', (close) => {
-    onCompleted();
+module.exports.getShelterDataUnique = function(name) {
+  return shelters.find(function(entry) {
+    return entry.shelterName === name;
   });
 }

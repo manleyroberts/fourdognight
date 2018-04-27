@@ -37,6 +37,7 @@
 </body>
 <script>
   function login() {
+    sessionStorage.restriction = '\0';
     var form = document.getElementById("loginForm");
     var formRequest = new XMLHttpRequest();
     formRequest.onreadystatechange = function () {

@@ -30,8 +30,17 @@ module.exports.attemptLogin = function(username, onPossibleSuccess, onFailure) {
 }
 
 module.exports.updateUser = function(user) {
-  var userRef = database.ref('test/userList');
-  userRef.child(sanitize(user.username)).set(user);
+  database.ref('test/userList').child(sanitize(user.username)).set(user);
+}
+
+module.exports.getUser = function(username, onSuccess) {
+  database.ref('test/userList/' + sanitize(username)).once('value', function(snapshot) {
+    onSuccess(snapshot.val());
+  });
+}
+
+module.exports.updateShelter = function(shelter) {
+  database.ref('test/shelterList/').child(shelter.uniqueKey).set(shelter);
 }
 
 module.exports.getShelterData = function(onSuccess) {
