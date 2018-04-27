@@ -9,7 +9,7 @@ var app = firebase.initializeApp(config);
 var database = app.database();
 
 module.exports.attemptRegistration = function(username, onSuccess, onFailure) {
-  database.ref('userList').once('value', function(snapshot) {
+  database.ref('test/userList').once('value', function(snapshot) {
     if (!snapshot.hasChild(sanitize(username))) {
       onSuccess();
     } else {
@@ -19,7 +19,7 @@ module.exports.attemptRegistration = function(username, onSuccess, onFailure) {
 }
 
 module.exports.attemptLogin = function(username, onPossibleSuccess, onFailure) {
-  var userRef = database.ref('userList/' + sanitize(username));
+  var userRef = database.ref('test/userList/' + sanitize(username));
   userRef.once('value', function(snapshot) {
     if (!snapshot.exists()) {
       onFailure();
@@ -30,15 +30,30 @@ module.exports.attemptLogin = function(username, onPossibleSuccess, onFailure) {
 }
 
 module.exports.updateUser = function(user) {
-  var userRef = database.ref('userList');
-  userRef.child(sanitize(user.username)).set(user);
+  database.ref('test/userList').child(sanitize(user.username)).set(user);
+}
+
+module.exports.getUser = function(username, onSuccess) {
+  database.ref('test/userList/' + sanitize(username)).once('value', function(snapshot) {
+    onSuccess(snapshot.val());
+  });
+}
+
+module.exports.updateShelter = function(shelter) {
+  database.ref('test/shelterList/').child(shelter.uniqueKey).set(shelter);
 }
 
 module.exports.getShelterData = function(onSuccess) {
-  database.ref('shelterList').on('value', function(snapshot) {
+  database.ref('test/shelterList').on('value', function(snapshot) {
+    var results = [];
     snapshot.forEach(function(childSnap) {
-
+      var shelter = childSnap.val();
+      if (!childSnap.hasChild('currentPatrons')) {
+        shelter.currentPatrons = [];
+      }
+      results.push(shelter);
     });
+    onSuccess(results);
   });
 }
 

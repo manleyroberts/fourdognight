@@ -2,8 +2,6 @@ var express = require('express');
 var bodyparser = require('body-parser');
 var userModel = require('./model/UserModel.js');
 var shelterModel = require('./model/ShelterModel.js');
-var readShelters = shelterModel.readShelters;
-var shelters = shelterModel.shelters;
 var app = express();
 
 app.use(bodyparser.urlencoded({extended: true}));
@@ -45,13 +43,12 @@ app.post("/register", function(req, res) {
 });
 
 app.post("/mainpage", function(req, res) {
-  //shelterModel.getShelterData(/* callback function goes in here */);
-  // COMMENT THIS FUNCTION CALL OUT
-  readShelters(function() {
+  shelterModel.getShelterData(function(list) {
     var resbody = '';
-    for (i = 1; i < shelters.length; i++) {
-      if (req.body.query === null || shelters[i][1].search(new RegExp(req.body.query, 'i')) != -1) {
-        var san1 = shelters[i][1].replace(/&/g, 'and');
+    var query = req.body.restriction;
+    for (var shelter of list) {
+      if (query === null || shelter.restriction.search(new RegExp(query, 'i')) != -1 || shelter.shelterName.search(new RegExp(query, 'i')) != -1) {
+        var san1 = shelter.shelterName.replace(/&/g, 'and');
         var san2 = san1.replace(/'/g, '\\\'');
         resbody += '<li onclick="displayShelter(\'' + san2 + '\')">' + san1 + '</li>';
       }
@@ -60,30 +57,26 @@ app.post("/mainpage", function(req, res) {
   });
 });
 
-app.post("/asearch", function(req, res) {
-  var resbody = '';
-  for (i = 1; i < shelters.length; i++) {
-    for (var data of shelters[i]) {
-      if (req.body.query === null || data.search(new RegExp(req.body.query, 'i')) != -1) {
-        var san1 = shelters[i][1].replace(/&/g, 'and');
-        var san2 = san1.replace(/'/g, '\\\'');
-        resbody += '<li onclick="displayShelter(\'' + san2 + '\')">' + san1 + '</li>';
-        break;
-      }
-    }
-  }
-  res.status(200).send(resbody);
-});
 
 app.post("/shelter", function(req, res) {
-  var shelter = shelters.find(function(entry) {
-    return entry[1] === req.body.shelter;
-  });
-  res.status(200).send('<h4>Name:</h4><p>' + shelter[1] + '</p><h4>ID:</h4><p>'
-    + shelter[0] + '</p><h4>Capacity:</h4><p>' + shelter[2] + '</p><h4>Notes:</h4><p>'
-    + shelter[7] + '</p><h4>Restrictions:</h4><p>' + shelter[3] + '</p><h4>Phone:</h4><p>'
-    + shelter[8] + '</p><h4>Longitude:</h4><p>' + shelter[4] + '</p><h4>Latitude:</h4><p>'
-    + shelter[5] + '</p><h4>Address:</h4><p>' + shelter[6] + '</p>');
+  if (req.body.request === undefined) {
+    var shelter = shelterModel.getShelterDataUnique(req.body.shelter);
+    res.status(200).send('<h4>Name:</h4><p>' + shelter.shelterName + '</p><h4>ID:</h4><p>'
+      + shelter.uniqueKey + '</p><h4>Capacity:</h4><p>' + shelter.capacity + '</p><h4>Vacancy:</h4><p>' + shelter.vacancy + '</p><h4>Notes:</h4><p>'
+      + shelter.special + '</p><h4>Restrictions:</h4><p>' + shelter.restriction + '</p><h4>Phone:</h4><p>'
+      + shelter.phone + '</p><h4>Longitude:</h4><p>' + shelter.location.longitude + '</p><h4>Latitude:</h4><p>'
+      + shelter.location.latitude + '</p><h4>Address:</h4><p>' + shelter.location.address + '</p>');
+  } else {
+    userModel.userCanStayAt(req.body.user, req.body.shelter, function() {
+      if (req.body.request < 0 || !shelterModel.updateVacancy(req.body.shelter, req.body.user, req.body.request)) {
+        res.status(401).send("NUMBER");
+      } else {
+        res.status(200).send(null);
+      }
+    }, function() {
+      res.status(401).send("ELSEWHERE");
+    });
+  }
 });
 
 app.get("/mainpage.html", function(req, res) {
@@ -102,8 +95,8 @@ app.get("/shelter.html", function(req, res) {
   res.sendFile(__dirname + "/html/shelter.html");
 });
 
-app.get("/asearch.html", function(req, res) {
-  res.sendFile(__dirname + "/html/asearch.html");
+app.get("/search.html", function(req, res) {
+  res.sendFile(__dirname + "/html/search.html");
 });
 
 app.listen(8080);

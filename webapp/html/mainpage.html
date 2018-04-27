@@ -17,15 +17,12 @@
   </div>
   <h3>Shelters:</h3>
   <div class="container">
-    <form id="searchForm" oninput="return search()">
-      <input type="text" placeholder="Search by Name" name="query">
-    </form>
+    <ul id="shelterlist"></ul>
+    <button onclick="window.location = '/search.html'">Search</button>
   </div>
   <div class="container">
-    <ul id="shelterlist"></ul>
-    <button onclick="window.location = '/asearch.html'">Advanced Search</button>
+    <button onclick="clear()">Clear</button>
   </div>
-
 </body>
 <script>
   function onLogoutClicked() {
@@ -45,7 +42,11 @@
     }
     request.open("POST", "/mainpage", true);
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    request.send("query=");
+    if (sessionStorage.restriction === '\0') {
+      request.send(null);
+    } else {
+      request.send("restriction=" + sessionStorage.restriction);
+    }
   }
 </script>
 <script>
@@ -55,20 +56,10 @@
   }
 </script>
 <script>
-  function search() {
-    var form = document.getElementById('searchForm');
-    var formRequest = new XMLHttpRequest();
-    formRequest.onreadystatechange = function() {
-      if (formRequest.readyState == 4) {
-        if (formRequest.status == 200) {
-          document.getElementById('shelterlist').innerHTML = formRequest.responseText;
-        }
-      }
-    }
-    formRequest.open("POST", "/mainpage", true);
-    formRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    formRequest.send("query=" + form.query.value);
-    return false;
+  function clear() {
+    console.log('clear() called');
+   // sessionStorage.restriction = '\0';
+   // loadShit();
   }
 </script>
 </html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Casa</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <input type="text" placeholder="Name" id="name">
+    <button onclick="return search('name')">Search by Name</button>
+  </div>
+  <div class="container">
+    <select id="ageRestriction">
+      <option value="families">Families</option>
+      <option value="children">Children</option>
+      <option value="young adults">Young Adults</option>
+      <option value="anyone">Anyone</option>
+    </select>
+    <button onclick="return search('ageRestriction')">Search by Age</button>
+  </div>
+  <div class="container">
+    <select id="genderRestriction">
+      <option value="men">Men</option>
+      <option value="women">Women</option>
+    </select>
+    <button onclick="return search('genderRestriction')">Search by Gender</button>
+  </div>
+</body>
+<script>
+  function search(id) {
+    sessionStorage.restriction = document.getElementById(id).value;
+    window.location = "/mainpage.html";
+    return false;
+  }
+</script>
+</html>
